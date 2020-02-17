@@ -1,0 +1,10 @@
+.AmountInput {
+  display: inline-block;
+  width: 90px;
+  input {
+    width: 100%;
+    font-weight: bold;
+    &.positive { color: green; }
+    &.negative { color: red; }
+  }
+}

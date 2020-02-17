@@ -1,0 +1,14 @@
+@import '../../app-colors.scss';
+
+
+.IconButton {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  box-shadow: 0 0 1px $cerebral-grey;
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 2px $cerebral-grey;
+  }
+}
