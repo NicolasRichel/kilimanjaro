@@ -64,6 +64,17 @@ exports.deleteOperation = [
   }
 ];
 
+exports.deleteAllOperations = [
+  async (req, res) => {
+    try {
+      await Operation.deleteMany({});
+      res.json({ message: `Operations purged successfully.` });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+];
+
 
 async function getOperationByID(req, res, next) {
   let operation = null;
