@@ -13,7 +13,10 @@ if (config.error) {
 
 // Connect to database
 const mongoose = require('mongoose');
-mongoose.connect(process.env.DATABASE_URL);
+mongoose.connect(process.env.DATABASE_URL, {
+  useUnifiedTopology: true,
+  useNewUrlParser: true
+});
 const db = mongoose.connection;
 db.on('error', (error) => console.error(error));
 db.once('open', () => console.log('Connected to database'));
@@ -21,6 +24,8 @@ db.once('open', () => console.log('Connected to database'));
 // Configure server
 const express = require('express');
 const server = express();
+const cors = require('cors');
+server.use(cors({ origin: process.env.ALLOWED_ORIGINS }));
 server.use(express.json());
 server.use('/', require('./routes'));
 

@@ -25,7 +25,8 @@ exports.createLabel = [
   async (req, res) => {
     const label = new Label({
       name: req.body.name,
-      color: req.body.color
+      color: req.body.color,
+      textColor: req.body.textColor
     });
     try {
       res.status(201).json( await label.save() );
@@ -51,6 +52,17 @@ exports.deleteLabel = [
     try {
       await res.data.label.remove();
       res.json({ message: `Label ${res.data.label.name} deleted successfully.` });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+];
+
+exports.deleteAllLabels = [
+  async (req, res) => {
+    try {
+      await Label.deleteMany({});
+      res.json({ message: `Labels purged successfully.` });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
