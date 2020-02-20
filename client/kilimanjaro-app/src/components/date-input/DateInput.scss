@@ -1,0 +1,25 @@
+@import '../../app-colors.scss';
+
+
+.DateInput {
+  position: relative;
+  display: inline-block;
+  width: 150px;
+  input {
+    width: 110px;
+    margin-right: 4px;
+  }
+  .date-selector-container {
+    position: absolute;
+    display: flex;
+    &.hidden { display: none; }
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 4px;
+    box-shadow: 0 0 4px $cerebral-grey;
+    background-color: $white;
+    .IconButton {
+      margin-left: 4px;
+    }
+  }
+}
