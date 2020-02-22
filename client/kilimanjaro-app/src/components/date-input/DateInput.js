@@ -29,7 +29,7 @@ class DateInput extends React.Component {
       year: YEARS[0],
       month: MONTHS[0],
       day: DAYS[0],
-      value: ''
+      value: props.value || ''
     };
   }
 

@@ -15,7 +15,7 @@ class LabelsSelector extends React.Component {
     this.labelStore = ServiceProvider.get(Services.LABEL_STORE);
     this.state = {
       labels: [],
-      value: [],
+      value: props.value || [],
       hasFocus: false
     };
   }

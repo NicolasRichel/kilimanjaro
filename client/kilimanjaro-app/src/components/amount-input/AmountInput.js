@@ -10,7 +10,7 @@ class AmountInput extends React.Component {
     super(props);
     this.state = {
       isNegative: false,
-      value: ''
+      value: props.value || ''
     };
   }
 

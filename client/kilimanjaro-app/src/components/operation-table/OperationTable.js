@@ -1,46 +1,15 @@
 import React from 'react';
-import OperationActionsCell from '../operation-actions-cell/OperationActionsCell';
-import OperationAmountCell from '../operation-amount-cell/OperationAmountCell';
-import OperationDateCell from '../operation-date-cell/OperationDateCell';
-import OperationLabelsCell from '../operation-labels-cell/OperationLabelsCell';
-import OperationRefCell from '../operation-ref-cell/OperationRefCell';
+import OperationActionsRenderer from '../operation-actions-renderer/OperationActionsRenderer';
+import OperationAmountRenderer from '../operation-amount-renderer/OperationAmountRenderer';
+import OperationDateRenderer from '../operation-date-renderer/OperationDateRenderer';
+import OperationLabelsRenderer from '../operation-labels-renderer/OperationLabelsRenderer';
+import OperationReferenceRenderer from '../operation-reference-renderer/OperationReferenceRenderer';
 
 // Services
 import { ServiceProvider, Services } from '../../services/service-provider';
 
 // Styles
 import './OperationTable.scss';
-
-
-const tableDefinition = {
-  columns: [
-    {
-      id: 'date',
-      name: 'Date',
-      cellComponent: (obj) => <OperationDateCell operation={obj}/>
-    },
-    {
-      id: 'amount',
-      name: 'Montant',
-      cellComponent: (obj) => <OperationAmountCell operation={obj}/>
-    },
-    {
-      id: 'ref',
-      name: 'Référence',
-      cellComponent: (obj) => <OperationRefCell operation={obj}/>
-    },
-    {
-      id: 'labels',
-      name: 'Libellés',
-      cellComponent: (obj) => <OperationLabelsCell operation={obj}/>
-    },
-    {
-      id: 'actions',
-      name: 'Actions',
-      cellComponent: (obj) => <OperationActionsCell operation={obj}/>
-    }
-  ]
-};
 
 
 class OperationTable extends React.Component {
@@ -50,16 +19,26 @@ class OperationTable extends React.Component {
     this.dispatcher = ServiceProvider.get(Services.DISPATCHER);
     this.operationStore = ServiceProvider.get(Services.OPERATION_STORE);
     this.state = {
-      columns: tableDefinition.columns,
-      operations: []
+      rows: []
     };
   }
 
   componentDidMount() {
     const { state } = this.operationStore.subscribeAndGetState(
-      (state) => this.setState({ operations: state.operations })
+      (state) => this.buildRowData( state )
     );
-    this.setState({ state });
+    this.buildRowData( state );
+  }
+
+
+  buildRowData(data) {
+    this.setState({
+      rows: data.operations.map(op => ({
+        id: op._id,
+        editMode: false,
+        operation: op
+      }))
+    });
   }
 
 
@@ -68,21 +47,34 @@ class OperationTable extends React.Component {
       <div className="OperationTable">
 
         <div className="header">
-          {this.state.columns.map(col =>
-            <span key={col.id} className={`cell column-${col.id}`}>
-              {col.name}
-            </span>
-          )}
+          <div className="row header-row">
+            <span className="cell header-cell column-date">Date</span>
+            <span className="cell header-cell column-amount">Montant</span>
+            <span className="cell header-cell column-reference">Reference</span>
+            <span className="cell header-cell column-labels">Labels</span>
+            <span className="cell header-cell column-actions">Actions</span>
+          </div>
         </div>
 
         <div className="body">
-        {this.state.operations.map(op =>
-          <div key={op._id} className={`row ${op.amount > 0 ? 'positive' : 'negative'}`}>
-            {this.state.columns.map(col => 
-              <span key={col.id} className={`cell column-${col.id}`}>
-                {col.cellComponent(op)}
-              </span>
-            )}
+        {this.state.rows.map(row =>
+          <div key={row.id}
+            className={`row body-row ${row.operation.amount > 0 ? 'positive' : 'negative'}`}>
+            <span className="cell body-cell column-date">
+              <OperationDateRenderer operation={row.operation} />
+            </span>
+            <span className="cell body-cell column-amount">
+              <OperationAmountRenderer operation={row.operation} />
+            </span>
+            <span className="cell body-cell column-reference">
+              <OperationReferenceRenderer operation={row.operation} />
+            </span>
+            <span className="cell body-cell column-labels">
+              <OperationLabelsRenderer operation={row.operation} />
+            </span>
+            <span className="cell body-cell column-actions">
+              <OperationActionsRenderer operation={row.operation} />
+            </span>
           </div>
         )}
         </div>

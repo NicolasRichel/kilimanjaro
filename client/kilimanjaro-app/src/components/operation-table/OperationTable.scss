@@ -4,49 +4,55 @@
 .OperationTable {
   padding: 10px;
 
+  .header {}
+
+  .body {}
+
+  .row {
+    display: flex;
+    align-items: center;
+  }
+
+  .header-row {}
+
+  .body-row {
+    &.positive {
+      background-color: $white;
+    }
+    &.negative {
+      background-color: $white;
+    }
+  }
+
   .cell {
     padding: 5px 0;
   }
 
-  .header {
-    display: flex;
-    .cell {
-      border-bottom: 1px solid $black;
-      font-weight: bold;
-    }
+  .header-cell {
+    border-bottom: 1px solid $black;
+    font-weight: bold;
   }
 
-  .body {
-    display: flex;
-    flex-direction: column;
-    .row {
-      display: flex;
-      align-items: center;
-
-      &.positive {
-        background-color: $white;
-      }
-      &.negative {
-        background-color: $white;
-      }
-    }
-  }
-
+  .body-cell {}
 
   .column-date {
     width: 130px;
   }
+
   .column-amount {
     width: 90px;
   }
-  .column-ref {
+
+  .column-reference {
     flex-grow: 1;
   }
+
   .column-labels {
     width: 200px;
   }
+
   .column-actions {
-    width: 200px;
+    width: 100px;
   }
 
 }

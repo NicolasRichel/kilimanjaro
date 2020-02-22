@@ -2,17 +2,17 @@ import React from 'react';
 import LabelMark from '../label-mark/LabelMark';
 
 // Styles
-import './OperationLabelsCell.scss';
+import './OperationLabelsRenderer.scss';
 
 
-function OperationLabelsCell(props) {
+function OperationLabelsRenderer(props) {
   const labels = props.operation.labels;
   return (
-    <span className="OperationLabelsCell">
+    <span className="OperationLabelsRenderer">
       {labels.map(label => <LabelMark key={label._id} label={label} />)}
     </span>
   );
 }
 
 
-export default OperationLabelsCell;
+export default OperationLabelsRenderer;

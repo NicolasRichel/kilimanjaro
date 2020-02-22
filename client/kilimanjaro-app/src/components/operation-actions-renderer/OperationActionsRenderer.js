@@ -6,10 +6,10 @@ import { ServiceProvider, Services } from '../../services/service-provider';
 import IconButton from '../icon-button/IconButton';
 
 // Styles
-import './OperationActionsCell.scss';
+import './OperationActionsRenderer.scss';
 
 
-class OperationActionsCell extends React.Component {
+class OperationActionsRenderer extends React.Component {
 
   constructor(props) {
     super(props);
@@ -35,7 +35,7 @@ class OperationActionsCell extends React.Component {
 
   render() {
     return (
-      <span className="OperationActionsCell">
+      <span className="OperationActionsRenderer">
         <IconButton icon={'pen-square'} onClick={this.updateOperation} />
         <IconButton icon={'trash'} onClick={this.deleteOperation} />
       </span>
@@ -45,4 +45,4 @@ class OperationActionsCell extends React.Component {
 }
 
 
-export default OperationActionsCell;
+export default OperationActionsRenderer;
