@@ -1,11 +1,11 @@
 import React from 'react';
+import { Actions } from '../../flux/actions';
 import OperationActionsRenderer from '../operation-actions-renderer/OperationActionsRenderer';
 import OperationAmountRenderer from '../operation-amount-renderer/OperationAmountRenderer';
 import OperationDateRenderer from '../operation-date-renderer/OperationDateRenderer';
+import OperationForm from '../operation-form/OperationForm';
 import OperationLabelsRenderer from '../operation-labels-renderer/OperationLabelsRenderer';
 import OperationReferenceRenderer from '../operation-reference-renderer/OperationReferenceRenderer';
-
-// Services
 import { ServiceProvider, Services } from '../../services/service-provider';
 
 // Styles
@@ -41,6 +41,27 @@ class OperationTable extends React.Component {
     });
   }
 
+  updateOperation = (operation) => this.dispatcher.dispatch({
+    type: Actions.UPDATE_OPERATION,
+    operation
+  });
+
+  deleteOperation = (operation) => this.dispatcher.dispatch({
+    type: Actions.DELETE_OPERATION,
+    operationID: operation._id
+  });
+
+  toggleEditMode = (row) => {
+    const i = this.state.rows.findIndex(r => r.id === row.id);
+    this.setState({
+      rows: [
+        ...this.state.rows.slice(0, i),
+        Object.assign(row, { editMode: !row.editMode }),
+        ...this.state.rows.slice(i+1)
+      ]
+    });
+  };
+
 
   render() {
     return (
@@ -58,24 +79,37 @@ class OperationTable extends React.Component {
 
         <div className="body">
         {this.state.rows.map(row =>
-          <div key={row.id}
-            className={`row body-row ${row.operation.amount > 0 ? 'positive' : 'negative'}`}>
-            <span className="cell body-cell column-date">
-              <OperationDateRenderer operation={row.operation} />
-            </span>
-            <span className="cell body-cell column-amount">
-              <OperationAmountRenderer operation={row.operation} />
-            </span>
-            <span className="cell body-cell column-reference">
-              <OperationReferenceRenderer operation={row.operation} />
-            </span>
-            <span className="cell body-cell column-labels">
-              <OperationLabelsRenderer operation={row.operation} />
-            </span>
-            <span className="cell body-cell column-actions">
-              <OperationActionsRenderer operation={row.operation} />
-            </span>
-          </div>
+            row.editMode ? (
+              <div key={row.id} className="row body-row edit-mode">
+                <OperationForm operation={row.operation}
+                  onSubmit={(op) => {
+                    this.updateOperation(op);
+                    this.toggleEditMode(row);
+                  }} />
+              </div>
+            ) : (
+              <div key={row.id} className={
+                `row body-row ${row.operation.amount > 0 ? 'positive' : 'negative'}`
+              }>
+                <span className="cell body-cell column-date">
+                  <OperationDateRenderer operation={row.operation} />
+                </span>
+                <span className="cell body-cell column-amount">
+                  <OperationAmountRenderer operation={row.operation} />
+                </span>
+                <span className="cell body-cell column-reference">
+                  <OperationReferenceRenderer operation={row.operation} />
+                </span>
+                <span className="cell body-cell column-labels">
+                  <OperationLabelsRenderer operation={row.operation} />
+                </span>
+                <span className="cell body-cell column-actions">
+                  <OperationActionsRenderer operation={row.operation}
+                    onUpdateClick={() => this.toggleEditMode(row)}
+                    onDeleteClick={this.deleteOperation} />
+                </span>
+              </div>
+            )
         )}
         </div>
 

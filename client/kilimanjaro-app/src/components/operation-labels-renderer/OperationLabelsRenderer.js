@@ -6,7 +6,7 @@ import './OperationLabelsRenderer.scss';
 
 
 function OperationLabelsRenderer(props) {
-  const labels = props.operation.labels;
+  const labels = props.operation.labels || [];
   return (
     <span className="OperationLabelsRenderer">
       {labels.map(label => <LabelMark key={label._id} label={label} />)}

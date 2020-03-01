@@ -2,7 +2,7 @@
 
 
 .OperationTable {
-  padding: 10px;
+  padding: 10px 0;
 
   .header {}
 
@@ -16,6 +16,12 @@
   .header-row {}
 
   .body-row {
+    .OperationForm {
+      width: 100%;
+    }
+    &.edit-mode {
+      margin: 5px 0;
+    }
     &.positive {
       background-color: $white;
     }
@@ -36,7 +42,7 @@
   .body-cell {}
 
   .column-date {
-    width: 130px;
+    width: 150px;
   }
 
   .column-amount {

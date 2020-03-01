@@ -13,20 +13,29 @@ class ReferenceInput extends React.Component {
     };
   }
 
+  componentDidUpdate() {
+    const value = this.props.value || '';
+    if (value !== this.state.value) {
+      this.setState({ value });
+    }
+  }
 
-  setReference = (e) => {
+
+  setValue = (e) => {
     const reference = e.target.value;
     this.setState({ value: reference });
-    this.props.onChange && this.props.onChange( reference );
+    this.emitValue( reference );
   };
+
+  emitValue = (value) => this.props.onChange && this.props.onChange( value );
 
 
   render() {
     return (
-      <div className="RefInput">
+      <div className="ReferenceInput">
         <input type="text" placeholder="Référence"
           value={this.state.value}
-          onChange={this.setReference}
+          onChange={this.setValue}
         />
       </div>
     );

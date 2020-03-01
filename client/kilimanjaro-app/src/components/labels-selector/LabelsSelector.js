@@ -24,11 +24,20 @@ class LabelsSelector extends React.Component {
     const { state } = this.labelStore.subscribeAndGetState(
       (state) => this.setState({ labels: state.labels })
     );
-    this.setState({ state });
+    this.setState({ labels: state.labels });
+  }
+
+  componentDidUpdate() {
+    const value = this.props.value || [];
+    const v1 = value.slice().sort().toString();
+    const v2 = this.state.value.slice().sort().toString();
+    if (v1 !== v2) {
+      this.setState({ value });
+    }
   }
 
 
-  setLabels = (e) => {
+  setValue = (e) => {
     const checked = e.target.checked;
     const name = e.target.value;
     let labels = [];
@@ -39,8 +48,10 @@ class LabelsSelector extends React.Component {
       labels = this.state.value.filter(label => label.name !== name);
     }
     this.setState({ value: labels });
-    this.props.onChange && this.props.onChange( labels );
+    this.emiValue( labels );
   };
+
+  emiValue = (value) => this.props.onChange && this.props.onChange( value );
 
   toggleFocus = (e) => this.setState({ hasFocus: !this.state.hasFocus });
 
@@ -60,7 +71,11 @@ class LabelsSelector extends React.Component {
         <div className={`options-container ${this.state.hasFocus ? '' : 'hidden'}`}>
           {this.state.labels.map(label =>
             <div key={label._id} className="option">
-              <input type="checkbox" onChange={this.setLabels} value={label.name}/>
+              <input type="checkbox"
+                checked={!!this.state.value.find(l => l.name === label.name)}
+                value={label.name}
+                onChange={this.setValue}
+              />
               <LabelMark label={label} />
             </div>
           )}

@@ -1,6 +1,4 @@
 import React from 'react';
-import { Actions } from '../../flux/actions';
-import { ServiceProvider, Services } from '../../services/service-provider';
 
 // Components
 import IconButton from '../icon-button/IconButton';
@@ -9,39 +7,15 @@ import IconButton from '../icon-button/IconButton';
 import './OperationActionsRenderer.scss';
 
 
-class OperationActionsRenderer extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.backendService = ServiceProvider.get(Services.BACKEND_SERVICE);
-    this.dispatcher = ServiceProvider.get(Services.DISPATCHER);
-  }
-
-  
-  updateOperation = () => {
-    console.log( `Update operation : ${this.props.operation._id}` );
-  };
-
-  deleteOperation = () => {
-    const operationID = this.props.operation._id;
-    this.backendService.deleteOperation(operationID).then(
-      () => this.dispatcher.dispatch({
-        type: Actions.DELETE_OPERATION,
-        operationID
-      })
-    );
-  };
-
-
-  render() {
-    return (
-      <span className="OperationActionsRenderer">
-        <IconButton icon={'pen-square'} onClick={this.updateOperation} />
-        <IconButton icon={'trash'} onClick={this.deleteOperation} />
-      </span>
-    );
-  }
-
+function OperationActionsRenderer(props) {
+  return (
+    <span className="OperationActionsRenderer">
+      <IconButton icon="pen-square"
+        onClick={() => props.onUpdateClick( props.operation )} />
+      <IconButton icon="trash"
+        onClick={() => props.onDeleteClick( props.operation )} />
+    </span>
+  );
 }
 
 

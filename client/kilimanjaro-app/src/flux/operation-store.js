@@ -32,41 +32,52 @@ export class OperationStore extends Store {
       case Actions.DELETE_OPERATION:
         this._deleteOperation(action.operationID);
         break;
+      default: // To avoid warnings in console
     }
   }
 
 
   _fetchOperationList() {
-    this.backendService.getOperations().then(operations => {
-      this.setState({ operations });
-    });
+    this.backendService.getOperations().then(
+      operations => this.setState({ operations })
+    );
   }
 
   _createOperation(operation) {
-    this.setState({
-      operations: this.state.operations.concat(operation)
-    });
+    this.backendService.createOperation(operation).then(
+      createdOperation => this.setState({
+        operations: this.state.operations.concat(createdOperation)
+      })
+    );
   }
 
   _updateOperation(operation) {
-    const i = this.state.operations.findIndex(op => op._id === operation._id);
-    this.setState({
-      operations: [
-        ...this.state.operations.slice(0, i),
-        operation,
-        ...this.state.operations.slice(i+1)
-      ]
-    });
+    this.backendService.updateOperation(operation).then(
+      updatedOperation => {
+        const i = this.state.operations.findIndex(op => op._id === updatedOperation._id);
+        this.setState({
+          operations: [
+            ...this.state.operations.slice(0, i),
+            updatedOperation,
+            ...this.state.operations.slice(i+1)
+          ]
+        });
+      }
+    );
   }
 
   _deleteOperation(operationID) {
-    const i = this.state.operations.findIndex(op => op._id === operationID);
-    this.setState({
-      operations: [
-        ...this.state.operations.slice(0, i),
-        ...this.state.operations.slice(i+1)
-      ]
-    });
+    this.backendService.deleteOperation(operationID).then(
+      () => {
+        const i = this.state.operations.findIndex(op => op._id === operationID);
+        this.setState({
+          operations: [
+            ...this.state.operations.slice(0, i),
+            ...this.state.operations.slice(i+1)
+          ]
+        });
+      }
+    );
   }
 
 }
