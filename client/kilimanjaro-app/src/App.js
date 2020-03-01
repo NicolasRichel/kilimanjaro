@@ -2,7 +2,7 @@ import React from 'react';
 import DialogContainer from './components/dialog-container/DialogContainer';
 import Header from './components/header/Header';
 import NotificationContainer from './components/notification-container/NotificationContainer';
-import OperationManager from './components/operation-manager/OperationManager';
+import OperationsManager from './components/operations-manager/OperationsManager';
 import StatisticsViewer from './components/statistics-viewer/StatisticsViewer';
 import Toolbar from './components/toolbar/Toolbar';
 import { Actions } from './flux/actions';
@@ -42,7 +42,7 @@ class App extends React.Component {
         <NotificationContainer />
         <DialogContainer />
         <div className="main-container">
-          <OperationManager />
+          <OperationsManager />
           <StatisticsViewer />
         </div>
       </div>
