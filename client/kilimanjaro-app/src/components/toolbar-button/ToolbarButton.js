@@ -4,19 +4,14 @@ import React from 'react';
 import './ToolbarButton.scss';
 
 
-class ToolbarButton extends React.Component {
-
-  constructor(props) {
-    super(props);
-  }
-
-
-  render() {
-    return (
-      <div className="ToolbarButton"></div>
-    );
-  }
-
+function ToolbarButton(props) {
+  return (
+    <div className="ToolbarButton"
+      title={props.title}
+      onClick={props.onClick}>
+      <i className={`fas fa-${props.icon}`}></i>
+    </div>
+  );
 }
 
 
