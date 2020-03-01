@@ -2,8 +2,8 @@ import React from 'react';
 import DialogContainer from './components/dialog-container/DialogContainer';
 import Header from './components/header/Header';
 import NotificationContainer from './components/notification-container/NotificationContainer';
-import StatContainer from './components/stat-container/StatContainer';
-import TableContainer from './components/table-container/TableContainer';
+import OperationManager from './components/operation-manager/OperationManager';
+import StatisticsViewer from './components/statistics-viewer/StatisticsViewer';
 import Toolbar from './components/toolbar/Toolbar';
 import { Actions } from './flux/actions';
 import { ServiceProvider, Services } from './services/service-provider';
@@ -42,8 +42,8 @@ class App extends React.Component {
         <NotificationContainer />
         <DialogContainer />
         <div className="main-container">
-          <TableContainer />
-          <StatContainer />
+          <OperationManager />
+          <StatisticsViewer />
         </div>
       </div>
     );

@@ -5,10 +5,10 @@ import OperationTable from '../operation-table/OperationTable';
 import { ServiceProvider, Services } from '../../services/service-provider';
 
 // Styles
-import './TableContainer.scss';
+import './OperationManager.scss';
 
 
-class TableContainer extends React.Component {
+class OperationManager extends React.Component {
 
   constructor(props) {
     super(props);
@@ -24,7 +24,7 @@ class TableContainer extends React.Component {
 
   render() {
     return (
-      <div className="TableContainer">
+      <div className="OperationManager">
         <OperationForm onSubmit={this.createOperation} />
         <OperationTable />
       </div>
@@ -34,4 +34,4 @@ class TableContainer extends React.Component {
 }
 
 
-export default TableContainer;
+export default OperationManager;
