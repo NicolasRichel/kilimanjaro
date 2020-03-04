@@ -1,6 +1,6 @@
 import React from 'react';
 import { Actions } from '../../flux/actions';
-import IconButton from '../icon-button/IconButton';
+import LabelsManager from '../labels-manager/LabelsManager';
 import ToolbarButton from '../toolbar-button/ToolbarButton';
 
 // Services
@@ -23,7 +23,7 @@ class Toolbar extends React.Component {
       type: Actions.OPEN_DIALOG,
       dialog: {
         title: 'Gestion des libellés',
-        component: <IconButton icon="check" color="green"/>
+        component: <LabelsManager />
       }
     })
   }

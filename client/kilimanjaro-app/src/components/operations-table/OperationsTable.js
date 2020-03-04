@@ -9,10 +9,10 @@ import OperationReferenceRenderer from '../operation-reference-renderer/Operatio
 import { ServiceProvider, Services } from '../../services/service-provider';
 
 // Styles
-import './OperationTable.scss';
+import './OperationsTable.scss';
 
 
-class OperationTable extends React.Component {
+class OperationsTable extends React.Component {
 
   constructor(props) {
     super(props);
@@ -65,7 +65,7 @@ class OperationTable extends React.Component {
 
   render() {
     return (
-      <div className="OperationTable">
+      <div className="OperationsTable">
 
         <div className="header">
           <div className="row header-row">
@@ -79,37 +79,37 @@ class OperationTable extends React.Component {
 
         <div className="body">
         {this.state.rows.map(row =>
-            row.editMode ? (
-              <div key={row.id} className="row body-row edit-mode">
-                <OperationForm operation={row.operation}
-                  onSubmit={(op) => {
-                    this.updateOperation(op);
-                    this.toggleEditMode(row);
-                  }} />
-              </div>
-            ) : (
-              <div key={row.id} className={
-                `row body-row ${row.operation.amount > 0 ? 'positive' : 'negative'}`
-              }>
-                <span className="cell body-cell column-date">
-                  <OperationDateRenderer operation={row.operation} />
-                </span>
-                <span className="cell body-cell column-amount">
-                  <OperationAmountRenderer operation={row.operation} />
-                </span>
-                <span className="cell body-cell column-reference">
-                  <OperationReferenceRenderer operation={row.operation} />
-                </span>
-                <span className="cell body-cell column-labels">
-                  <OperationLabelsRenderer operation={row.operation} />
-                </span>
-                <span className="cell body-cell column-actions">
-                  <OperationActionsRenderer operation={row.operation}
-                    onUpdateClick={() => this.toggleEditMode(row)}
-                    onDeleteClick={this.deleteOperation} />
-                </span>
-              </div>
-            )
+          row.editMode ? (
+            <div key={row.id} className="row body-row edit-mode">
+              <OperationForm operation={row.operation}
+                onSubmit={(op) => {
+                  this.updateOperation(op);
+                  this.toggleEditMode(row);
+                }} />
+            </div>
+          ) : (
+            <div key={row.id} className={
+              `row body-row ${row.operation.amount < 0 ? 'negative' : 'positive'}`
+            }>
+              <span className="cell body-cell column-date">
+                <OperationDateRenderer operation={row.operation} />
+              </span>
+              <span className="cell body-cell column-amount">
+                <OperationAmountRenderer operation={row.operation} />
+              </span>
+              <span className="cell body-cell column-reference">
+                <OperationReferenceRenderer operation={row.operation} />
+              </span>
+              <span className="cell body-cell column-labels">
+                <OperationLabelsRenderer operation={row.operation} />
+              </span>
+              <span className="cell body-cell column-actions">
+                <OperationActionsRenderer operation={row.operation}
+                  onUpdateClick={() => this.toggleEditMode(row)}
+                  onDeleteClick={this.deleteOperation} />
+              </span>
+            </div>
+          )
         )}
         </div>
 
@@ -120,4 +120,4 @@ class OperationTable extends React.Component {
 }
 
 
-export default OperationTable;
+export default OperationsTable;

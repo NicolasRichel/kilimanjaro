@@ -1,0 +1,35 @@
+.LabelForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+
+  .block{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 5px 0;
+
+    &.form-control {
+      label {
+        font-weight: bold;
+      }
+      .NameInput {
+        width: 70%;
+      }
+    }
+
+    &.submit-button {
+      .label-preview {
+        flex-grow: 1;
+        font-style: italic;
+        .LabelMark {
+          margin-left: 10px;
+          font-style: normal;
+        }
+      }
+    }
+  }
+
+}

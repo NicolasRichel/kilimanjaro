@@ -1,14 +1,15 @@
 import React from 'react';
 
 // Styles
-import './ReferenceInput.scss';
+import './ColorInput.scss';
 
 
-class ReferenceInput extends React.Component {
+class ColorInput extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      name: props.name || '',
       value: props.value || ''
     };
   }
@@ -22,18 +23,18 @@ class ReferenceInput extends React.Component {
 
 
   setValue = (e) => {
-    const reference = e.target.value;
-    this.setState({ value: reference });
-    this.emitValue( reference );
-  };
+    const color = e.target.value;
+    this.setState({ value: color });
+    this.emitValue( color );
+  }
 
   emitValue = (value) => this.props.onChange && this.props.onChange( value );
 
 
   render() {
     return (
-      <div className="ReferenceInput">
-        <input type="text" placeholder="Référence"
+      <div className="ColorInput">
+        <input type="color"
           value={this.state.value}
           onChange={this.setValue}
         />
@@ -44,4 +45,4 @@ class ReferenceInput extends React.Component {
 }
 
 
-export default ReferenceInput;
+export default ColorInput;

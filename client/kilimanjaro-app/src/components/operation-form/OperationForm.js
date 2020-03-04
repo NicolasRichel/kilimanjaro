@@ -3,8 +3,7 @@ import AmountInput from '../amount-input/AmountInput';
 import DateInput from '../date-input/DateInput';
 import IconButton from '../icon-button/IconButton';
 import LabelsSelector from '../labels-selector/LabelsSelector';
-import ReferenceInput from '../reference-input/ReferenceInput';
-import { ServiceProvider, Services } from '../../services/service-provider';
+import StringInput from '../string-input/StringInput';
 
 // Styles
 import './OperationForm.scss';
@@ -14,10 +13,8 @@ class OperationForm extends React.Component {
 
   constructor(props) {
     super(props);
-    this.backendService = ServiceProvider.get(Services.BACKEND_SERVICE);
-    this.dispatcher = ServiceProvider.get(Services.DISPATCHER);
     this.state = {
-      operation: this.props.operation || {}
+      operation: props.operation || {}
     };
   }
 
@@ -56,12 +53,13 @@ class OperationForm extends React.Component {
           onChange={this.setOperationField('date')} />
         <AmountInput value={operation.amount}
           onChange={this.setOperationField('amount')} />
-        <ReferenceInput value={operation.reference}
-          onChange={this.setOperationField('reference')} />
+        <StringInput value={operation.reference}
+          onChange={this.setOperationField('reference')}
+          className="ReferenceInput" placeholder="Référence" />
         <LabelsSelector value={operation.labels}
           onChange={this.setOperationField('labels')} />
         <div className="submit-button-container">
-          <IconButton icon={'check'} size="30" onClick={this.submit} />
+          <IconButton icon="check" size="30" onClick={this.submit} />
         </div>
       </div>
     );

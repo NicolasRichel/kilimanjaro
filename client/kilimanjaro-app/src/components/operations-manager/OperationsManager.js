@@ -1,7 +1,7 @@
 import React from 'react';
 import { Actions } from '../../flux/actions';
 import OperationForm from '../operation-form/OperationForm';
-import OperationTable from '../operation-table/OperationTable';
+import OperationsTable from '../operations-table/OperationsTable';
 import { ServiceProvider, Services } from '../../services/service-provider';
 
 // Styles
@@ -26,7 +26,7 @@ class OperationsManager extends React.Component {
     return (
       <div className="OperationsManager">
         <OperationForm onSubmit={this.createOperation} />
-        <OperationTable />
+        <OperationsTable />
       </div>
     );
   }

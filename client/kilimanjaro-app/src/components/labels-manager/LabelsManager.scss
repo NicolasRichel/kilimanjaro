@@ -1,0 +1,15 @@
+@import '../../app-colors.scss';
+
+.LabelsManager {
+  display: flex;
+  padding: 10px;
+  
+  .LabelsTable {
+    width: 60%;
+    border-right: 1px solid $black;
+  }
+
+  .LabelForm {
+    width: 40%;
+  }
+}

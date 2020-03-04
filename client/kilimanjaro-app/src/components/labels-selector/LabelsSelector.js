@@ -29,8 +29,8 @@ class LabelsSelector extends React.Component {
 
   componentDidUpdate() {
     const value = this.props.value || [];
-    const v1 = value.slice().sort().toString();
-    const v2 = this.state.value.slice().sort().toString();
+    const v1 = value.slice().map(l => l._id).sort().join();
+    const v2 = this.state.value.slice().map(l => l._id).sort().join();
     if (v1 !== v2) {
       this.setState({ value });
     }
@@ -39,13 +39,13 @@ class LabelsSelector extends React.Component {
 
   setValue = (e) => {
     const checked = e.target.checked;
-    const name = e.target.value;
+    const labelID = e.target.value;
     let labels = [];
     if (checked) {
-      const label = this.state.labels.find(label => label.name === name);
+      const label = this.state.labels.find(label => label._id === labelID);
       labels = this.state.value.concat(label);
     } else {
-      labels = this.state.value.filter(label => label.name !== name);
+      labels = this.state.value.filter(label => label._id !== labelID);
     }
     this.setState({ value: labels });
     this.emiValue( labels );
@@ -72,8 +72,8 @@ class LabelsSelector extends React.Component {
           {this.state.labels.map(label =>
             <div key={label._id} className="option">
               <input type="checkbox"
-                checked={!!this.state.value.find(l => l.name === label.name)}
-                value={label.name}
+                checked={!!this.state.value.find(l => l._id === label._id)}
+                value={label._id}
                 onChange={this.setValue}
               />
               <LabelMark label={label} />

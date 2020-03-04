@@ -1,19 +1,13 @@
 @import '../../app-colors.scss';
 
 
-.OperationTable {
+.OperationsTable {
   padding: 10px 0;
-
-  .header {}
-
-  .body {}
 
   .row {
     display: flex;
     align-items: center;
   }
-
-  .header-row {}
 
   .body-row {
     .OperationForm {
@@ -39,7 +33,6 @@
     font-weight: bold;
   }
 
-  .body-cell {}
 
   .column-date {
     width: 150px;
