@@ -3,11 +3,7 @@ import AmountInput from '../amount-input/AmountInput';
 import DateInput from '../date-input/DateInput';
 import IconButton from '../icon-button/IconButton';
 import LabelsSelector from '../labels-selector/LabelsSelector';
-import ReferenceInput from '../reference-input/ReferenceInput';
-import { Actions } from '../../flux/actions';
-
-// Services
-import { ServiceProvider, Services } from '../../services/service-provider';
+import StringInput from '../string-input/StringInput';
 
 // Styles
 import './OperationForm.scss';
@@ -17,10 +13,8 @@ class OperationForm extends React.Component {
 
   constructor(props) {
     super(props);
-    this.backendService = ServiceProvider.get(Services.BACKEND_SERVICE);
-    this.dispatcher = ServiceProvider.get(Services.DISPATCHER);
     this.state = {
-      operation: this.props.operation || {}
+      operation: props.operation || {}
     };
   }
 
@@ -35,30 +29,38 @@ class OperationForm extends React.Component {
   };
 
   validate = () => {
-    const op =this.state.operation;
+    const op = this.state.operation;
     return (!!op.date && !!op.amount && !!op.reference);
-  }
+  };
 
   submit = () => {
     if (this.validate()) {
-      this.backendService.createOperation( this.state.operation ).then(
-        (operation) => this.dispatcher.dispatch({
-          type: Actions.CREATE_OPERATION,
-          operation
-        })
-      );
+      this.props.onSubmit( this.state.operation );
+      this.clear();
     }
   };
 
+  clear = () => this.setState({
+    operation: {}
+  });
+
 
   render() {
+    const operation = this.state.operation;
     return (
       <div className="OperationForm">
-        <DateInput onChange={this.setOperationField('date')} />
-        <AmountInput onChange={this.setOperationField('amount')} />
-        <ReferenceInput onChange={this.setOperationField('reference')} />
-        <LabelsSelector onChange={this.setOperationField('labels')} />
-        <IconButton icon={'plus-square'} size="30" onClick={this.submit} />
+        <DateInput value={operation.date}
+          onChange={this.setOperationField('date')} />
+        <AmountInput value={operation.amount}
+          onChange={this.setOperationField('amount')} />
+        <StringInput value={operation.reference}
+          onChange={this.setOperationField('reference')}
+          className="ReferenceInput" placeholder="Référence" />
+        <LabelsSelector value={operation.labels}
+          onChange={this.setOperationField('labels')} />
+        <div className="submit-button-container">
+          <IconButton icon="check" size="30" onClick={this.submit} />
+        </div>
       </div>
     );
   }

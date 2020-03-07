@@ -1,7 +1,27 @@
 .OperationForm {
   display: flex;
   align-items: flex-start;
-  & > * {
-    margin: 0 4px;
+
+  .DateInput {
+    width: 150px;
   }
+
+  .AmountInput {
+    width: 90px;
+  }
+
+  .ReferenceInput {
+    flex-grow: 1;
+    padding: 0 5px;
+  }
+
+  .LabelsSelector {
+    width: 200px;
+  }
+
+  .submit-button-container {
+    width: 100px;
+    padding: 0 5px;
+  }
+
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import LabelMark from '../label-mark/LabelMark';
+import * as utils from '../../utils';
 
 // Services
 import { ServiceProvider, Services } from '../../services/service-provider';
@@ -13,36 +14,68 @@ class LabelsSelector extends React.Component {
   constructor(props) {
     super(props);
     this.labelStore = ServiceProvider.get(Services.LABEL_STORE);
+    this.labelStoreSubscription = null;
     this.state = {
       labels: [],
-      value: [],
+      selectedLabels: [],
+      value: props.value || [],
       hasFocus: false
     };
   }
 
   componentDidMount() {
-    const { state } = this.labelStore.subscribeAndGetState(
-      (state) => this.setState({ labels: state.labels })
+    const s = this.labelStore.subscribeAndGetState(
+      (state) => this.setLabels( state.labels )
     );
-    this.setState({ state });
+    this.labelStoreSubscription = s.subscriptionKey;
+    this.setLabels( s.state.labels );
+  }
+
+  componentWillUnmount() {
+    this.labelStore.unsubscribe( this.labelStoreSubscription );
+  }
+
+  componentDidUpdate() {
+    const value = this.props.value || [];
+    const v1 = value.slice().sort().join();
+    const v2 = this.state.value.slice().sort().join();
+    if (v1 !== v2) {
+      this.setState({
+        selectedLabels: value.map(id => this.state.labels[id]).filter(id => !!id),
+        value
+      });
+    }
   }
 
 
-  setLabels = (e) => {
-    const checked = e.target.checked;
-    const name = e.target.value;
-    let labels = [];
-    if (checked) {
-      const label = this.state.labels.find(label => label.name === name);
-      labels = this.state.value.concat(label);
-    } else {
-      labels = this.state.value.filter(label => label.name !== name);
-    }
-    this.setState({ value: labels });
-    this.props.onChange && this.props.onChange( labels );
+  setLabels = (labelsArray) => {
+    const labels = utils.mapArrayToObject(labelsArray, '_id');
+    this.setState({
+      labels,
+      selectedLabels: this.state.value.map(id => labels[id]).filter(l => !!l)
+    });
   };
 
-  toggleFocus = (e) => this.setState({ hasFocus: !this.state.hasFocus });
+  setValue = (e) => {
+    const checked = e.target.checked;
+    const labelID = e.target.value;
+    let value = [];
+    let selectedLabels = [];
+    if (checked) {
+      const label = this.state.labels[labelID];
+      selectedLabels = this.state.selectedLabels.concat(label);
+      value = this.state.value.concat(labelID);
+    } else {
+      selectedLabels = this.state.selectedLabels.filter(label => label._id !== labelID);
+      value = this.state.value.filter(id => id !== labelID);
+    }
+    this.setState({ selectedLabels, value });
+    this.emiValue( value );
+  };
+
+  emiValue = (value) => this.props.onChange && this.props.onChange( value );
+
+  toggleFocus = () => this.setState({ hasFocus: !this.state.hasFocus });
 
 
   render() {
@@ -52,18 +85,25 @@ class LabelsSelector extends React.Component {
           onClick={this.toggleFocus}>
           {this.state.value.length === 0 ?
             <div className="placeholder">Sélectionner des libellés</div> :
-            this.state.value.map(label =>
+            this.state.selectedLabels.map(label =>
               <LabelMark key={label._id} label={label} />
             )
           }
         </span>
         <div className={`options-container ${this.state.hasFocus ? '' : 'hidden'}`}>
-          {this.state.labels.map(label =>
-            <div key={label._id} className="option">
-              <input type="checkbox" onChange={this.setLabels} value={label.name}/>
-              <LabelMark label={label} />
-            </div>
-          )}
+          {Object.keys(this.state.labels).map(labelID => {
+            const label = this.state.labels[labelID];
+            return (
+              <div key={label._id} className="option">
+                <input type="checkbox"
+                  checked={!!this.state.value.find(id => id === label._id)}
+                  value={label._id}
+                  onChange={this.setValue}
+                />
+                <LabelMark label={label} />
+              </div>
+            );
+          })}
         </div>
       </div>
     );

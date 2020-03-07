@@ -1,4 +1,5 @@
 import { ServiceProvider, Services } from '../services/service-provider';
+import * as utils from '../utils';
 
 
 export class Store {
@@ -22,8 +23,9 @@ export class Store {
   };
 
   subscribe = (callback) => {
-    this.subscribers.push( callback );
-    return this.subscribers.length - 1;
+    const key = utils.generateUUIDv4();
+    this.subscribers.push({ key, callback });
+    return key;
   };
 
   subscribeAndGetState = (callback) => ({
@@ -31,8 +33,11 @@ export class Store {
     state: this.state
   });
 
-  unsubscribe = (index) => this.subscribers.splice(index, 1);
+  unsubscribe = (key) => {
+    const index = this.subscribers.findIndex(s => s.key === key);
+    (index !== -1) && this.subscribers.splice(index, 1);
+  };
 
-  emitChange = () => this.subscribers.forEach(callback => callback({ ...this.state }));
+  emitChange = () => this.subscribers.forEach(s => s.callback({ ...this.state }));
 
 }

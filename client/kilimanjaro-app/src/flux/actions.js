@@ -1,11 +1,18 @@
 
-// Label Actions
 export const Actions = {
 
+  // Dialog Actions
+  OPEN_DIALOG: 'OPEN_DIALOG',
+  CLOSE_DIALOG: 'CLOSE_DIALOG',
+
+  // Label Actions
   FETCH_LABEL_LIST: 'UPDATE_LABEL_LIST',
   CREATE_LABEL: 'CREATE_LABEL',
   UPDATE_LABEL: 'UPDATE_LABEL',
   DELETE_LABEL: 'DELETE_LABEL',
+
+  // Notification Actions
+  NOTIFY: 'NOTIFY',
   
   // Operation Actions
   FETCH_OPERATION_LIST: 'UPDATE_OPERATION_LIST',

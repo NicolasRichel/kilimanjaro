@@ -1,9 +1,13 @@
 import React from 'react';
+import DialogContainer from './components/dialog-container/DialogContainer';
 import Header from './components/header/Header';
-import StatContainer from './components/stat-container/StatContainer';
-import TableContainer from './components/table-container/TableContainer';
+import NotificationContainer from './components/notification-container/NotificationContainer';
+import OperationsManager from './components/operations-manager/OperationsManager';
+import StatisticsViewer from './components/statistics-viewer/StatisticsViewer';
 import Toolbar from './components/toolbar/Toolbar';
 import { Actions } from './flux/actions';
+
+// Services
 import { ServiceProvider, Services } from './services/service-provider';
 
 // Styles
@@ -20,6 +24,14 @@ class App extends React.Component {
   componentDidMount() {
     this.dispatcher.dispatch({ type: Actions.FETCH_LABEL_LIST });
     this.dispatcher.dispatch({ type: Actions.FETCH_OPERATION_LIST });
+    this.dispatcher.dispatch({
+      type: Actions.NOTIFY,
+      notification: {
+        type: 'info',
+        message: 'Bienvenue dans Kilimanjaro ! :-)',
+        timeout: 1000
+      }
+    });
   }
 
 
@@ -28,8 +40,12 @@ class App extends React.Component {
       <div className="App">
         <Header />
         <Toolbar />
-        <TableContainer />
-        <StatContainer />
+        <NotificationContainer />
+        <DialogContainer />
+        <div className="main-container">
+          <OperationsManager />
+          <StatisticsViewer />
+        </div>
       </div>
     );
   }

@@ -25,7 +25,9 @@ export class BackendService {
   deleteOperation = (id) => this._delete(`/operation/delete/${id}`);
 
 
-  _request = (path, options) => fetch(`${this.url}${path}`, options).then(res => res.json());
+  _request = (path, options) => fetch(`${this.url}${path}`, options)
+    .then(res => res.json())
+    .catch(error => {});
 
   _get = (path) => this._request(path);
 

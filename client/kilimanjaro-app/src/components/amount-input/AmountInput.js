@@ -8,25 +8,52 @@ class AmountInput extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      isNegative: false,
-      value: ''
-    };
+    const amount = props.value;
+    if (amount || amount === 0) {
+      this.state = {
+        isNegative: (amount < 0),
+        value: ''+amount
+      };
+    } else {
+      this.state = {
+        isNegative: false,
+        value: ''
+      };
+    }
+  }
+
+  componentDidUpdate() {
+    const amount = this.props.value;
+    let value = '';
+    if (amount) {
+      value = `${amount}${this.state.value.match(/\.$/) ? '.' : ''}`;
+    } else if (amount === 0) {
+      value = this.state.value;
+    }
+    if (value !== this.state.value) {
+      this.setState({ value, isNegative: (amount < 0) });
+    }
   }
 
 
-  setAmount = (e) => {
+  setValue = (e) => {
     let value = e.target.value;
     let amount = 0;
-    if (value && value.match(/^[-+]?(\d*)([.,]\d?\d?)?$/)) {
-      value = value.replace(',', '.');
-      amount = parseFloat( value );
-      this.setState({ value, isNegative: (amount < 0) });
-    } else if (!value) {
+    if (value) {
+      if (value.match(/^[-+]?(\d*)([.,]\d?\d?)?$/)) {
+        value = value.replace(',', '.');
+        amount = parseFloat( value );
+        amount = Number.isNaN(amount) ? 0 : amount;
+        this.setState({ value, isNegative: (amount < 0) });
+        this.emitValue( amount );
+      }
+    } else {
       this.setState({ value: '' });
+      this.emitValue( amount );
     }
-    this.props.onChange && this.props.onChange( amount );
   };
+
+  emitValue = (value) => this.props.onChange && this.props.onChange( value );
 
 
   render() {
@@ -35,7 +62,7 @@ class AmountInput extends React.Component {
         <input
           className={`${this.state.isNegative ? 'negative' : 'positive'}`}
           value={this.state.value}
-          onChange={this.setAmount}
+          onChange={this.setValue}
         />
       </div>
     );
