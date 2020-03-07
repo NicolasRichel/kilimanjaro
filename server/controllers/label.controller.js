@@ -37,9 +37,13 @@ exports.createLabel = [
 ];
 
 exports.updateLabel = [
-  (req, res) => {
+  getLabelByID,
+  async (req, res) => {
+    res.data.label.name = req.body.name;
+    res.data.label.color = req.body.color;
+    res.data.label.textColor = req.body.textColor;
     try {
-      res.status(501).send({ message: 'Not implemented yet.' });
+      res.json( await res.data.label.save() );
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
