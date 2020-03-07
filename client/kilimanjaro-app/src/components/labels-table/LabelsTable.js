@@ -15,16 +15,22 @@ class LabelsTable extends React.Component {
     super(props);
     this.dispatcher = ServiceProvider.get(Services.DISPATCHER);
     this.labelStore = ServiceProvider.get(Services.LABEL_STORE);
+    this.labelStoreSubscription = null;
     this.state = {
       rows: []
     };
   }
 
   componentDidMount() {
-    const { state } = this.labelStore.subscribeAndGetState(
+    const s = this.labelStore.subscribeAndGetState(
       (state) => this.buildRowData( state )
     );
-    this.buildRowData( state );
+    this.labelStoreSubscription = s.subscriptionKey;
+    this.buildRowData( s.state );
+  }
+
+  componentWillUnmount() {
+    this.labelStore.unsubscribe( this.labelStoreSubscription );
   }
 
 

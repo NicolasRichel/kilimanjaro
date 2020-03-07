@@ -26,15 +26,12 @@ class AmountInput extends React.Component {
     const amount = this.props.value;
     let value = '';
     if (amount) {
-      value = ''+amount;
+      value = `${amount}${this.state.value.match(/\.$/) ? '.' : ''}`;
     } else if (amount === 0) {
       value = this.state.value;
     }
     if (value !== this.state.value) {
-      this.setState({
-        isNegative: (amount < 0),
-        value
-      });
+      this.setState({ value, isNegative: (amount < 0) });
     }
   }
 

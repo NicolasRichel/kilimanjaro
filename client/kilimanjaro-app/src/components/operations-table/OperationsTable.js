@@ -18,16 +18,22 @@ class OperationsTable extends React.Component {
     super(props);
     this.dispatcher = ServiceProvider.get(Services.DISPATCHER);
     this.operationStore = ServiceProvider.get(Services.OPERATION_STORE);
+    this.operationStoreSubscription = null;
     this.state = {
       rows: []
     };
   }
 
   componentDidMount() {
-    const { state } = this.operationStore.subscribeAndGetState(
+    const s = this.operationStore.subscribeAndGetState(
       (state) => this.buildRowData( state )
     );
-    this.buildRowData( state );
+    this.operationStoreSubscription = s.subscriptionKey;
+    this.buildRowData( s.state );
+  }
+
+  componentWillUnmount() {
+    this.operationStore.unsubscribe( this.operationStoreSubscription );
   }
 
 

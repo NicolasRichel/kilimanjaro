@@ -15,15 +15,20 @@ class DialogContainer extends React.Component {
     super(props);
     this.dispatcher = ServiceProvider.get(Services.DISPATCHER);
     this.dialogStore = ServiceProvider.get(Services.DIALOG_STORE);
+    this.dialogStoreSubscription = null;
     this.state = {
       dialog: null
     };
   }
 
   componentDidMount() {
-    this.dialogStore.subscribe(
+    this.dialogStoreSubscription = this.dialogStore.subscribe(
       (state) => this.setState({ dialog: state.dialog })
     );
+  }
+
+  componentWillUnmount() {
+    this.dialogStore.unsubscribe( this.dialogStoreSubscription );
   }
 
 

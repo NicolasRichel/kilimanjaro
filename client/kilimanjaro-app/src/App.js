@@ -6,6 +6,8 @@ import OperationsManager from './components/operations-manager/OperationsManager
 import StatisticsViewer from './components/statistics-viewer/StatisticsViewer';
 import Toolbar from './components/toolbar/Toolbar';
 import { Actions } from './flux/actions';
+
+// Services
 import { ServiceProvider, Services } from './services/service-provider';
 
 // Styles
@@ -17,7 +19,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.dispatcher = ServiceProvider.get(Services.DISPATCHER);
-    this.logger = ServiceProvider.get(Services.LOGGER_SERVICE);
   }
 
   componentDidMount() {
@@ -30,7 +31,7 @@ class App extends React.Component {
         message: 'Bienvenue dans Kilimanjaro ! :-)',
         timeout: 1000
       }
-    })
+    });
   }
 
 

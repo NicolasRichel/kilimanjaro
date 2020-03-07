@@ -12,16 +12,21 @@ class NotificationContainer extends React.Component {
   constructor(props) {
     super(props);
     this.notificationStore = ServiceProvider.get(Services.NOTIFICATION_STORE);
+    this.notificationStoreSubscription = null;
     this.state = {
       notification: {}
     };
   }
 
   componentDidMount() {
-    this.notificationStore.subscribe((state) => {
+    this.notificationStoreSubscription = this.notificationStore.subscribe((state) => {
       this.setState({ notification: state.notification });
       setTimeout(() => this.setState({ notification: {} }), state.notification.timeout);
     });
+  }
+
+  componentWillUnmount() {
+    this.notificationStore.unsubscribe( this.notificationStoreSubscription );
   }
 
 
