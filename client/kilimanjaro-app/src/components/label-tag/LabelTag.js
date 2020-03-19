@@ -1,13 +1,13 @@
 import React from 'react';
 
 // Styles
-import './LabelMark.scss';
+import './LabelTag.scss';
 
 
-function LabelMark(props) {
+function LabelTag(props) {
   const label = props.label;
   return (
-    <div className="LabelMark"
+    <div className="LabelTag"
       style={{
         backgroundColor: label.color || '#CCC',
         color: label.textColor || '#000'
@@ -18,4 +18,4 @@ function LabelMark(props) {
 }
 
 
-export default LabelMark;
+export default LabelTag;

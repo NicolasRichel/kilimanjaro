@@ -1,6 +1,5 @@
 import React from 'react';
-import { Actions } from '../../flux/actions';
-import OperationActionsRenderer from '../operation-actions-renderer/OperationActionsRenderer';
+import ActionButton from '../action-button/ActionButton';
 import OperationAmountRenderer from '../operation-amount-renderer/OperationAmountRenderer';
 import OperationDateRenderer from '../operation-date-renderer/OperationDateRenderer';
 import OperationForm from '../operation-form/OperationForm';
@@ -20,51 +19,14 @@ class OperationsTable extends React.Component {
     this.operationStore = ServiceProvider.get(Services.OPERATION_STORE);
     this.operationStoreSubscription = null;
     this.state = {
-      rows: []
+      currentOperation: {}
     };
   }
 
-  componentDidMount() {
-    const s = this.operationStore.subscribeAndGetState(
-      (state) => this.buildRowData( state )
-    );
-    this.operationStoreSubscription = s.subscriptionKey;
-    this.buildRowData( s.state );
-  }
 
-  componentWillUnmount() {
-    this.operationStore.unsubscribe( this.operationStoreSubscription );
-  }
-
-
-  buildRowData(data) {
+  setCurrentOperation = (operation) => {
     this.setState({
-      rows: data.operations.map(op => ({
-        id: op._id,
-        editMode: false,
-        operation: op
-      }))
-    });
-  }
-
-  updateOperation = (operation) => this.dispatcher.dispatch({
-    type: Actions.UPDATE_OPERATION,
-    operation
-  });
-
-  deleteOperation = (operation) => this.dispatcher.dispatch({
-    type: Actions.DELETE_OPERATION,
-    operationID: operation._id
-  });
-
-  toggleEditMode = (row) => {
-    const i = this.state.rows.findIndex(r => r.id === row.id);
-    this.setState({
-      rows: [
-        ...this.state.rows.slice(0, i),
-        Object.assign(row, { editMode: !row.editMode }),
-        ...this.state.rows.slice(i+1)
-      ]
+      currentOperation: operation
     });
   };
 
@@ -84,35 +46,38 @@ class OperationsTable extends React.Component {
         </div>
 
         <div className="body">
-        {this.state.rows.map(row =>
-          row.editMode ? (
-            <div key={row.id} className="row body-row edit-mode">
-              <OperationForm operation={row.operation}
-                onSubmit={(op) => {
-                  this.updateOperation(op);
-                  this.toggleEditMode(row);
+        {this.props.operations.map(operation =>
+          this.state.currentOperation._id === operation._id ? (
+            <div key={operation._id} className="row body-row edit-mode">
+              <OperationForm
+                operation={operation}
+                labels={this.props.labels}
+                onSubmit={op => {
+                  this.props.onUpdate(op);
+                  this.setCurrentOperation({});
                 }} />
             </div>
           ) : (
-            <div key={row.id} className={
-              `row body-row ${row.operation.amount < 0 ? 'negative' : 'positive'}`
+            <div key={operation._id} className={
+              `row body-row ${operation.amount < 0 ? 'negative' : 'positive'}`
             }>
               <span className="cell body-cell column-date">
-                <OperationDateRenderer operation={row.operation} />
+                <OperationDateRenderer operation={operation} />
               </span>
               <span className="cell body-cell column-amount">
-                <OperationAmountRenderer operation={row.operation} />
+                <OperationAmountRenderer operation={operation} />
               </span>
               <span className="cell body-cell column-reference">
-                <OperationReferenceRenderer operation={row.operation} />
+                <OperationReferenceRenderer operation={operation} />
               </span>
               <span className="cell body-cell column-labels">
-                <OperationLabelsRenderer operation={row.operation} />
+                <OperationLabelsRenderer
+                  operation={operation}
+                  labels={this.props.labels} />
               </span>
               <span className="cell body-cell column-actions">
-                <OperationActionsRenderer operation={row.operation}
-                  onUpdateClick={() => this.toggleEditMode(row)}
-                  onDeleteClick={this.deleteOperation} />
+                <ActionButton icon="pen-square" onClick={() => this.setCurrentOperation(operation)} />
+                <ActionButton icon="trash" onClick={() => this.props.onDelete(operation)} />
               </span>
             </div>
           )

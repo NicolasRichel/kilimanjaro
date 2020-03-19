@@ -1,7 +1,7 @@
 import React from 'react';
 import AmountInput from '../amount-input/AmountInput';
 import DateInput from '../date-input/DateInput';
-import IconButton from '../icon-button/IconButton';
+import ActionButton from '../action-button/ActionButton';
 import LabelsSelector from '../labels-selector/LabelsSelector';
 import StringInput from '../string-input/StringInput';
 
@@ -49,18 +49,30 @@ class OperationForm extends React.Component {
     const operation = this.state.operation;
     return (
       <div className="OperationForm">
-        <DateInput value={operation.date}
+
+        <DateInput
+          value={operation.date}
           onChange={this.setOperationField('date')} />
-        <AmountInput value={operation.amount}
+
+        <AmountInput
+          value={operation.amount}
           onChange={this.setOperationField('amount')} />
-        <StringInput value={operation.reference}
-          onChange={this.setOperationField('reference')}
-          className="ReferenceInput" placeholder="Référence" />
-        <LabelsSelector value={operation.labels}
+
+        <StringInput
+          className="ReferenceInput"
+          placeholder="Référence"
+          value={operation.reference}
+          onChange={this.setOperationField('reference')} />
+
+        <LabelsSelector
+          labels={this.props.labels}
+          value={operation.labels}
           onChange={this.setOperationField('labels')} />
+
         <div className="submit-button-container">
-          <IconButton icon="check" size="30" onClick={this.submit} />
+          <ActionButton icon="check" size="30" onClick={this.submit} />
         </div>
+
       </div>
     );
   }

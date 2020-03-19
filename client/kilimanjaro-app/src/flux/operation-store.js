@@ -1,5 +1,6 @@
 import { ServiceProvider, Services } from '../services/service-provider';
 import { Store } from './store';
+import * as utils from '../utils';
 
 // Actions
 import { Actions } from './actions';
@@ -32,7 +33,6 @@ export class OperationStore extends Store {
       case Actions.DELETE_OPERATION:
         this._deleteOperation(action.operationID);
         break;
-      default: // To avoid warnings in console
     }
   }
 
@@ -46,7 +46,7 @@ export class OperationStore extends Store {
   _createOperation(operation) {
     this.backendService.createOperation(operation).then(
       createdOperation => this.setState({
-        operations: this.state.operations.concat(createdOperation)
+        operations: utils.addArrayElement(this.state.operations, createdOperation)
       })
     );
   }
@@ -56,11 +56,7 @@ export class OperationStore extends Store {
       updatedOperation => {
         const i = this.state.operations.findIndex(op => op._id === updatedOperation._id);
         this.setState({
-          operations: [
-            ...this.state.operations.slice(0, i),
-            updatedOperation,
-            ...this.state.operations.slice(i+1)
-          ]
+          operations: utils.updateArrayElement(this.state.operations, i, updatedOperation)
         });
       }
     );
@@ -71,10 +67,7 @@ export class OperationStore extends Store {
       () => {
         const i = this.state.operations.findIndex(op => op._id === operationID);
         this.setState({
-          operations: [
-            ...this.state.operations.slice(0, i),
-            ...this.state.operations.slice(i+1)
-          ]
+          operations: utils.removeArrayElement(this.state.operations, i)
         });
       }
     );

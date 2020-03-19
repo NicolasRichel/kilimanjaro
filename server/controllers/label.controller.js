@@ -4,6 +4,7 @@
 
 
 const Label = require('../models/label.model');
+const Operation = require('../models/operation.model');
 
 
 exports.getAllLabels = [
@@ -52,6 +53,19 @@ exports.updateLabel = [
 
 exports.deleteLabel = [
   getLabelByID,
+  async (req, res, next) => {
+    try {
+      const labelID = String(res.data.label._id);
+      const operations = await Operation.find({ labels: labelID });
+      for (op of operations) {
+        op.labels = op.labels.filter(l => l !== labelID);
+        await op.save();
+      }
+      next();
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
   async (req, res) => {
     try {
       await res.data.label.remove();
@@ -66,7 +80,7 @@ exports.deleteAllLabels = [
   async (req, res) => {
     try {
       await Label.deleteMany({});
-      res.json({ message: `Labels purged successfully.` });
+      res.json({ message: 'Labels purged successfully.' });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Actions } from '../../flux/actions';
-import IconButton from '../icon-button/IconButton';
+import ActionButton from '../action-button/ActionButton';
 
 // Services
 import { ServiceProvider, Services } from '../../services/service-provider';
@@ -43,7 +43,7 @@ class DialogContainer extends React.Component {
         <div className="dialog">
           <div className="dialog-header">
             <span className="title">{dialog.title}</span>
-            <IconButton size="30" icon="times" color="white" onClick={this.closeDialog} />
+            <ActionButton size="30" icon="times" color="white" onClick={this.closeDialog} />
           </div>
           <div className="dialog-content">
             {dialog.component}

@@ -15,7 +15,7 @@ export class Store {
   }
 
 
-  getState = () => this.state;
+  getState = () => ({ ...this.state });
 
   setState = (partialState) => {
     this.state = { ...this.state, ...partialState };
@@ -30,7 +30,7 @@ export class Store {
 
   subscribeAndGetState = (callback) => ({
     subscriptionKey: this.subscribe(callback),
-    state: this.state
+    state: this.getState()
   });
 
   unsubscribe = (key) => {
@@ -38,6 +38,6 @@ export class Store {
     (index !== -1) && this.subscribers.splice(index, 1);
   };
 
-  emitChange = () => this.subscribers.forEach(s => s.callback({ ...this.state }));
+  emitChange = () => this.subscribers.forEach(s => s.callback( this.getState() ));
 
 }

@@ -20,7 +20,6 @@ export class DialogStore extends Store {
       case Actions.CLOSE_DIALOG:
         this._closeDialog();
         break;
-      default: // To avoid warnings in console
     }
   }
 

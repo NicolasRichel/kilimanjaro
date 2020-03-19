@@ -1,7 +1,7 @@
 import React from 'react';
 import ColorInput from '../color-input/ColorInput';
-import IconButton from '../icon-button/IconButton';
-import LabelMark from '../label-mark/LabelMark';
+import ActionButton from '../action-button/ActionButton';
+import LabelTag from '../label-tag/LabelTag';
 import StringInput from '../string-input/StringInput';
 
 // Styles
@@ -71,9 +71,9 @@ class LabelForm extends React.Component {
         </div>
         <div className="block submit-button">
           <span className="label-preview">
-            Label : {label.name && <LabelMark label={label} />}
+            Label : {label.name && <LabelTag label={label} />}
           </span>
-          <IconButton icon="check" size="30" onClick={this.submit} />
+          <ActionButton icon="check" size="30" onClick={this.submit} />
         </div>
       </div>
     );

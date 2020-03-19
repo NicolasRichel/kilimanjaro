@@ -20,7 +20,6 @@ export class NotificationStore extends Store {
       case Actions.NOTIFY:
         this._notify(action.notification);
         break;
-      default: // To avoid warnings in console
     }
   }
 

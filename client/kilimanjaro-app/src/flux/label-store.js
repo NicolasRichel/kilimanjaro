@@ -30,7 +30,6 @@ export class LabelStore extends Store {
       case Actions.DELETE_LABEL:
         this._deleteLabel(action.labelID);
         break;
-      default: // To avoid warnings in console
     }
   }
 

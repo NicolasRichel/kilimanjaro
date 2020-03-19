@@ -8,7 +8,7 @@
 const config = require('dotenv').config();
 if (config.error) {
   console.error('Error loading env variables.');
-  console.error(error);
+  console.error(config.error);
 }
 
 // Connect to database

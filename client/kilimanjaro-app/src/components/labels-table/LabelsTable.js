@@ -1,8 +1,6 @@
 import React from 'react';
-import LabelMark from '../label-mark/LabelMark';
-import IconButton from '../icon-button/IconButton';
-
-// Services
+import LabelTag from '../label-tag/LabelTag';
+import ActionButton from '../action-button/ActionButton';
 import { ServiceProvider, Services } from '../../services/service-provider';
 
 // Styles
@@ -14,62 +12,18 @@ class LabelsTable extends React.Component {
   constructor(props) {
     super(props);
     this.dispatcher = ServiceProvider.get(Services.DISPATCHER);
-    this.labelStore = ServiceProvider.get(Services.LABEL_STORE);
-    this.labelStoreSubscription = null;
     this.state = {
-      rows: []
+      currentLabel: {}
     };
   }
 
-  componentDidMount() {
-    const s = this.labelStore.subscribeAndGetState(
-      (state) => this.buildRowData( state )
-    );
-    this.labelStoreSubscription = s.subscriptionKey;
-    this.buildRowData( s.state );
-  }
 
-  componentWillUnmount() {
-    this.labelStore.unsubscribe( this.labelStoreSubscription );
-  }
-
-
-  buildRowData(data) {
-    this.setState({
-      rows: data.labels.map(label => ({
-        id: label._id,
-        selected: false,
-        label
-      }))
-    });
-  }
-
-  toggleSelected = (row) => {
-    const selected = !row.selected;
-    const i = this.state.rows.findIndex(r => r.id === row.id);
-    const j = this.state.rows.findIndex(r => r.selected);
-    let rows = [
-      ...this.state.rows.slice(0, i),
-      Object.assign(row, { selected }),
-      ...this.state.rows.slice(i+1)
-    ];
-    if (j !== -1 && j !== i) {
-      rows = [
-        ...this.state.rows.slice(0, j),
-        Object.assign(rows[j], { selected: false }),
-        ...this.state.rows.slice(j+1)
-      ];
-    }
-    this.setState({ rows });
-    this.emitSelected( selected ? row.label : {} );
+  setCurrentLabel = (label) => {
+    const currentLabel = label._id === this.state.currentLabel._id ? {} : label;
+    this.setState({ currentLabel });
+    this.props.onSelect( currentLabel );
   };
 
-  emitSelected = (label) => {
-    if (this.props.onSelect) {
-      this.props.onSelect( {} )
-      this.props.onSelect( label );
-    }
-  };
 
   render() {
     return (
@@ -82,17 +36,20 @@ class LabelsTable extends React.Component {
           </div>
         </div>
         <div className="body">
-          {this.state.rows.map(row =>
-            <div key={row.id} className={`row body-row ${row.selected ? 'selected' : ''}`}
-              onClick={() => this.toggleSelected(row)}>
+          {this.props.labels.map(label =>
+            <div key={label._id}
+              onClick={() => this.setCurrentLabel(label)}
+              className={`row body-row ${
+                this.state.currentLabel._id === label._id ? 'selected' : ''
+              }`}>
               <span className="cell body-cell column-name">
-                {row.label.name}
+                {label.name}
               </span>
               <span className="cell body-cell column-label">
-                <LabelMark label={row.label} />
+                <LabelTag label={label} />
               </span>
               <span className="cell body-cell column-actions">
-                <IconButton icon="trash" />
+                <ActionButton icon="trash" onClick={() => this.props.onDelete(label)} />
               </span>
             </div>
           )}

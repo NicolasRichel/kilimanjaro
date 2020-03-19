@@ -1,5 +1,5 @@
 import { Config } from '../app-config';
-import { BackendService } from './backend.service';
+import { BackendService } from './backend-service';
 import { DialogStore } from '../flux/dialog-store';
 import { Dispatcher } from '../flux/dispatcher';
 import { LabelStore } from '../flux/label-store';
