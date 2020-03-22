@@ -25,9 +25,10 @@ db.once('open', () => console.log('Connected to database'));
 const express = require('express');
 const server = express();
 const cors = require('cors');
-server.use(cors({ origin: process.env.ALLOWED_ORIGINS }));
-server.use(express.json());
-server.use('/', require('./routes'));
+server.use( cors({ origin: process.env.ALLOWED_ORIGINS }) );
+server.use( express.json() );
+server.use( '/', require('./router') );
+server.use( require('./error-handler') );
 
 // Start server
 const port = process.env.SERVER_PORT;
