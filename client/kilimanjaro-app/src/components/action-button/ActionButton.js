@@ -10,7 +10,6 @@ class ActionButton extends React.Component {
     size: '28',
     color: '#EEE',
     textColor: '#000',
-    iconColor: '#000',
     icon: 'question-circle'
   };
 
@@ -29,15 +28,11 @@ class ActionButton extends React.Component {
           minWidth: `${this.styles.size}px`,
           height: `${this.styles.size}px`,
           fontSize: `${this.styles.size/2}px`,
-          backgroundColor: this.styles.color
+          backgroundColor: this.styles.color,
+          color: this.styles.textColor
         }}>
-        <i className={`fas fa-${this.styles.icon}`}
-          style={{ color: this.styles.iconColor }}>
-        </i>
-        <span
-          style={{ color: this.styles.textColor }}>
-          {this.props.text}
-        </span>
+        <i className={`fas fa-${this.styles.icon}`}></i>
+        <span>{this.props.text}</span>
       </div>
     );
   }
