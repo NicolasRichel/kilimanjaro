@@ -37,7 +37,7 @@ exports.updateOperation = async (req, res, next) => {
   res.data.operation.amount = req.body.amount;
   res.data.operation.reference = req.body.reference;
   res.data.operation.labels = req.body.labels;
-  await operation.save();
+  await res.data.operation.save();
   next();
 };
 
