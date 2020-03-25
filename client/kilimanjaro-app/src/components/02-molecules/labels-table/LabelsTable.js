@@ -1,5 +1,4 @@
 import React from 'react';
-import { ServiceProvider, Services } from '../../../service-provider';
 // Atoms
 import LabelTag from '../../01-atoms/label-tag/LabelTag';
 import ActionButton from '../../01-atoms/action-button/ActionButton';
@@ -12,7 +11,6 @@ class LabelsTable extends React.Component {
 
   constructor(props) {
     super(props);
-    this.dispatcher = ServiceProvider.get(Services.DISPATCHER);
     this.state = {
       currentLabel: {}
     };
