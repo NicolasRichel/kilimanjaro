@@ -1,6 +1,6 @@
 import React from 'react';
 import { Actions } from '../../../flux/actions';
-import { ServiceProvider, Services } from '../../../services/service-provider';
+import { ServiceProvider, Services } from '../../../service-provider';
 // Molecules
 import OperationForm from '../../02-molecules/operation-form/OperationForm';
 import OperationsTable from '../../02-molecules/operations-table/OperationsTable';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ServiceProvider, Services } from '../../../services/service-provider';
+import { ServiceProvider, Services } from '../../../service-provider';
 // Atoms
 import ActionButton from '../../01-atoms/action-button/ActionButton';
 import OperationAmountRenderer from '../../01-atoms/operation-amount-renderer/OperationAmountRenderer';

@@ -2,10 +2,10 @@ import React from 'react';
 import { ServiceProvider, Services } from '../../../service-provider';
 
 // Styles
-import './NotificationViewport.scss';
+import './NotificationContainer.scss';
 
 
-class NotificationViewport extends React.Component {
+class NotificationContainer extends React.Component {
 
   constructor(props) {
     super(props);
@@ -31,7 +31,7 @@ class NotificationViewport extends React.Component {
   render() {
     const notification = this.state.notification;
     return (
-      <div className="NotificationViewport">
+      <div className="NotificationContainer">
         {notification.message &&
         <div className={`notification ${notification.type}`}>
           {notification.message}
@@ -44,4 +44,4 @@ class NotificationViewport extends React.Component {
 }
 
 
-export default NotificationViewport;
+export default NotificationContainer;

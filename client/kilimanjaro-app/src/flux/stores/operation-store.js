@@ -1,9 +1,7 @@
-import { ServiceProvider, Services } from '../services/service-provider';
-import { Store } from './store';
-import * as utils from '../utils';
-
-// Actions
-import { Actions } from './actions';
+import { Actions } from '../actions';
+import { ServiceProvider, Services } from '../../service-provider';
+import { Store } from '../store';
+import * as utils from '../../utils';
 
 
 export class OperationStore extends Store {

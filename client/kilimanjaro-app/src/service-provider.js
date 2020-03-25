@@ -1,11 +1,11 @@
-import { Config } from '../app-config';
-import { BackendService } from './backend-service';
-import { DialogStore } from '../flux/dialog-store';
-import { Dispatcher } from '../flux/dispatcher';
-import { LabelStore } from '../flux/label-store';
-import { NotificationStore } from '../flux/notification-store';
-import { OperationStore } from '../flux/operation-store';
-import { LoggerService } from './logger-service';
+import { Config } from './app-config';
+import { BackendService } from './services/backend-service';
+import { DialogStore } from './flux/stores/dialog-store';
+import { Dispatcher } from './flux/dispatcher';
+import { LabelStore } from './flux/stores/label-store';
+import { NotificationStore } from './flux/stores/notification-store';
+import { OperationStore } from './flux/stores/operation-store';
+import { LoggerService } from './services/logger-service';
 
 
 export const Services = {
@@ -54,7 +54,6 @@ export const ServiceProvider = {
         return new NotificationStore( Config );
       case Services.OPERATION_STORE:
         return new OperationStore();
-      default: // To avoid warnings in console
     }
   }
 

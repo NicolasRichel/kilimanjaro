@@ -1,6 +1,6 @@
 import React from 'react';
 import { Actions } from '../../../flux/actions';
-import { ServiceProvider, Services } from '../../../services/service-provider';
+import { ServiceProvider, Services } from '../../../service-provider';
 // Atoms
 import ActionButton from '../../01-atoms/action-button/ActionButton';
 

@@ -1,6 +1,6 @@
-import { Store } from './store';
-import { ServiceProvider, Services } from '../services/service-provider';
-import { Actions } from './actions';
+import { Actions } from '../actions';
+import { ServiceProvider, Services } from '../../service-provider';
+import { Store } from '../store';
 
 
 export class LabelStore extends Store {

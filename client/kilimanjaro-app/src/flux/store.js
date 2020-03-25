@@ -1,4 +1,4 @@
-import { ServiceProvider, Services } from '../services/service-provider';
+import { ServiceProvider, Services } from '../service-provider';
 import * as utils from '../utils';
 
 

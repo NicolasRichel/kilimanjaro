@@ -1,6 +1,6 @@
 import React from 'react';
 import { Actions } from './flux/actions';
-import { ServiceProvider, Services } from './services/service-provider';
+import { ServiceProvider, Services } from './service-provider';
 // Organisms
 import DialogViewport from './components/03-organisms/dialog-viewport/DialogViewport';
 import Header from './components/03-organisms/header/Header';

@@ -1,5 +1,5 @@
-import { Actions } from './actions';
-import { Store } from './store';
+import { Actions } from '../actions';
+import { Store } from '../store';
 
 
 export class NotificationStore extends Store {
