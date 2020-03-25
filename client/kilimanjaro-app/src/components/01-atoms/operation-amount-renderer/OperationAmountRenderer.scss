@@ -1,0 +1,7 @@
+@import '../../../app-colors.scss';
+
+.OperationAmountRenderer {
+  font-weight: bold;
+  &.positive { color: $fine-pine; }
+  &.negative { color: $red; }
+}

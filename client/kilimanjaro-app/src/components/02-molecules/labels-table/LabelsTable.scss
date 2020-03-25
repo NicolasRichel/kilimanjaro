@@ -1,0 +1,41 @@
+@import '../../../app-colors.scss';
+
+.LabelsTable {
+
+  .row {
+    display: flex;
+    align-items: center;
+  }
+
+  .body-row {
+    &.selected {
+      background-color: $aqua-a02;
+    }
+  }
+
+  .cell {
+    padding: 5px 0;
+    &:first-child {
+      padding-left: 5px;
+    }
+  }
+
+  .header-cell {
+    border-bottom: 1px solid $black;
+    font-weight: bold;
+  }
+
+
+  .column-name {
+    width: 60%;
+  }
+
+  .column-label {
+    width: 30%;
+  }
+
+  .column-actions {
+    width: 10%;
+  }
+
+}

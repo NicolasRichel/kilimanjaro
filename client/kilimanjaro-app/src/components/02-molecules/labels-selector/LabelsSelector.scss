@@ -1,0 +1,45 @@
+@import '../../../app-colors.scss';
+
+.LabelsSelector {
+  position: relative;
+  display: inline-block;
+
+  .selection-container {
+    display: inline-flex;
+    flex-wrap: wrap;
+    min-width: 200px;
+    min-height: 30px;
+    padding: 4px;
+    border: 1px solid $grey-of-darkness;
+    &.focused { border-color: $magical-merlin; }
+    border-radius: 4px;
+    .placeholder {
+      align-self: center;
+      font-size: 14px;
+      color: $iris-eyes;
+    }
+    .LabelTag {
+      margin: 0 2px;
+    }
+  }
+
+  .options-container {
+    position: absolute;
+    display: flex;
+    &.hidden { display: none; }
+    flex-direction: column;
+    min-width: 200px;
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 4px;
+    box-shadow: 0 0 4px $cerebral-grey;
+    background-color: $white;
+    .option {
+      margin: 2px 0;
+      input[type=checkbox] {
+        vertical-align: middle;
+        margin-right: 8px;
+      }
+    }
+  }
+}

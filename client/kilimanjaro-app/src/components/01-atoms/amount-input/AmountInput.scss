@@ -1,0 +1,11 @@
+@import '../../../app-colors.scss';
+
+.AmountInput {
+  display: inline-block;
+  input {
+    width: 100%;
+    font-weight: bold;
+    &.positive { color: $fine-pine; }
+    &.negative { color: $red; }
+  }
+}

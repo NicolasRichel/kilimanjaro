@@ -1,0 +1,59 @@
+@import '../../../app-colors.scss';
+
+.OperationsTable {
+  padding: 10px 0;
+
+  .row {
+    display: flex;
+    align-items: center;
+  }
+
+  .body-row {
+    .OperationForm {
+      width: 100%;
+    }
+    &.edit-mode {
+      margin: 5px 0;
+    }
+    &.positive {
+      background-color: $white;
+    }
+    &.negative {
+      background-color: $white;
+    }
+  }
+
+  .cell {
+    padding: 5px 0;
+  }
+
+  .header-cell {
+    border-bottom: 1px solid $black;
+    font-weight: bold;
+  }
+
+
+  .column-date {
+    width: 150px;
+  }
+
+  .column-amount {
+    width: 90px;
+  }
+
+  .column-reference {
+    flex-grow: 1;
+  }
+
+  .column-labels {
+    width: 200px;
+  }
+
+  .column-actions {
+    width: 100px;
+    .ActionButton {
+      margin: 0 4px;
+    }
+  }
+
+}

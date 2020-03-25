@@ -1,14 +1,13 @@
 import React from 'react';
-import DialogContainer from './components/dialog-container/DialogContainer';
-import Header from './components/header/Header';
-import NotificationContainer from './components/notification-container/NotificationContainer';
-import OperationsManager from './components/operations-manager/OperationsManager';
-import StatisticsViewer from './components/statistics-viewer/StatisticsViewer';
-import Toolbar from './components/toolbar/Toolbar';
 import { Actions } from './flux/actions';
-
-// Services
 import { ServiceProvider, Services } from './services/service-provider';
+// Organisms
+import DialogViewport from './components/03-organisms/dialog-viewport/DialogViewport';
+import Header from './components/03-organisms/header/Header';
+import NotificationViewport from './components/03-organisms/notification-viewport/NotificationViewport';
+import OperationsManager from './components/03-organisms/operations-manager/OperationsManager';
+import StatisticsManager from './components/03-organisms/statistics-manager/StatisticsManager';
+import Toolbar from './components/03-organisms/toolbar/Toolbar';
 
 // Styles
 import './App.scss';
@@ -40,11 +39,11 @@ class App extends React.Component {
       <div className="App">
         <Header />
         <Toolbar />
-        <NotificationContainer />
-        <DialogContainer />
+        <NotificationViewport />
+        <DialogViewport />
         <div className="main-container">
           <OperationsManager />
-          <StatisticsViewer />
+          <StatisticsManager />
         </div>
       </div>
     );
