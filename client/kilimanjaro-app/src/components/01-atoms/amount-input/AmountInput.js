@@ -9,24 +9,18 @@ class AmountInput extends React.Component {
   constructor(props) {
     super(props);
     const amount = props.value;
-    if (amount || amount === 0) {
-      this.state = {
-        isNegative: (amount < 0),
-        value: ''+amount
-      };
-    } else {
-      this.state = {
-        isNegative: false,
-        value: ''
-      };
-    }
+    this.state = {
+      isNegative: (amount || amount === 0) && (amount < 0),
+      value: (amount || amount === 0) ? ''+amount : ''
+    };
   }
 
   componentDidUpdate() {
     const amount = this.props.value;
     let value = '';
     if (amount) {
-      value = `${amount}${this.state.value.match(/\.$/) ? '.' : ''}`;
+      const s = this.state.value.match(/\.0?$/);
+      value = `${amount}${s ? s[0] : ''}`;
     } else if (amount === 0) {
       value = this.state.value;
     }
