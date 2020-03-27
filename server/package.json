@@ -7,7 +7,9 @@
   "author": "Nicolas Richel <nicolasrichel.github@gmail.com>",
   "license": "GPL-3.0",
   "scripts": {
-    "dev-start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "test": "echo \"No tests yet...\"",
+    "build": "echo \"No build process yet...\""
   },
   "dependencies": {
     "cors": "^2.8.5",
