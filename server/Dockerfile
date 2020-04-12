@@ -11,5 +11,5 @@ RUN yarn install --frozen-lockfile
 COPY . .
 COPY ${CONFIG_FILE} .config
 
-EXPOSE 80
+EXPOSE 9001
 ENTRYPOINT [ "node", "server.js" ]

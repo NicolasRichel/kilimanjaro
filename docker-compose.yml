@@ -7,14 +7,16 @@ services:
     volumes:
       - /kilimanjaro-data:/data/db
   
-  backend:
+  server:
     image: nicococo/kilimanjaro-server
-    container_name: kilimanjaro-back
+    container_name: kilimanjaro-server
     environment:
       - CONFIG_FILE=.config.docker-compose
+    ports:
+      - "9001:9001"
     depends_on:
       - database
   
-  frontend:
+  client:
     image: nicococo/kilimanjaro-client
-    container_name: kilimanjaro-front
+    container_name: kilimanjaro-client
