@@ -5,7 +5,7 @@
  */
 
 // Load environments variables
-const config = require('dotenv').config();
+const config = require('dotenv').config({ path: '.config' });
 if (config.error) {
   console.error('Error loading env variables.');
   console.error(config.error);

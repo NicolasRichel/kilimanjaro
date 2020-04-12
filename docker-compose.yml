@@ -10,6 +10,8 @@ services:
   backend:
     image: nicococo/kilimanjaro-server
     container_name: kilimanjaro-back
+    environment:
+      - CONFIG_FILE=.config.docker-compose
     depends_on:
       - database
   

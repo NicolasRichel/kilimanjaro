@@ -1,4 +1,4 @@
-.env*
-!.env.sample
+.config*
+!.config.example
 node_modules/
 *.rest
