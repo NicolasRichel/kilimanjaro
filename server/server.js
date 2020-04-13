@@ -4,10 +4,11 @@
  * **********************
  */
 
-// Load environments variables
-const config = require('dotenv').config({ path: '.config' });
+// Load configuration
+const configFile = `.config.${process.argv[2]}`;
+const config = require('dotenv').config({ path: configFile });
 if (config.error) {
-  console.error('Error loading env variables.');
+  console.error(`Error loading config (file : ${configFile}).`);
   console.error(config.error);
 }
 
@@ -24,8 +25,7 @@ db.once('open', () => console.log('Connected to database'));
 // Configure server
 const express = require('express');
 const server = express();
-const cors = require('cors');
-server.use( cors({ origin: process.env.ALLOWED_ORIGINS }) );
+server.use( require('cors')({ origin: process.env.ALLOWED_ORIGINS }) );
 server.use( express.json() );
 server.use( '/', require('./router') );
 server.use( require('./error-handler') );

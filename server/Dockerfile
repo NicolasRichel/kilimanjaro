@@ -1,15 +1,12 @@
 FROM node:lts-alpine
 
-ENV CONFIG_FILE .config
+ENV CONFIG_FILE prod
 
 
 WORKDIR /usr/src/app
-
 COPY package.json ./
-RUN yarn install --frozen-lockfile
-
+RUN yarn install --prod --frozen-lockfile
 COPY . .
-COPY ${CONFIG_FILE} .config
 
 EXPOSE 9001
-ENTRYPOINT [ "node", "server.js" ]
+ENTRYPOINT node server.js ${CONFIG_FILE}

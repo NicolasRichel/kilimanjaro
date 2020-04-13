@@ -11,7 +11,7 @@ services:
     image: nicococo/kilimanjaro-server
     container_name: kilimanjaro-server
     environment:
-      - CONFIG_FILE=.config.docker-compose
+      - CONFIG_FILE=docker-compose
     ports:
       - "9001:9001"
     depends_on:
@@ -20,3 +20,5 @@ services:
   client:
     image: nicococo/kilimanjaro-client
     container_name: kilimanjaro-client
+    ports:
+      - "8001:8001"
