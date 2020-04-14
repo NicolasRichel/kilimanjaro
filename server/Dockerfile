@@ -5,6 +5,7 @@ ENV CONFIG_FILE prod
 
 WORKDIR /usr/src/app
 COPY package.json ./
+COPY yarn.lock ./
 RUN yarn install --prod --frozen-lockfile
 COPY . .
 
