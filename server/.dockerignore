@@ -1,3 +1,5 @@
-.gitignore
 .config.example
+Dockerfile
+.dockerignore
+.gitignore
 node_modules

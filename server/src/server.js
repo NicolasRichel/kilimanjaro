@@ -5,10 +5,9 @@
  */
 
 // Load configuration
-const configFile = `.config.${process.argv[2]}`;
-const config = require('dotenv').config({ path: configFile });
+const config = require('dotenv').config({ path: '.config' });
 if (config.error) {
-  console.error(`Error loading config (file : ${configFile}).`);
+  console.error(`Error loading configuration.`);
   console.error(config.error);
 }
 
