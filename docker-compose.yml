@@ -6,9 +6,11 @@ services:
     container_name: kilimanjaro-db
     volumes:
       - /kilimanjaro-data:/data/db
+    ports:
+      - "27017:27017"
   
   server:
-    image: nicococo/kilimanjaro-server:dev-compose
+    image: nicococo/kilimanjaro-server:dev
     container_name: kilimanjaro-server
     ports:
       - "9001:9001"
@@ -16,7 +18,7 @@ services:
       - database
   
   client:
-    image: nicococo/kilimanjaro-client:dev-compose
+    image: nicococo/kilimanjaro-client:dev
     container_name: kilimanjaro-client
     ports:
-      - "8001:8001"
+      - "8001:80"

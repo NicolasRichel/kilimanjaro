@@ -7,7 +7,7 @@
   "author": "Nicolas Richel <nicolasrichel.github@gmail.com>",
   "license": "GPL-3.0",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "cd src/ && nodemon server.js",
     "test": "echo \"No tests yet...\"",
     "build": "echo \"No build process yet...\""
   },
