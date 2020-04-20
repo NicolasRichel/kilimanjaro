@@ -1,3 +1,4 @@
 *.drawio
 project-cli
 .vscode/
+.p-mngr/

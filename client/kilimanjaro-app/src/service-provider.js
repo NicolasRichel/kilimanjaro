@@ -1,4 +1,4 @@
-import { Config } from './app-config';
+import { Config } from './.config';
 import { BackendService } from './services/backend-service';
 import { DialogStore } from './flux/stores/dialog-store';
 import { Dispatcher } from './flux/dispatcher';

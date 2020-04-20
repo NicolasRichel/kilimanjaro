@@ -1,5 +1,7 @@
-.config.example
+build/
+create-component.sh
 Dockerfile
 .dockerignore
 .gitignore
 node_modules/
+setupTests.js
