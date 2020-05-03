@@ -2,6 +2,9 @@ FROM node:lts-alpine
 
 ARG CONFIG
 
+WORKDIR /
+RUN mkdir data
+
 WORKDIR /usr/src/app
 # Install dependencies
 COPY package.json ./
@@ -13,4 +16,4 @@ RUN rm .config*
 COPY src/.config.${CONFIG} .config
 
 EXPOSE 9001
-ENTRYPOINT node server.js
+ENTRYPOINT node start-server.js
