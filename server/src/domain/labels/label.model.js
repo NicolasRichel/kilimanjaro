@@ -1,7 +1,30 @@
-const mongoose = require('mongoose');
+const Sequelize = require('sequelize');
 
-module.exports = mongoose.model('Label', new mongoose.Schema({
-  name: { type: String, required: true },
-  color: { type: String },
-  textColor: { type: String }
-}));
+class Label extends Sequelize.Model {}
+
+module.exports = {
+  Label,
+  init(database) {
+    Label.init({
+      _id: {
+        type: Sequelize.UUIDV4,
+        primaryKey: true
+      },
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      color: {
+        type: Sequelize.STRING,
+        defaultValue: '#CCC'
+      },
+      textColor: {
+        type: Sequelize.STRING,
+        defaultValue: '#000'
+      }
+    }, {
+      sequelize: database,
+      modelName: 'Label'
+    });
+  }
+};

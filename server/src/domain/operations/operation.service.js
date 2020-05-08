@@ -1,52 +1,66 @@
-// Operations Service
-// ==================
+// Operation Service
+// -----------------
 
-const Operation = require('./operation.model');
+const { Label } = require('../labels/label.model');
+const { Operation } = require('./operation.model');
 
-
-exports.getAllOperations = async (req, res, next) => {
-  const operations = await Operation.find();
+async function getAllOperations(req, res) {
+  const operations = await Operation.findAll({
+    include: [{ model: Label, as: 'labels' }]
+  });
   Object.assign(res, { data: { operations } });
-  next();
-};
+}
 
-exports.getOperationByID = async (req, res, next) => {
+async function getOperationByID(req, res) {
   let operation = null;
-  operation = await Operation.findById(req.params.id);
+  operation = await Operation.findByPk(req.params.id, {
+    include: [{ model: Label, as: 'labels' }]
+  });
   if (operation === null) {
-    next(new Error(`Operation not found, id: ${req.params.id}`));
+    throw new Error(`Operation not found, id: ${req.params.id}`);
   }
   Object.assign(res, { data: { operation } });
-  next();
-};
+}
 
-exports.createOperation = async (req, res, next) => {
-  let operation = new Operation({
+async function createOperation(req, res) {
+  let operation = await Operation.create({
     date: req.body.date,
     amount: req.body.amount,
-    reference: req.body.reference,
-    labels: req.body.labels
+    reference: req.body.reference
   });
-  operation = await operation.save();
+  if (req.body.labels) {
+    await operation.setLabels( req.body.labels );
+    await operation.save();
+    operation.dataValues.labels = req.body.labels;
+  }
   Object.assign(res, { data: { operation } });
-  next();
-};
+}
 
-exports.updateOperation = async (req, res, next) => {
-  res.data.operation.date = req.body.date;
-  res.data.operation.amount = req.body.amount;
-  res.data.operation.reference = req.body.reference;
-  res.data.operation.labels = req.body.labels;
+async function updateOperation(req, res) {
+  await getOperationByID(req, res);
+  Object.assign(res.data.operation, req.body);
   await res.data.operation.save();
-  next();
-};
+  if (req.body.labels) {
+    await res.data.operation.setLabels( req.body.labels );
+  }
+  await res.data.operation.save();
+  await getOperationByID(req, res);
+}
 
-exports.deleteOperation = async (req, res, next) => {
-  await res.data.operation.remove();
-  next();
-};
+async function deleteOperation(req, res) {
+  await getOperationByID(req, res);
+  await res.data.operation.destroy();
+}
 
-exports.deleteAllOperations = async (req, res, next) => {
-  await Operation.deleteMany({});
-  next();
+async function deleteAllOperations(req, res) {
+  await Operation.destroy({ truncate: true });
+}
+
+module.exports = {
+  getAllOperations,
+  getOperationByID,
+  createOperation,
+  updateOperation,
+  deleteOperation,
+  deleteAllOperations
 };

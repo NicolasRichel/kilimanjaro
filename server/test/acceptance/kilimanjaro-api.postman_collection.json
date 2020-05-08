@@ -1,0 +1,1163 @@
+{
+	"info": {
+		"_postman_id": "a379a7ec-d20c-44a5-8d97-d6075e97aaee",
+		"name": "Kilimanjaro API",
+		"description": "Kilimanjaro API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Operations",
+			"item": [
+				{
+					"name": "Get All Operations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}:{{port}}/operations",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"operations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One Operation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "fa3888cc-54b5-425a-bd86-e061f302615d",
+								"exec": [
+									"pm.variables.set('OperationID', '5e633ae1cd402138e9039543');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}:{{port}}/operation/{{OperationID}}",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"operation",
+								"{{OperationID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Operation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"date\": \"2020-01-01\",\n\t\"amount\": 10.5,\n\t\"reference\": \"Operation Ref.\",\n\t\"labels\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}:{{port}}/operation/create",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"operation",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Operation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "34867f83-1822-4d35-937b-c8ab5e9d358c",
+								"exec": [
+									"pm.variables.set('OperationID', '5e633ae1cd402138e9039543');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"date\": \"2020-01-02\",\n\t\"amount\": 12.3,\n\t\"reference\": \"Test Operation\",\n\t\"labels\": [\n\t\t\"5e73d58f1c9d50455ad76c11\"\n\t]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}:{{port}}/operation/update/{{OperationID}}",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"operation",
+								"update",
+								"{{OperationID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Operation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "86943310-e0fc-4a3d-9c63-62f00a0c545f",
+								"exec": [
+									"pm.variables.set('OperationID', '5e77c01e6059074607836ac2');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}:{{port}}/operation/delete/{{OperationID}}",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"operation",
+								"delete",
+								"{{OperationID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Purge Operations",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1886e10f-fe8a-4c4c-baf7-56ad1d2a6257",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}:{{port}}/operations/purge",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"operations",
+								"purge"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Labels",
+			"item": [
+				{
+					"name": "Get All Labels",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}:{{port}}/labels",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"labels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One Label",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "84de734b-82ee-4aa9-8b38-8a8f8d8ff8dd",
+								"exec": [
+									"pm.variables.set('LabelID', '5e13ab74ec964700f38ee2a8');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}:{{port}}/label/{{LabelID}}",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"label",
+								"{{LabelID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Label",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"test-label\",\n\t\"color\": \"#0000FF\",\n\t\"textColor\": \"#FFFFFF\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}:{{port}}/label/create",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"label",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Label",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a9c2d53f-8b7e-49a9-89c1-031bb5f8234a",
+								"exec": [
+									"pm.variables.set('LabelID', '');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"my-label\",\n\t\"color\": \"#0000FF\",\n\t\"textColor\": \"#FFFFFF\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}:{{port}}/label/update/{{LabelID}}",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"label",
+								"update",
+								"{{LabelID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Label",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "56b507ae-0e2e-4dd3-a455-73b1cba00ba5",
+								"exec": [
+									"pm.variables.set('LabelID', '5e73d58f1c9d50455ad76c11');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}:{{port}}/label/delete/{{LabelID}}",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"label",
+								"delete",
+								"{{LabelID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Purge Labels",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}:{{port}}/labels/purge",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"labels",
+								"purge"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Acceptance-Tests",
+			"item": [
+				{
+					"name": "Test - Get Operation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "06644cc7-c220-4871-8579-902f1c519e7b",
+								"exec": [
+									"// Test data setup",
+									"const operation = {",
+									"    date: '2020-04-01',",
+									"    amount: 10.5,",
+									"    reference: 'Test Operation',",
+									"    labels: []",
+									"};",
+									"",
+									"_utils.setOperationVar( pm.variables, operation );",
+									"_utils.createOperation(",
+									"    pm.sendRequest, operation,",
+									"    (error, response) => pm.variables.set('OperationID', response.json()._id)",
+									");",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "45879ad0-d413-4818-9ef6-c2a880ae61a5",
+								"exec": [
+									"const operation = {",
+									"    date: pm.variables.get('OperationDate'),",
+									"    amount: +pm.variables.get('OperationAmount'),",
+									"    reference: pm.variables.get('OperationRef'),",
+									"    labels: pm.variables.get('OperationLabels').split(',')",
+									"};",
+									"",
+									"const res = pm.response.json();",
+									"",
+									"pm.test('Should return operation data', () => {",
+									"    pm.expect(res._id).to.equal( pm.variables.get('OperationID') );",
+									"    pm.expect(res.date).to.equal( operation.date );",
+									"    pm.expect(res.amount).to.equal( operation.amount );",
+									"    pm.expect(res.reference).to.equal( operation.reference );",
+									"});",
+									"",
+									"_tearDown( pm.sendRequest );",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{at-target}}/operation/{{OperationID}}",
+							"host": [
+								"{{at-target}}"
+							],
+							"path": [
+								"operation",
+								"{{OperationID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test - Error Handling",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e977dd6c-dce7-455c-a379-8802c6ecb3bc",
+								"exec": [
+									"const res = pm.response.json();",
+									"",
+									"pm.test('Should return an error status', () => {",
+									"    pm.expect(pm.response.code).to.be.at.least(400);",
+									"});",
+									"",
+									"pm.test('Should return an error message', () => {",
+									"    pm.expect(res.error).to.exist;",
+									"    pm.expect(res.error).to.not.be.empty;",
+									"});",
+									"",
+									"_tearDown( pm.sendRequest );",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "52726ad8-1e18-4533-9c53-ea5805b7a117",
+								"exec": [
+									"pm.variables.set('OperationID', '123');",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{at-target}}/operation/{{OperationID}}",
+							"host": [
+								"{{at-target}}"
+							],
+							"path": [
+								"operation",
+								"{{OperationID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test - Create Operation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d8da639e-5a8a-471d-a048-fd2ee3d2b49d",
+								"exec": [
+									"const operation = {",
+									"    date: '2020-03-14',",
+									"    amount: -51.02,",
+									"    reference: 'Test Operation',",
+									"    labels: []",
+									"};",
+									"",
+									"const res = pm.response.json();",
+									"",
+									"pm.test('Should return created operation', () => {",
+									"    pm.expect(res._id).to.exist.and.to.not.be.empty;",
+									"    pm.expect(res.date).to.equal( operation.date );",
+									"    pm.expect(res.amount).to.equal( operation.amount );",
+									"    pm.expect(res.reference).to.equal( operation.reference );",
+									"});",
+									"",
+									"pm.test('Should have created operation', (done) => {",
+									"    pm.sendRequest({",
+									"        url: pm.variables.replaceIn('{{at-target}}/operations'), method: 'GET'",
+									"    }, (error, response) => {",
+									"        const list = response.json();",
+									"        pm.expect(list.length).to.equal(1);",
+									"        pm.expect(list[0]._id).to.equal(res._id);",
+									"        done();",
+									"    });",
+									"});",
+									"",
+									"_tearDown( pm.sendRequest );",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"date\": \"2020-03-14\",\n    \"amount\": -51.02,\n    \"reference\": \"Test Operation\",\n    \"labels\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{at-target}}/operation/create",
+							"host": [
+								"{{at-target}}"
+							],
+							"path": [
+								"operation",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test - Update Operation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "50709f3f-a020-42a0-aedc-9adcf6632099",
+								"exec": [
+									"// Test data setup",
+									"const operation = {",
+									"    date: '2020-01-01',",
+									"    amount: -10,",
+									"    reference: 'The Operation',",
+									"    labels: [ '123', '456' ]",
+									"};",
+									"",
+									"_utils.createOperation(",
+									"    pm.sendRequest, operation,",
+									"    (error, response) => pm.variables.set('OperationID', response.json()._id)",
+									");",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "814e2b43-52ca-42e6-b11e-f0c2d4682848",
+								"exec": [
+									"const operation = {",
+									"    _id: pm.variables.get('OperationID'),",
+									"    date: '2020-02-04',",
+									"    amount: -12.6,",
+									"    reference: 'Updated Operation',",
+									"    labels: [ '789' ]",
+									"};",
+									"",
+									"const res = pm.response.json();",
+									"",
+									"pm.test('Should return updated operation', () => {",
+									"    pm.expect(res._id).to.equal( operation._id );",
+									"    pm.expect(res.date).to.equal( operation.date );",
+									"    pm.expect(res.amount).to.equal( operation.amount );",
+									"    pm.expect(res.reference).to.equal( operation.reference );",
+									"});",
+									"",
+									"pm.test('Should have updated operation', (done) => {",
+									"    pm.sendRequest({",
+									"        url: pm.variables.replaceIn('{{at-target}}/operation/') + operation._id,",
+									"        method: 'GET'",
+									"    },",
+									"    (error, response) => {",
+									"        const op = response.json();",
+									"        pm.expect(op._id).to.equal( operation._id );",
+									"        pm.expect(op.date).to.equal( operation.date );",
+									"        pm.expect(op.amount).to.equal( operation.amount );",
+									"        pm.expect(op.reference).to.equal( operation.reference );",
+									"        done();",
+									"    });",
+									"});",
+									"",
+									"_tearDown( pm.sendRequest );",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"date\": \"2020-02-04\",\n    \"amount\": -12.6,\n    \"reference\": \"Updated Operation\",\n    \"labels\": [ \"789\" ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{at-target}}/operation/update/{{OperationID}}",
+							"host": [
+								"{{at-target}}"
+							],
+							"path": [
+								"operation",
+								"update",
+								"{{OperationID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test - Delete Operation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "bcfbf4d5-ae90-4b29-987e-2a79c59b070a",
+								"exec": [
+									"const operation = {",
+									"    date: '2020-04-01',",
+									"    amount: 10.5,",
+									"    reference: 'Test Operation',",
+									"    labels: []",
+									"};",
+									"",
+									"_utils.setOperationVar( pm.variables, operation );",
+									"_utils.createOperation(",
+									"    pm.sendRequest, operation,",
+									"    (error, response) => pm.variables.set('OperationID', response.json()._id)",
+									");",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "a5b4f657-37ab-44ab-8e29-503d847501d6",
+								"exec": [
+									"const operation = {",
+									"    date: pm.variables.get('OperationDate'),",
+									"    amount: +pm.variables.get('OperationAmount'),",
+									"    reference: pm.variables.get('OperationRef'),",
+									"    labels: pm.variables.get('OperationLabels').split(',')",
+									"};",
+									"",
+									"const res = pm.response.json();",
+									"",
+									"pm.test('Should return the deleted operation', () => {",
+									"    pm.expect(res._id).to.equal( pm.variables.get('OperationID') );",
+									"    pm.expect(res.date).to.equal( operation.date );",
+									"    pm.expect(res.amount).to.equal( operation.amount );",
+									"    pm.expect(res.reference).to.equal( operation.reference );",
+									"});",
+									"",
+									"pm.test('Should have deleted operation', (done) => {",
+									"    pm.sendRequest({",
+									"        url: pm.variables.replaceIn('{{at-target}}/operations'), method: 'GET'",
+									"    },",
+									"    (error, response) => {",
+									"        pm.expect( response.json() ).to.be.empty;",
+									"        done();",
+									"    });",
+									"});",
+									"",
+									"_tearDown( pm.sendRequest );",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{at-target}}/operation/delete/{{OperationID}}",
+							"host": [
+								"{{at-target}}"
+							],
+							"path": [
+								"operation",
+								"delete",
+								"{{OperationID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test - Get Label",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1dc6af39-5bc2-459e-ae46-c20f13e1d0e6",
+								"exec": [
+									"const label = {",
+									"    name: 'test-label',",
+									"    color: '#000',",
+									"    textColor: '#FFF'",
+									"};",
+									"",
+									"_utils.setLabelVar( pm.variables, label );",
+									"_utils.createLabel(",
+									"    pm.sendRequest, label,",
+									"    (error, response) => pm.variables.set('LabelID', response.json()._id)",
+									");",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "ea3a05e0-8826-42dd-aa3b-9d958472993f",
+								"exec": [
+									"const label = {",
+									"    name: pm.variables.get('LabelName'),",
+									"    color: pm.variables.get('LabelColor'),",
+									"    textColor: pm.variables.get('LabelTextColor')",
+									"};",
+									"",
+									"const res = pm.response.json();",
+									"",
+									"pm.test('Should return label data', () => {",
+									"    pm.expect(res._id).to.equal( pm.variables.get('LabelID') );",
+									"    pm.expect(res.name).to.equal( label.name );",
+									"    pm.expect(res.color).to.equal( label.color );",
+									"    pm.expect(res.textColor).to.equal( label.textColor );",
+									"});",
+									"",
+									"_tearDown( pm.sendRequest );",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{at-target}}/label/{{LabelID}}",
+							"host": [
+								"{{at-target}}"
+							],
+							"path": [
+								"label",
+								"{{LabelID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test - Create Label",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "655142ca-e0a3-47e8-ae6d-a9ae93aed20c",
+								"exec": [
+									"const label = {",
+									"    name: 'new-label',",
+									"    color: '#0F0',",
+									"    textColor: '#00F'",
+									"};",
+									"",
+									"const res = pm.response.json();",
+									"",
+									"pm.test('Should return created label', () => {",
+									"    pm.expect(res._id).to.exist.and.to.not.be.empty;",
+									"    pm.expect(res.name).to.equal( label.name );",
+									"    pm.expect(res.color).to.equal( label.color );",
+									"    pm.expect(res.textColor).to.equal( label.textColor );",
+									"});",
+									"",
+									"pm.test('Should have created label', (done) => {",
+									"    pm.sendRequest({",
+									"        url: pm.variables.replaceIn('{{at-target}}/labels'), method: 'GET'",
+									"    }, (error, response) => {",
+									"        const list = response.json();",
+									"        pm.expect(list.length).to.equal(1);",
+									"        pm.expect(list[0]._id).to.equal(res._id);",
+									"        done();",
+									"    });",
+									"});",
+									"",
+									"_tearDown( pm.sendRequest );",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"new-label\",\n\t\"color\": \"#0F0\",\n\t\"textColor\": \"#00F\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{at-target}}/label/create",
+							"host": [
+								"{{at-target}}"
+							],
+							"path": [
+								"label",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test - Update Label",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "352bfea3-61fb-4ea3-9f2e-1d3a1a3a11cd",
+								"exec": [
+									"const label = {",
+									"    _id: pm.variables.get('LabelID'),",
+									"    name: 'updated-label',",
+									"    color: '#123456',",
+									"    textColor: '#654321'",
+									"};",
+									"",
+									"const res = pm.response.json();",
+									"",
+									"pm.test('Should return updated label', () => {",
+									"    pm.expect(res._id).to.equal( label._id );",
+									"    pm.expect(res.name).to.equal( label.name );",
+									"    pm.expect(res.color).to.equal( label.color );",
+									"    pm.expect(res.textColor).to.equal( label.textColor );",
+									"});",
+									"",
+									"pm.test('Should have updated label', (done) => {",
+									"    pm.sendRequest({",
+									"        url: pm.variables.replaceIn('{{at-target}}/label/') + label._id,",
+									"        method: 'GET'",
+									"    },",
+									"    (error, response) => {",
+									"        const l = response.json();",
+									"        pm.expect(l._id).to.equal( label._id );",
+									"        pm.expect(l.namme).to.equal( label.namme );",
+									"        pm.expect(l.color).to.equal( label.color );",
+									"        pm.expect(l.textColor).to.equal( label.textColor );",
+									"        done();",
+									"    });",
+									"});",
+									"",
+									"_tearDown( pm.sendRequest );",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "af831812-89ee-48b8-b444-8917aa11e276",
+								"exec": [
+									"// Test data setup",
+									"const label = {",
+									"    name: 'the-label',",
+									"    color: '#000',",
+									"    textColor: '#FFF',",
+									"};",
+									"",
+									"_utils.createLabel(",
+									"    pm.sendRequest, label,",
+									"    (error, response) => pm.variables.set('LabelID', response.json()._id)",
+									");",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"updated-label\",\n\t\"color\": \"#123456\",\n\t\"textColor\": \"#654321\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{at-target}}/label/update/{{LabelID}}",
+							"host": [
+								"{{at-target}}"
+							],
+							"path": [
+								"label",
+								"update",
+								"{{LabelID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test - Delete Label",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "db43adc8-009d-4ac9-b226-bab8a06307c2",
+								"exec": [
+									"const label = {",
+									"    name: 'test-label',",
+									"    color: '#000',",
+									"    textColor: '#FFF'",
+									"};",
+									"",
+									"_utils.setLabelVar( pm.variables, label );",
+									"_utils.createLabel(",
+									"    pm.sendRequest, label,",
+									"    (error, response) => pm.variables.set('LabelID', response.json()._id)",
+									");",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "f762380d-761d-43b2-8fa5-986634cbec25",
+								"exec": [
+									"const label = {",
+									"    name: pm.variables.get('LabelName'),",
+									"    color: pm.variables.get('LabelColor'),",
+									"    textColor: pm.variables.get('LabelTextColor')",
+									"};",
+									"",
+									"const res = pm.response.json();",
+									"",
+									"pm.test('Should return deleted label', () => {",
+									"    pm.expect(res._id).to.equal( pm.variables.get('LabelID') );",
+									"    pm.expect(res.name).to.equal( label.name );",
+									"    pm.expect(res.color).to.equal( label.color );",
+									"    pm.expect(res.textColor).to.equal( label.textColor );",
+									"});",
+									"",
+									"pm.test('Should have deleted label', (done) => {",
+									"    pm.sendRequest({",
+									"        url: pm.variables.replaceIn('{{at-target}}/labels'), method: 'GET'",
+									"    },",
+									"    (error, response) => {",
+									"        pm.expect( response.json() ).to.be.empty;",
+									"        done();",
+									"    });",
+									"});",
+									"",
+									"_tearDown( pm.sendRequest );",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{at-target}}/label/delete/{{LabelID}}",
+							"host": [
+								"{{at-target}}"
+							],
+							"path": [
+								"label",
+								"delete",
+								"{{LabelID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "97639e6b-ab31-4e65-b1ba-03fa062d64b8",
+						"type": "text/javascript",
+						"exec": [
+							"// Stop execution if test target is not set",
+							"if ( !pm.environment.has('at-target') ) {",
+							"    throw new Error('Acceptance Test target not set.')",
+							"}",
+							"",
+							"",
+							"// [ Should be executed at the beginning of each pre-request script ]",
+							"_setup = () => {};",
+							"",
+							"",
+							"// [ Should be executed at the end of each test script ]",
+							"_tearDown = ( sendRequest ) => {",
+							"    // Purge operations",
+							"    sendRequest({",
+							"        url: pm.variables.replaceIn('{{at-target}}/operations/purge'), method: 'DELETE'",
+							"    }, (error, response) => {",
+							"        if (error || response.json().error)",
+							"            throw new Error('Error while cleaning operations after test...');",
+							"    });",
+							"    // Purge labels",
+							"    sendRequest({",
+							"        url: pm.variables.replaceIn('{{at-target}}/labels/purge'), method: 'DELETE'",
+							"    }, (error, response) => {",
+							"        if (error || response.json().error)",
+							"            throw new Error('Error while cleaning labels after test...');",
+							"    });",
+							"};",
+							"",
+							"",
+							"// Utility functions",
+							"_utils = {",
+							"    setOperationVar: (v, operation) => {",
+							"        v.set('OperationDate', operation.date);",
+							"        v.set('OperationAmount', ''+operation.amount);",
+							"        v.set('OperationRef', operation.reference);",
+							"        v.set('OperationLabels',",
+							"            operation.labels ? operation.labels.join(',') : []",
+							"        );",
+							"    },",
+							"    createOperation: (sendRequest, operation, callback) => {",
+							"        sendRequest(",
+							"            {",
+							"                url: pm.variables.replaceIn('{{at-target}}/operation/create'), method: 'POST',",
+							"                header: 'Content-Type:application/json',",
+							"                body: { mode: 'raw', raw: JSON.stringify(operation) }",
+							"            },",
+							"            callback",
+							"        );",
+							"    },",
+							"    setLabelVar: (v, label) => {",
+							"        v.set('LabelName', label.name);",
+							"        v.set('LabelColor', label.color);",
+							"        v.set('LabelTextColor', label.textColor);",
+							"    },",
+							"    createLabel: (sendRequest, label, callback) => {",
+							"        sendRequest(",
+							"            {",
+							"                url: pm.variables.replaceIn('{{at-target}}/label/create'), method: 'POST',",
+							"                header: 'Content-Type:application/json',",
+							"                body: { mode: 'raw', raw: JSON.stringify(label) }",
+							"            },",
+							"            callback",
+							"        );",
+							"    }",
+							"};",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "425dee30-5ec7-4bcf-8ad4-eb42cec6fef9",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

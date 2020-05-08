@@ -1,8 +1,30 @@
-const mongoose = require('mongoose');
+const Sequelize = require('sequelize');
 
-module.exports = mongoose.model('Operation', new mongoose.Schema({
-  date: { type: String, required: true },
-  amount: { type: Number, required: true },
-  reference: { type: String, required: true },
-  labels: [String]
-}));
+class Operation extends Sequelize.Model {}
+
+module.exports = {
+  Operation,
+  init(database) {
+    Operation.init({
+      _id: {
+        type: Sequelize.UUIDV4,
+        primaryKey: true
+      },
+      date: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      amount: {
+        type: Sequelize.NUMBER,
+        allowNull: false
+      },
+      reference: {
+        type: Sequelize.STRING,
+        allowNull: false
+      }
+    }, {
+      sequelize: database,
+      modelName: 'Operation'
+    });
+  }
+};
