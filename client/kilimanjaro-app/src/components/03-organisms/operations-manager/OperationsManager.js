@@ -61,15 +61,20 @@ class OperationsManager extends React.Component {
 
   render() {
     return (
-      <div className="OperationsManager">
-        <OperationForm
-          labels={this.state.labels}
-          onSubmit={this.createOperation} />
-        <OperationsTable
-          operations={this.state.operations}
-          labels={this.state.labels}
-          onUpdate={this.updateOperation}
-          onDelete={this.deleteOperation} />
+      <div className="container">
+        <div className="container-header">
+          Gestion des opérations
+        </div>
+        <div className="OperationsManager">
+          <OperationForm
+            labels={this.state.labels}
+            onSubmit={this.createOperation} />
+          <OperationsTable
+            operations={this.state.operations}
+            labels={this.state.labels}
+            onUpdate={this.updateOperation}
+            onDelete={this.deleteOperation} />
+        </div>
       </div>
     );
   }

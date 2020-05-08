@@ -11,18 +11,18 @@
     padding: 10px;
     width: 300px;
     border-radius: 6px;
-    box-shadow: 0 0 4px $argent;
+    box-shadow: 0 0 4px $box-shadow;
     word-wrap: break-word;
     background-color: $white;
     &.info {
-      background-color: $fine-pine;
+      background-color: $notif-info;
       color: $white;
     }
     &.warning {
-      background-color: $orange;
+      background-color: $notif-warning;
     }
     &.error {
-      background-color: $red;
+      background-color: $notif-error;
       color: $white;
     }
   }

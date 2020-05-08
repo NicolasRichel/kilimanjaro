@@ -1,9 +1,8 @@
-// Kilimanjaro App Colors
-// ======================
+// Kilimanjaro Colors
+// ==================
 
+// Generic colors
 // Note : color names come from https://colornamer.netlify.com/
-
-
 $aqua: #0FF;
 $aqua-a02: rgba(0, 255, 255, 0.2);
 $argent: #888;
@@ -20,3 +19,17 @@ $red: #F00;
 $super-silver: #EEE;
 $super-silver-a05: rgba(238, 238, 238, 0.5);
 $white: #FFF;
+
+// Component Colors
+$app-background: #FEFEFE;
+$app-header: #CCB9BC;
+$box-shadow: #888;
+$button-danger: #EEE;
+$button-primary: #EEE;
+$button-secondary: #EEE;
+$container-header: #ECD9DC;
+$notif-info: #080;
+$notif-warning: #FFA500;
+$notif-error: #F00;
+$toolbar-button: #AD1457;
+$toolbar-button-hover: #CCC;

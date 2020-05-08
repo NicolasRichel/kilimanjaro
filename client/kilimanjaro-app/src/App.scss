@@ -1,7 +1,11 @@
+@import './app-colors.scss';
+
 .App {
   position: relative;
   min-height: 100vh;
+  background-color: $app-background;
   .main-container {
+    display: flex;
     margin-left: 60px;
   }
 }

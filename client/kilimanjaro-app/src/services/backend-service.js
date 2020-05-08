@@ -13,16 +13,16 @@ export class BackendService {
 
   // Labels API
   getLabels = () => this._get('/labels');
-  createLabel = (label) => this._post('/label/create', label);
-  updateLabel = (label) => this._patch(`/label/update/${label._id}`, label);
-  deleteLabel = (id) => this._delete(`/label/delete/${id}`);
+  createLabel = (label) => this._post('/labels/create', label);
+  updateLabel = (label) => this._patch(`/labels/update/${label._id}`, label);
+  deleteLabel = (id) => this._delete(`/labels/delete/${id}`);
 
   // Operations API
   getOperations = () => this._get('/operations');
-  getOperationByID = (id) => this._get(`/operation/${id}`);
-  createOperation = (op) => this._post('/operation/create', op);
-  updateOperation = (op) => this._patch(`/operation/update/${op._id}`, op);
-  deleteOperation = (id) => this._delete(`/operation/delete/${id}`);
+  getOperationByID = (id) => this._get(`/operations/${id}`);
+  createOperation = (op) => this._post('/operations/create', op);
+  updateOperation = (op) => this._patch(`/operations/update/${op._id}`, op);
+  deleteOperation = (id) => this._delete(`/operations/delete/${id}`);
 
 
   _request = (path, options) => fetch(`${this.url}${path}`, options)
