@@ -11,7 +11,7 @@ const models = [
 
 class Database {
 
-  database = null;
+  // database = null;
 
   constructor() {}
 

@@ -7,7 +7,7 @@ const express = require('express');
 
 class Server {
 
-  server = null;
+  // server = null;
 
   constructor() {}
 
