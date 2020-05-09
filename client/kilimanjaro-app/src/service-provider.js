@@ -1,4 +1,3 @@
-import { Config } from './.config';
 import { BackendService } from './services/backend-service';
 import { DialogStore } from './flux/stores/dialog-store';
 import { Dispatcher } from './flux/dispatcher';
@@ -41,7 +40,7 @@ export const ServiceProvider = {
   createService(service) {
     switch (service) {
       case Services.BACKEND_SERVICE:
-        return new BackendService( Config );
+        return new BackendService();
       case Services.DIALOG_STORE:
         return new DialogStore();
       case Services.DISPATCHER:
@@ -49,9 +48,9 @@ export const ServiceProvider = {
       case Services.LABEL_STORE:
         return new LabelStore();
       case Services.LOGGER_SERVICE:
-        return new LoggerService( Config );
+        return new LoggerService();
       case Services.NOTIFICATION_STORE:
-        return new NotificationStore( Config );
+        return new NotificationStore();
       case Services.OPERATION_STORE:
         return new OperationStore();
     }

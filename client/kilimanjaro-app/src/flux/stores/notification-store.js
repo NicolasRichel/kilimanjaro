@@ -1,14 +1,13 @@
 import { Actions } from '../actions';
 import { Store } from '../store';
 
-
 export class NotificationStore extends Store {
 
   timeout;
 
-  constructor(config) {
+  constructor() {
     super();
-    this.timeout = config.notificationTimeout;
+    this.timeout = parseInt(process.env.REACT_APP_NOTIF_TIMEOUT)
     this.setState({
       notification: {}
     });
