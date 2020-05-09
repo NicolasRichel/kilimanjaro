@@ -10,15 +10,12 @@ const models = [
 ];
 
 class Database {
-
-  // database = null;
-
   constructor() {}
 
   async init() {
     console.log('Init : Database component');
     this.database = new Sequelize(
-      process.env.DATABASE_URL,
+      process.env.S001_DATABASE_URL,
       {
         define: {
           freezeTableName: true,
