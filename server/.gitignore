@@ -1,5 +1,3 @@
 build/
-.config*
-!.config.example
 node_modules/
 *.rest

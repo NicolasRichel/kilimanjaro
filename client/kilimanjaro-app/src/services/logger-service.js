@@ -1,3 +1,6 @@
+/**
+ * Logger Service
+ */
 
 export const LogLevels = {
   ERROR: { index: 0, name: 'ERROR', color: 'red' },
@@ -10,8 +13,8 @@ export class LoggerService {
 
   level;
 
-  constructor(config) {
-    this.level = config.logLevel || LogLevels.ERROR;
+  constructor() {
+    this.level = LogLevels[process.env.REACT_APP_LOG_LEVEL] || LogLevels.ERROR;
   }
 
 

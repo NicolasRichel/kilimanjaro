@@ -7,14 +7,12 @@ const express = require('express');
 
 class Server {
 
-  // server = null;
-
   constructor() {}
 
   init() {
     console.log('Init : Server component');
     this.server = express();
-    this.server.use( cors({ origin: process.env.ALLOWED_ORIGINS }) );
+    this.server.use( cors({ origin: process.env.S001_ALLOWED_ORIGINS }) );
     this.server.use( express.json() );
     this.server.use( '/', controller.router );
     this.server.use((error, req, res, next) => {
@@ -24,7 +22,7 @@ class Server {
   }
 
   start() {
-    const port = process.env.SERVER_PORT;
+    const port = process.env.S001_PORT;
     this.server.listen(
       port, () => console.log(`Server started and listening on port: ${port}`)
     );

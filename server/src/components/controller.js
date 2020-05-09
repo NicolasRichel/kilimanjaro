@@ -15,8 +15,6 @@ const wrappers = [
 
 class Controller {
 
-  // router = null;
-
   constructor() {}
 
   init() {

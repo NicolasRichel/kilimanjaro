@@ -2,13 +2,12 @@
  * Backend Service
  */
 
-
 export class BackendService {
 
   url;
 
-  constructor(config) {
-    this.url = config.serverURL;
+  constructor() {
+    this.url = process.env.REACT_APP_API_URL
   }
 
   // Labels API
