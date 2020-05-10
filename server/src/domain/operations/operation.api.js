@@ -23,6 +23,14 @@ module.exports = {
       service.getAllOperations,
       (req, res) => res.json( serializeArray(res.data.operations) )
     ],
+    [ 'get', '/operations/by-period',
+      service.getOperationByPeriod,
+      (req, res) => res.json( serializeArray(res.data.operations) )
+    ],
+    [ 'get', '/operations/grouped/by-period',
+      service.getOperationGroupedByPeriod,
+      (req, res) => res.json( res.data.groupedOperations )
+    ],
     [ 'get', '/operations/:id',
       service.getOperationByID,
       (req, res) => res.json( serialize(res.data.operation) )
