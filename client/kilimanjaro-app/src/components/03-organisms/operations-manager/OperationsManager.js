@@ -7,6 +7,7 @@ import OperationsTable from '../../02-molecules/operations-table/OperationsTable
 
 // Styles
 import './OperationsManager.scss';
+import GenericContainer from '../generics/generic-container/GenericContainer';
 
 
 class OperationsManager extends React.Component {
@@ -21,7 +22,7 @@ class OperationsManager extends React.Component {
     this.state = {
       operations: [],
       labels: []
-    }
+    };
   }
 
   componentDidMount() {
@@ -61,11 +62,10 @@ class OperationsManager extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="container-header">
-          Gestion des opérations
-        </div>
-        <div className="OperationsManager">
+      <GenericContainer
+        title="Liste des opérations"
+        content={
+        <div>
           <OperationForm
             labels={this.state.labels}
             onSubmit={this.createOperation} />
@@ -74,8 +74,8 @@ class OperationsManager extends React.Component {
             labels={this.state.labels}
             onUpdate={this.updateOperation}
             onDelete={this.deleteOperation} />
-        </div>
-      </div>
+        </div>}
+      />
     );
   }
 
