@@ -9,14 +9,12 @@ import LabelsManager from '../labels-manager/LabelsManager';
 // Styles
 import './Toolbar.scss';
 
-
 class Toolbar extends React.Component {
 
   constructor(props) {
     super(props);
     this.dispatcher = ServiceProvider.get(Services.DISPATCHER);
   }
-
 
   openLabelsManager = () => {
     this.dispatcher.dispatch({
@@ -27,7 +25,6 @@ class Toolbar extends React.Component {
       }
     })
   }
-
 
   render() {
     return (

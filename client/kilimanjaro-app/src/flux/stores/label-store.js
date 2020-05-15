@@ -18,7 +18,7 @@ export class LabelStore extends Store {
 
   handleAction(action) {
     switch (action.type) {
-      case Actions.FETCH_LABEL_LIST:
+      case Actions.FETCH_ALL_LABELS:
         this._fetchLabelList();
         break;
       case Actions.CREATE_LABEL:

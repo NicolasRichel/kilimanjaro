@@ -1,6 +1,6 @@
 
 /** 
- * Mutation functions for immutable arrays
+ * Arrays functions
  */
 
 export function addArrayElement(array, element) {
@@ -19,6 +19,25 @@ export function mapArrayToObject(array, key) {
   return array.map(x => ({ [x[key]]: x })).reduce(
     (obj, x) => Object.assign(obj, x), {}
   ); 
+}
+
+
+/**
+ * Date functions
+ */
+
+export function getCurrentDate() {
+  const date = new Date();
+  const locale = 'fr-FR';
+  const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+  return date.toLocaleDateString(locale, options).split('/').reverse().join('-');
+}
+
+export function mapToMonthName(month) {
+  return [
+    'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+    'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
+  ][ parseInt(month) - 1 ];
 }
 
 

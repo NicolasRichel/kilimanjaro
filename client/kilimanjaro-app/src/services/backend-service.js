@@ -17,7 +17,8 @@ export class BackendService {
   deleteLabel = (id) => this._delete(`/labels/delete/${id}`);
 
   // Operations API
-  getOperations = () => this._get('/operations');
+  getAllOperations = () => this._get('/operations');
+  getOperationsGroupedByPeriod = (start, end, period) => this._get(`/operations/grouped/by-period?start-date=${start}&end-date=${end}&period=${period}`);
   getOperationByID = (id) => this._get(`/operations/${id}`);
   createOperation = (op) => this._post('/operations/create', op);
   updateOperation = (op) => this._patch(`/operations/update/${op._id}`, op);

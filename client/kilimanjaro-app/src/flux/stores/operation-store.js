@@ -12,6 +12,7 @@ export class OperationStore extends Store {
     super();
     this.backendService = ServiceProvider.get(Services.BACKEND_SERVICE);
     this.setState({
+      operationsGroupedByMonth: {},
       operations: []
     });
   }
@@ -19,8 +20,14 @@ export class OperationStore extends Store {
 
   handleAction(action) {
     switch (action.type) {
-      case Actions.FETCH_OPERATION_LIST:
-        this._fetchOperationList();
+      case Actions.FETCH_ALL_OPERATIONS:
+        this._fetchAllOperations();
+        break;
+      case Actions.FETCH_OPERATIONS_GROUPED_BY_MONTH:
+        this._fecthOperationsGroupedByMonth(action.start, action.end);
+        break;
+      case Actions.SET_OPERATIONS:
+        this.setState({ operations: action.operations });
         break;
       case Actions.CREATE_OPERATION:
         this._createOperation(action.operation);
@@ -35,9 +42,22 @@ export class OperationStore extends Store {
   }
 
 
-  _fetchOperationList() {
-    this.backendService.getOperations().then(
+  _fetchAllOperations() {
+    this.backendService.getAllOperations().then(
       operations => this.setState({ operations })
+    );
+  }
+
+  _fecthOperationsGroupedByMonth(start, end) {
+    this.backendService.getOperationsGroupedByPeriod(start, end, '1m').then(
+      response => {
+        const operationsGroupedByMonth = {};
+        Object.keys(response).forEach(period => {
+          const month = period.split('_')[0].slice(0, -3);
+          operationsGroupedByMonth[ month ] = response[period];
+        });
+        this.setState({ operationsGroupedByMonth });
+      }
     );
   }
 
@@ -62,7 +82,7 @@ export class OperationStore extends Store {
 
   _deleteOperation(operationID) {
     this.backendService.deleteOperation(operationID).then(
-      () => {
+      deletedOperation => {
         const i = this.state.operations.findIndex(op => op._id === operationID);
         this.setState({
           operations: utils.removeArrayElement(this.state.operations, i)
