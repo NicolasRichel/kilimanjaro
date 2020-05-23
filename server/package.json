@@ -7,8 +7,8 @@
   "author": "Nicolas Richel <nicolasrichel.github@gmail.com>",
   "license": "GPL-3.0",
   "scripts": {
-    "start": "cd src/ && nodemon --inspect start-server.js",
-    "test": "echo \"No tests yet...\"",
+    "start": "nodemon --inspect src/start-server.js",
+    "test": "node test/unit/run.js",
     "build": "echo \"No build process yet...\""
   },
   "dependencies": {

@@ -1,24 +1,29 @@
-import { ServiceProvider, Services } from '../service-provider';
+import Dispatcher from './dispatcher';
 import * as utils from '../utils';
-
 
 export class Store {
 
   state;
+  data;
   subscribers;
   registrationKey;
 
   constructor() {
     this.state = {};
+    this.data = {};
     this.subscribers = [];
-    this.registrationKey = ServiceProvider.get(Services.DISPATCHER).register(this);
+    this.registrationKey = Dispatcher.register(this);
   }
 
-
-  getState = () => ({ ...this.state });
-
+  
   setState = (partialState) => {
     this.state = { ...this.state, ...partialState };
+  };
+  
+  getData = () => ({ ...this.data });
+
+  setData = (partialData) => {
+    this.data = { ...this.data, ...partialData };
     this.emitChange();
   };
 
@@ -30,14 +35,14 @@ export class Store {
 
   subscribeAndGetState = (callback) => ({
     subscriptionKey: this.subscribe(callback),
-    state: this.getState()
+    state: this.getData()
   });
 
   unsubscribe = (key) => {
-    const index = this.subscribers.findIndex(s => s.key === key);
-    (index !== -1) && this.subscribers.splice(index, 1);
+    const i = this.subscribers.findIndex(s => s.key === key);
+    (i !== -1) && this.subscribers.splice(i, 1);
   };
 
-  emitChange = () => this.subscribers.forEach(s => s.callback( this.getState() ));
+  emitChange = () => this.subscribers.forEach(s => s.callback( this.getData() ));
 
 }

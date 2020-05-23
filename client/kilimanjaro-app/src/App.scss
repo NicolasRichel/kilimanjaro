@@ -4,8 +4,19 @@
   position: relative;
   min-height: 100vh;
   background-color: $app-background;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  .Header {
+    width: 100%;
+  }
+  .left-container {
+    width: 60px;
+  }
   .main-container {
-    display: flex;
-    margin-left: 60px;
+    flex-grow: 1;
+  }
+  .right-container {
+    width: 120px;
   }
 }

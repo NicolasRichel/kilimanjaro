@@ -1,6 +1,6 @@
 
 /** 
- * Mutation functions for immutable arrays
+ * Arrays functions
  */
 
 export function addArrayElement(array, element) {
@@ -19,6 +19,36 @@ export function mapArrayToObject(array, key) {
   return array.map(x => ({ [x[key]]: x })).reduce(
     (obj, x) => Object.assign(obj, x), {}
   ); 
+}
+
+
+/**
+ * Date functions
+ */
+
+export function getCurrentDate() {
+  const date = new Date();
+  const locale = 'fr-FR';
+  const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+  return date.toLocaleDateString(locale, options).split('/').reverse().join('-');
+}
+
+export function getFirstDayOfMonth(date) {
+  return date.slice(0, -2) + '01';
+}
+
+export function getLastDayOfMonth(date) {
+  const [ year, month, day ] = date.split('-');
+  const y = +year, m = +month - 1;
+  return date.slice(0, -2) + (/3|5|8|10/.test(m)?30:m==1?(!(y%4)&&y%100)||!(y%400)?29:28:31);
+}
+
+export function getMonthName(date) {
+  const month = +date.split('-')[1] - 1;
+  return [
+    'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+    'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
+  ][ month ];
 }
 
 

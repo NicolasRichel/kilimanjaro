@@ -1,4 +1,8 @@
-export class StatisticsService {
+/**
+ * Statistics Service
+ */
+
+class StatisticsService {
 
   computeTotals(operations, labels) {
     let totalAmount = 0;
@@ -27,3 +31,5 @@ export class StatisticsService {
   }
 
 }
+
+export default new StatisticsService();

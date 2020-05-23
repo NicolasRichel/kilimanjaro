@@ -1,16 +1,14 @@
-import { Actions } from '../actions';
+import Actions from '../actions';
 import { Store } from '../store';
 
-
-export class DialogStore extends Store {
+class DialogStore extends Store {
 
   constructor() {
     super();
-    this.setState({
+    this.setData({
       dialog: null
     });
   }
-
 
   handleAction(action) {
     switch (action.type) {
@@ -23,13 +21,14 @@ export class DialogStore extends Store {
     }
   }
 
-
   _openDialog(dialog) {
-    this.setState({ dialog });
+    this.setData({ dialog });
   }
 
   _closeDialog() {
-    this.setState({ dialog: null });
+    this.setData({ dialog: null });
   }
 
 }
+
+export default new DialogStore();

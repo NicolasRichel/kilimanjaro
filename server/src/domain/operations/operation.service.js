@@ -1,14 +1,48 @@
 // Operation Service
 // -----------------
 
+const { CustomPeriod } = require('../../utils/period-utils');
 const { Label } = require('../labels/label.model');
 const { Operation } = require('./operation.model');
+const { Op } = require('sequelize');
 
 async function getAllOperations(req, res) {
   const operations = await Operation.findAll({
     include: [{ model: Label, as: 'labels' }]
   });
   Object.assign(res, { data: { operations } });
+}
+
+async function getOperationByPeriod(req, res) {
+  const operations = await Operation.findAll({
+    include: [{ model: Label, as: 'labels' }],
+    where: {
+      date: {
+        [Op.between]: [req.query['start-date'], req.query['end-date']]
+      }
+    }
+  });
+  Object.assign(res, { data: { operations } });
+}
+
+async function getOperationGroupedByPeriod(req, res) {
+  const period = new CustomPeriod(req.query['start-date'], req.query['end-date']);
+  const partition = period.partition(req.query.period);
+  Object.assign(res, { data: { groupedOperations: {} } });
+  for (p of partition) {
+    res.data.groupedOperations[`${p[0]}_${p[1]}`] = await Operation.findAll({
+      include: [{ model: Label, as: 'labels' }],
+      where: { date: { [Op.between]: p } }
+    }).map(
+      op => ({ 
+        _id: op._id,
+        date: op.date,
+        amount: op.amount,
+        reference: op.reference,
+        labels: op.labels.map(l => l._id)
+      })
+    );
+  };
 }
 
 async function getOperationByID(req, res) {
@@ -58,6 +92,8 @@ async function deleteAllOperations(req, res) {
 
 module.exports = {
   getAllOperations,
+  getOperationByPeriod,
+  getOperationGroupedByPeriod,
   getOperationByID,
   createOperation,
   updateOperation,

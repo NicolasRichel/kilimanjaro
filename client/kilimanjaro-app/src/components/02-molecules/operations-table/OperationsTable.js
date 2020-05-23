@@ -11,7 +11,6 @@ import OperationLabelsRenderer from '../operation-labels-renderer/OperationLabel
 // Styles
 import './OperationsTable.scss';
 
-
 class OperationsTable extends React.Component {
 
   constructor(props) {
@@ -21,13 +20,7 @@ class OperationsTable extends React.Component {
     };
   }
 
-
-  setCurrentOperation = (operation) => {
-    this.setState({
-      currentOperation: operation
-    });
-  };
-
+  setCurrentOperation = (operation) => this.setState({ currentOperation: operation });
 
   render() {
     return (
@@ -87,6 +80,5 @@ class OperationsTable extends React.Component {
   }
 
 }
-
 
 export default OperationsTable;

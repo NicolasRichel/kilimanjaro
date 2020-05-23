@@ -1,8 +1,10 @@
 @import '../../../app-colors.scss';
 
 .Header {
+  height: 56px;
   margin: 0;
-  padding: 10px 30px;
+  padding: 10px;
+  padding-left: 60px;
   background-color: $app-header;
 
   h1 {
