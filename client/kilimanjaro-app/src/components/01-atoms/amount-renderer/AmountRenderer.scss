@@ -1,6 +1,6 @@
 @import '../../../app-colors.scss';
 
-.OperationAmountRenderer {
+.AmountRenderer {
   font-weight: bold;
   &.positive { color: $fine-pine; }
   &.negative { color: $red; }
