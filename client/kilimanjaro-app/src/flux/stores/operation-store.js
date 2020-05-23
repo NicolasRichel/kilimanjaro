@@ -1,33 +1,30 @@
 import { Actions } from '../actions';
-import { ServiceProvider, Services } from '../../service-provider';
+import BackendService from '../../services/backend-service';
 import { Store } from '../store';
 import * as utils from '../../utils';
 
-
-export class OperationStore extends Store {
-
-  backendService;
+class OperationStore extends Store {
 
   constructor() {
     super();
-    this.backendService = ServiceProvider.get(Services.BACKEND_SERVICE);
     this.setState({
-      operationsGroupedByMonth: {},
+      period: [],
+      dateRange: [],
+      operationsInPeriod: []
+    });
+    this.setData({
       operations: []
     });
   }
 
-
   handleAction(action) {
     switch (action.type) {
-      case Actions.FETCH_ALL_OPERATIONS:
-        this._fetchAllOperations();
+      case Actions.SET_PERIOD:
+        this._fetchOperationsByPeriod(action.period);
         break;
-      case Actions.FETCH_OPERATIONS_GROUPED_BY_MONTH:
-        this._fecthOperationsGroupedByMonth(action.start, action.end);
-        break;
-      case Actions.SET_OPERATIONS:
-        this.setState({ operations: action.operations });
+      case Actions.SET_DATE_RANGE:
+        this.setState({ dateRange: action.dateRange })
+        this._setOperations();
         break;
       case Actions.CREATE_OPERATION:
         this._createOperation(action.operation);
@@ -36,59 +33,67 @@ export class OperationStore extends Store {
         this._updateOperation(action.operation);
         break;
       case Actions.DELETE_OPERATION:
-        this._deleteOperation(action.operationID);
+        this._deleteOperation(action.operation);
         break;
     }
   }
 
-
-  _fetchAllOperations() {
-    this.backendService.getAllOperations().then(
-      operations => this.setState({ operations })
-    );
-  }
-
-  _fecthOperationsGroupedByMonth(start, end) {
-    this.backendService.getOperationsGroupedByPeriod(start, end, '1m').then(
-      response => {
-        const operationsGroupedByMonth = {};
-        Object.keys(response).forEach(period => {
-          const month = period.split('_')[0].slice(0, -3);
-          operationsGroupedByMonth[ month ] = response[period];
+  _fetchOperationsByPeriod(period) {
+    BackendService.getOperationsByPeriod(period[0], period[1]).then(
+      operations => {
+        this.setState({
+          period,
+          dateRange: [ utils.getFirstDayOfMonth(period[1]), period[1] ],
+          operationsInPeriod: operations
         });
-        this.setState({ operationsGroupedByMonth });
+        this._setOperations();
       }
     );
   }
 
   _createOperation(operation) {
-    this.backendService.createOperation(operation).then(
-      createdOperation => this.setState({
-        operations: utils.addArrayElement(this.state.operations, createdOperation)
-      })
+    BackendService.createOperation(operation).then(
+      createdOperation => {
+        this.setState({
+          operationsInPeriod: utils.addArrayElement(this.state.operationsInPeriod, createdOperation)
+        });
+        this._setOperations();
+      }
     );
   }
 
   _updateOperation(operation) {
-    this.backendService.updateOperation(operation).then(
+    BackendService.updateOperation(operation).then(
       updatedOperation => {
-        const i = this.state.operations.findIndex(op => op._id === updatedOperation._id);
+        const i = this.state.operationsInPeriod.findIndex(op => op._id === updatedOperation._id);
         this.setState({
-          operations: utils.updateArrayElement(this.state.operations, i, updatedOperation)
+          operationsInPeriod: utils.updateArrayElement(this.state.operationsInPeriod, i, updatedOperation)
         });
+        this._setOperations();
       }
     );
   }
 
-  _deleteOperation(operationID) {
-    this.backendService.deleteOperation(operationID).then(
+  _deleteOperation(operation) {
+    BackendService.deleteOperation(operation._id).then(
       deletedOperation => {
-        const i = this.state.operations.findIndex(op => op._id === operationID);
+        const i = this.state.operationsInPeriod.findIndex(op => op._id === deletedOperation._id);
         this.setState({
-          operations: utils.removeArrayElement(this.state.operations, i)
+          operationsInPeriod: utils.removeArrayElement(this.state.operationsInPeriod, i)
         });
+        this._setOperations();
       }
     );
+  }
+
+  _setOperations() {
+    const dateRange = this.state.dateRange;
+    const operations = this.state.operationsInPeriod
+      .filter( op => op.date >= dateRange[0] && op.date <= dateRange[1] )
+      .sort( (o1, o2) => o1.date < o2.date );
+    this.setData({ operations });
   }
 
 }
+
+export default new OperationStore();

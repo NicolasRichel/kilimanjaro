@@ -9,14 +9,13 @@ export const LogLevels = {
   DEBUG: { index: 3, name: 'DEBUG', color: 'cornflowerblue' }
 };
 
-export class LoggerService {
+class LoggerService {
 
   level;
 
   constructor() {
     this.level = LogLevels[process.env.REACT_APP_LOG_LEVEL] || LogLevels.ERROR;
   }
-
 
   error = (message) => this._log(LogLevels.ERROR, message);
   warning = (message) => this._log(LogLevels.WARNING, message);
@@ -29,3 +28,5 @@ export class LoggerService {
   );
 
 }
+
+export default new LoggerService();

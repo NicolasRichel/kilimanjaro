@@ -1,25 +1,21 @@
 import { Actions } from '../actions';
-import { ServiceProvider, Services } from '../../service-provider';
+import BackendService from '../../services/backend-service';
 import { Store } from '../store';
+import * as utils from '../../utils';
 
-
-export class LabelStore extends Store {
-
-  backendService;
+class LabelStore extends Store {
 
   constructor() {
     super();
-    this.backendService = ServiceProvider.get(Services.BACKEND_SERVICE);
-    this.setState({
+    this.setData({
       labels: []
     });
   }
 
-
   handleAction(action) {
     switch (action.type) {
       case Actions.FETCH_ALL_LABELS:
-        this._fetchLabelList();
+        this._fetchAllLabels();
         break;
       case Actions.CREATE_LABEL:
         this._createLabel(action.label);
@@ -28,53 +24,45 @@ export class LabelStore extends Store {
         this._updateLabel(action.label);
         break;
       case Actions.DELETE_LABEL:
-        this._deleteLabel(action.labelID);
+        this._deleteLabel(action.label);
         break;
     }
   }
 
-
-  _fetchLabelList() {
-    this.backendService.getLabels().then(labels => {
-      this.setState({ labels });
-    });
+  _fetchAllLabels() {
+    BackendService.getLabels().then( labels => this.setData({ labels }) );
   }
 
   _createLabel(label) {
-    this.backendService.createLabel(label).then(
-      createdLabel => this.setState({
-        labels: this.state.labels.concat(createdLabel)
+    BackendService.createLabel(label).then(
+      createdLabel => this.setData({
+        labels: utils.addArrayElement(this.data.labels, createdLabel)
       })
     );
   }
 
   _updateLabel(label) {
-    this.backendService.updateLabel(label).then(
-      (updatedLabel) => {
-        const i = this.state.labels.findIndex(l => l._id === updatedLabel._id);
-        this.setState({
-          labels: [
-            ...this.state.labels.slice(0, i),
-            updatedLabel,
-            ...this.state.labels.slice(i+1)
-          ]
+    BackendService.updateLabel(label).then(
+      updatedLabel => {
+        const i = this.data.labels.findIndex(l => l._id === updatedLabel._id);
+        this.setData({
+          labels: utils.updateArrayElement(this.data.labels, i, updatedLabel)
         });
       }
     );
   }
 
-  _deleteLabel(labelID) {
-    this.backendService.deleteLabel(labelID).then(
+  _deleteLabel(label) {
+    BackendService.deleteLabel(label._id).then(
       () => {
-        const i = this.state.labels.findIndex(l => l._id === labelID);
-        this.setState({
-          labels: [
-            ...this.state.labels.slice(0, i),
-            ...this.state.labels.slice(i+1)
-          ]
+        const i = this.data.labels.findIndex(l => l._id === label._id);
+        this.setData({
+          labels: utils.removeArrayElement(this.data.labels, i)
         });
       }
     );
   }
 
 }
+
+export default new LabelStore();

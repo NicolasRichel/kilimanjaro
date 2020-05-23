@@ -1,18 +1,17 @@
 import { Actions } from '../actions';
 import { Store } from '../store';
 
-export class NotificationStore extends Store {
+class NotificationStore extends Store {
 
   timeout;
 
   constructor() {
     super();
     this.timeout = parseInt(process.env.REACT_APP_NOTIF_TIMEOUT)
-    this.setState({
+    this.setData({
       notification: {}
     });
   }
-
 
   handleAction(action) {
     switch (action.type) {
@@ -22,10 +21,11 @@ export class NotificationStore extends Store {
     }
   }
 
-
   _notify(notification) {
     notification.timeout = notification.timeout > 0 ? notification.timeout : this.timeout;
-    this.setState({ notification });
+    this.setData({ notification });
   }
 
 }
+
+export default new NotificationStore();

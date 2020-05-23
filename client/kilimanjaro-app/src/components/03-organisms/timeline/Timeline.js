@@ -1,6 +1,7 @@
 import React from 'react';
 import { Actions } from '../../../flux/actions';
-import { ServiceProvider, Services } from '../../../service-provider';
+import Dispatcher from '../../../flux/dispatcher';
+import PeriodStore from '../../../flux/stores/period-store';
 import * as utils from '../../../utils';
 // Atoms
 import TimelineButton from '../../01-atoms/timeline-button/TimelineButton'
@@ -12,48 +13,44 @@ class Timeline extends React.Component {
 
   constructor(props) {
     super(props);
-    this.dispatcher = ServiceProvider.get(Services.DISPATCHER);
-    this.operationStore = ServiceProvider.get(Services.OPERATION_STORE);
-    this.operationStoreSubscription = null;
     this.state = {
-      periods: [],
-      currentPeriod: 0
+      period: [],
+      dateRanges: [],
+      selectedDateRange: 0
     };
   }
 
   componentDidMount() {
-    this.operationStoreSubscription = this.operationStore.subscribe(
-      state => this._buildTimeline( state )
-    );
-    this._buildTimeline( this.operationStore.getState() );
+    this.s0 = PeriodStore.subscribe( data => this._buildDateRanges( data ) );
+    this._buildDateRanges( PeriodStore.getData() );
   }
   
   componentWillUnmount() {
-    this.operationStore.unsubscribe( this.operationStoreSubscription );
+    PeriodStore.unsubscribe( this.s0 );
   }
 
-  _buildTimeline(state) {
-    this.setState({
-      periods: Object.keys(state.operationsGroupedByMonth).sort().reverse().map(
-        month => {
-          const m = month.split('-');
-          return {
-            year: m[0],
-            month: m[1],
-            name: utils.mapToMonthName(m[1]),
-            operations: state.operationsGroupedByMonth[month]
-          };
-        }
-      )
-    });
+  _buildDateRanges(data) {
+    if (data.period.length === 2) {
+      let d = data.period[0];
+      const dateRanges = [];
+      while (d < data.period[1]) {
+        dateRanges.push([ d, utils.getLastDayOfMonth(d) ]);
+        const [ year, month, day ] = d.split('-');
+        d = `${year}-${('0'+(+month+1)).slice(-2)}-01`;
+      }
+      dateRanges[ dateRanges.length-1 ][1] = data.period[1];
+      this.setState({
+        period: data.period,
+        dateRanges: dateRanges.reverse()
+      });
+    }
   }
 
-  selectMonth(index) {
-    if (this.state.periods.length > 0) {
-      this.setState({ currentPeriod: index });
-      this.dispatcher.dispatch({
-        type: Actions.SET_OPERATIONS,
-        operations: this.state.periods[index].operations
+  selectDateRange(index) {
+    if (this.state.dateRanges.length > 0) {
+      this.setState({ selectedDateRange: index });
+      Dispatcher.dispatch({
+        type: Actions.SET_DATE_RANGE, dateRange: this.state.dateRanges[index]
       });
     }
   }
@@ -61,11 +58,11 @@ class Timeline extends React.Component {
   render() {
     return (
       <div className="Timeline">
-        {this.state.periods.map((period, i) =>
-          <TimelineButton key={period.name}
-            text={period.name}
-            selected={this.state.currentPeriod === i}
-            onClick={() => this.selectMonth(i)} />
+        {this.state.dateRanges.map((dateRange, i) =>
+          <TimelineButton key={dateRange.join('_')}
+            text={utils.getMonthName(dateRange[0])}
+            selected={this.state.selectedDateRange === i}
+            onClick={() => this.selectDateRange(i)} />
         )}
       </div>
     );

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Actions } from './flux/actions';
-import { ServiceProvider, Services } from './service-provider';
+import Dispatcher from './flux/dispatcher';
+import LabelStore from './flux/stores/label-store';
+import OperationStore from './flux/stores/operation-store';
 import * as utils from './utils';
 // Organisms
 import DialogViewport from './components/03-organisms/dialog-viewport/DialogViewport';
@@ -18,26 +20,30 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-    this.dispatcher = ServiceProvider.get(Services.DISPATCHER);
+    this.state = {
+      labels: [],
+      operations: [],
+    };
   }
 
   componentDidMount() {
-    this.dispatcher.dispatch({ type: Actions.FETCH_ALL_LABELS });
-
-    this.dispatcher.dispatch({
-      type: Actions.FETCH_OPERATIONS_GROUPED_BY_MONTH,
-      start: '2020-01-01',
-      end: utils.getCurrentDate()
+    this.s0 = LabelStore.subscribe(
+      data => this.setState({ labels: data.labels })
+    );
+    this.s1 = OperationStore.subscribe(
+      data => this.setState({ operations: data.operations })
+    );
+    Dispatcher.dispatch({
+      type: Actions.FETCH_ALL_LABELS
     });
-
-    this.dispatcher.dispatch({
-      type: Actions.NOTIFY,
-      notification: {
-        type: 'info',
-        message: 'Bienvenue dans Kilimanjaro ! :-)',
-        timeout: 1000
-      }
+    Dispatcher.dispatch({
+      type: Actions.SET_PERIOD, period: [ '2020-01-01', utils.getCurrentDate() ]
     });
+  }
+
+  componentWillUnmount() {
+    LabelStore.unsubscribe( this.s0 );
+    OperationStore.unsubscribe( this.s1 );
   }
 
   render() {
@@ -48,8 +54,12 @@ class App extends React.Component {
           <Toolbar />
         </div>
         <div className="main-container">
-          <OperationsManager />
-          <StatisticsManager />
+          <OperationsManager
+            labels={this.state.labels}
+            operations={this.state.operations} />
+          <StatisticsManager
+            labels={this.state.labels}
+            operations={this.state.operations} />
         </div>
         <div className="right-container">
           <Timeline />

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Actions } from '../../../flux/actions';
-import { ServiceProvider, Services } from '../../../service-provider';
+import Dispatcher from '../../../flux/dispatcher';
 // Atoms
 import ToolbarButton from '../../01-atoms/toolbar-button/ToolbarButton';
 // Organisms
@@ -13,11 +13,10 @@ class Toolbar extends React.Component {
 
   constructor(props) {
     super(props);
-    this.dispatcher = ServiceProvider.get(Services.DISPATCHER);
   }
 
   openLabelsManager = () => {
-    this.dispatcher.dispatch({
+    Dispatcher.dispatch({
       type: Actions.OPEN_DIALOG,
       dialog: {
         title: 'Gestion des libellés',
@@ -35,6 +34,5 @@ class Toolbar extends React.Component {
     );
   }
 }
-
 
 export default Toolbar;

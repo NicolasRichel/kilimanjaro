@@ -7,7 +7,7 @@ import './OperationLabelsRenderer.scss';
 
 
 function OperationLabelsRenderer(props) {
-  const operationLabels = props.operation.labels || []
+  const operationLabels = props.operation.labels || [];
   return (
     <span className="OperationLabelsRenderer">
       {props.labels.filter(

@@ -1,64 +1,32 @@
 import React from 'react';
 import { Actions } from '../../../flux/actions';
-import { ServiceProvider, Services } from '../../../service-provider';
+import Dispatcher from '../../../flux/dispatcher';
 // Molecules
 import OperationForm from '../../02-molecules/operation-form/OperationForm';
 import OperationsTable from '../../02-molecules/operations-table/OperationsTable';
+// Organisms
+import GenericContainer from '../generics/generic-container/GenericContainer';
 
 // Styles
 import './OperationsManager.scss';
-import GenericContainer from '../generics/generic-container/GenericContainer';
-
 
 class OperationsManager extends React.Component {
 
   constructor(props) {
     super(props);
-    this.dispatcher = ServiceProvider.get(Services.DISPATCHER);
-    this.operationStore = ServiceProvider.get(Services.OPERATION_STORE);
-    this.operationStoreSubscription = null;
-    this.labelStore = ServiceProvider.get(Services.LABEL_STORE);
-    this.labelStoreSubscritpion = null;
-    this.state = {
-      operations: [],
-      labels: []
-    };
   }
 
-  componentDidMount() {
-    this.operationStoreSubscription = this.operationStore.subscribe(
-      state => this.setState({ operations: state.operations })
-    );
-    this.labelStoreSubscritpion = this.labelStore.subscribe(
-      state => this.setState({ labels: state.labels })
-    );
-    this.setState({
-      operations: this.operationStore.getState().operations,
-      labels: this.labelStore.getState().labels
-    });
-  }
-
-  componentWillUnmount() {
-    this.operationStore.unsubscribe( this.operationStoreSubscription );
-    this.labelStore.unsubscribe( this.labelStoreSubscritpion );
-  }
-
-
-  createOperation = (operation) => this.dispatcher.dispatch({
-    type: Actions.CREATE_OPERATION,
-    operation
+  createOperation = (operation) => Dispatcher.dispatch({
+    type: Actions.CREATE_OPERATION, operation
   });
 
-  updateOperation = (operation) => this.dispatcher.dispatch({
-    type: Actions.UPDATE_OPERATION,
-    operation
+  updateOperation = (operation) => Dispatcher.dispatch({
+    type: Actions.UPDATE_OPERATION, operation
   });
 
-  deleteOperation = (operation) => this.dispatcher.dispatch({
-    type: Actions.DELETE_OPERATION,
-    operationID: operation._id
+  deleteOperation = (operation) => Dispatcher.dispatch({
+    type: Actions.DELETE_OPERATION, operation
   });
-
 
   render() {
     return (
@@ -67,11 +35,11 @@ class OperationsManager extends React.Component {
         content={
         <div>
           <OperationForm
-            labels={this.state.labels}
+            labels={this.props.labels}
             onSubmit={this.createOperation} />
           <OperationsTable
-            operations={this.state.operations}
-            labels={this.state.labels}
+            operations={this.props.operations}
+            labels={this.props.labels}
             onUpdate={this.updateOperation}
             onDelete={this.deleteOperation} />
         </div>}
@@ -80,6 +48,5 @@ class OperationsManager extends React.Component {
   }
 
 }
-
 
 export default OperationsManager;

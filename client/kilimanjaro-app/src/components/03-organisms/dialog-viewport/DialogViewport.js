@@ -1,38 +1,31 @@
 import React from 'react';
 import { Actions } from '../../../flux/actions';
-import { ServiceProvider, Services } from '../../../service-provider';
+import Dispatcher from '../../../flux/dispatcher';
+import DialogStore from '../../../flux/stores/dialog-store';
 // Atoms
 import ActionButton from '../../01-atoms/action-button/ActionButton';
 
 // Styles
 import './DialogViewport.scss';
 
-
 class DialogViewport extends React.Component {
 
   constructor(props) {
     super(props);
-    this.dispatcher = ServiceProvider.get(Services.DISPATCHER);
-    this.dialogStore = ServiceProvider.get(Services.DIALOG_STORE);
-    this.dialogStoreSubscription = null;
     this.state = {
       dialog: null
     };
   }
 
   componentDidMount() {
-    this.dialogStoreSubscription = this.dialogStore.subscribe(
-      (state) => this.setState({ dialog: state.dialog })
-    );
+    this.s0 = DialogStore.subscribe( data => this.setState({ dialog: data.dialog }) );
   }
 
   componentWillUnmount() {
-    this.dialogStore.unsubscribe( this.dialogStoreSubscription );
+    DialogStore.unsubscribe( this.s0 );
   }
 
-
-  closeDialog = () => this.dispatcher.dispatch({ type: Actions.CLOSE_DIALOG });
-
+  closeDialog = () => Dispatcher.dispatch({ type: Actions.CLOSE_DIALOG });
 
   render() {
     const dialog = this.state.dialog;
@@ -55,6 +48,5 @@ class DialogViewport extends React.Component {
   }
 
 }
-
 
 export default DialogViewport;

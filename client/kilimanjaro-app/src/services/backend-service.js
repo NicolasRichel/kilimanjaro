@@ -2,7 +2,7 @@
  * Backend Service
  */
 
-export class BackendService {
+class BackendService {
 
   url;
 
@@ -17,8 +17,7 @@ export class BackendService {
   deleteLabel = (id) => this._delete(`/labels/delete/${id}`);
 
   // Operations API
-  getAllOperations = () => this._get('/operations');
-  getOperationsGroupedByPeriod = (start, end, period) => this._get(`/operations/grouped/by-period?start-date=${start}&end-date=${end}&period=${period}`);
+  getOperationsByPeriod = (start, end) => this._get(`/operations/by-period?start-date=${start}&end-date=${end}`);
   getOperationByID = (id) => this._get(`/operations/${id}`);
   createOperation = (op) => this._post('/operations/create', op);
   updateOperation = (op) => this._patch(`/operations/update/${op._id}`, op);
@@ -48,3 +47,5 @@ export class BackendService {
   });
 
 };
+
+export default new BackendService();

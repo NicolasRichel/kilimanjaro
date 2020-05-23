@@ -93,7 +93,7 @@ class CustomDate {
 function numberOfDaysInMonth(y, m) {
   // See : https://stackoverflow.com/questions/1810984/number-of-days-in-any-month
   // And : https://stackoverflow.com/questions/222309/calculate-last-day-of-month-in-javascript
-  return /8|3|5|10/.test(m)?30:m==1?(!(y%4)&&y%100)||!(y%400)?29:28:31;
+  return /3|5|8|10/.test(m)?30:m==1?(!(y%4)&&y%100)||!(y%400)?29:28:31;
 }
 
 
