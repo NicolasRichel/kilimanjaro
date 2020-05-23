@@ -5,7 +5,7 @@ import Dispatcher from '../../../flux/dispatcher';
 import OperationForm from '../../02-molecules/operation-form/OperationForm';
 import OperationsTable from '../../02-molecules/operations-table/OperationsTable';
 // Organisms
-import GenericContainer from '../generics/generic-container/GenericContainer';
+import GenericContainer from '../generic-container/GenericContainer';
 
 // Styles
 import './OperationsManager.scss';
