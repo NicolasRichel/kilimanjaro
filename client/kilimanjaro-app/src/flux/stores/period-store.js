@@ -1,5 +1,5 @@
 import { Store } from '../store';
-import { Actions } from '../actions';
+import Actions from '../actions';
 
 class PeriodStore extends Store {
 

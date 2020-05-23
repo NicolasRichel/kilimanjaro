@@ -1,4 +1,4 @@
-import { Actions } from '../actions';
+import Actions from '../actions';
 import BackendService from '../../services/backend-service';
 import { Store } from '../store';
 import * as utils from '../../utils';

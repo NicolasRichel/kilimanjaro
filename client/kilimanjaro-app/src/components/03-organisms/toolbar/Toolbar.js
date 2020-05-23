@@ -1,5 +1,5 @@
 import React from 'react';
-import { Actions } from '../../../flux/actions';
+import Actions from '../../../flux/actions';
 import Dispatcher from '../../../flux/dispatcher';
 // Atoms
 import ToolbarButton from '../../01-atoms/toolbar-button/ToolbarButton';

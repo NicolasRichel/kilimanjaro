@@ -1,4 +1,4 @@
-import { Actions } from '../actions';
+import Actions from '../actions';
 import { Store } from '../store';
 
 class NotificationStore extends Store {

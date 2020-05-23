@@ -1,5 +1,5 @@
 import React from 'react';
-import { Actions } from '../../../flux/actions';
+import Actions from '../../../flux/actions';
 import Dispatcher from '../../../flux/dispatcher';
 import DialogStore from '../../../flux/stores/dialog-store';
 // Atoms

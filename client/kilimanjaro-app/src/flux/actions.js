@@ -1,5 +1,5 @@
 
-export const Actions = {
+export default {
 
   FETCH_ALL_LABELS: 'FETCH_ALL_LABELS',
   CREATE_LABEL: 'CREATE_LABEL',

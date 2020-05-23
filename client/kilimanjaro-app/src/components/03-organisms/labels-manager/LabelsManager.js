@@ -1,5 +1,5 @@
 import React from 'react';
-import { Actions } from '../../../flux/actions';
+import Actions from '../../../flux/actions';
 import Dispatcher from '../../../flux/dispatcher';
 import LabelStore from '../../../flux/stores/label-store';
 // Molecules
