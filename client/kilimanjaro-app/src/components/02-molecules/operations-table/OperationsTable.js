@@ -1,8 +1,8 @@
 import React from 'react';
 // Atoms
 import ActionButton from '../../01-atoms/action-button/ActionButton';
-import OperationAmountRenderer from '../../01-atoms/operation-amount-renderer/OperationAmountRenderer';
-import OperationDateRenderer from '../../01-atoms/operation-date-renderer/OperationDateRenderer';
+import AmountRenderer from '../../01-atoms/amount-renderer/AmountRenderer';
+import DateRenderer from '../../01-atoms/date-renderer/DateRenderer';
 import OperationReferenceRenderer from '../../01-atoms/operation-reference-renderer/OperationReferenceRenderer';
 // Molecules
 import OperationForm from '../operation-form/OperationForm';
@@ -53,18 +53,16 @@ class OperationsTable extends React.Component {
               `row body-row ${operation.amount < 0 ? 'negative' : 'positive'}`
             }>
               <span className="cell body-cell column-date">
-                <OperationDateRenderer operation={operation} />
+                <DateRenderer date={operation.date} />
               </span>
               <span className="cell body-cell column-amount">
-                <OperationAmountRenderer operation={operation} />
+                <AmountRenderer amount={operation.amount} />
               </span>
               <span className="cell body-cell column-reference">
                 <OperationReferenceRenderer operation={operation} />
               </span>
               <span className="cell body-cell column-labels">
-                <OperationLabelsRenderer
-                  operation={operation}
-                  labels={this.props.labels} />
+                <OperationLabelsRenderer operation={operation} labels={this.props.labels} />
               </span>
               <span className="cell body-cell column-actions">
                 <ActionButton icon="pen-square" onClick={() => this.setCurrentOperation(operation)} />
