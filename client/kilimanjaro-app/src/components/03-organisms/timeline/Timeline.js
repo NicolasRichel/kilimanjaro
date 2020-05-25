@@ -35,8 +35,14 @@ class Timeline extends React.Component {
       const dateRanges = [];
       while (d < data.period[1]) {
         dateRanges.push([ d, utils.getLastDayOfMonth(d) ]);
-        const [ year, month, day ] = d.split('-');
-        d = `${year}-${('0'+(+month+1)).slice(-2)}-01`;
+        let [ year, month, day ] = d.split('-').map(x => +x);
+        if (month === 12) {
+          year++;
+          month = 1;
+        } else {
+          month++;
+        }
+        d = `${year}-${('0'+month).slice(-2)}-01`;
       }
       dateRanges[ dateRanges.length-1 ][1] = data.period[1];
       this.setState({
