@@ -10,7 +10,8 @@
     "node-sass": "^4.13.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-scripts": "3.3.0"
+    "react-scripts": "3.3.0",
+    "victory": "^34.3.9"
   },
   "scripts": {
     "start": "PORT=8001 react-scripts start",
