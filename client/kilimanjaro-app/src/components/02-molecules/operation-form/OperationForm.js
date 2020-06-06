@@ -32,7 +32,7 @@ class OperationForm extends React.Component {
 
   validate = () => {
     const op = this.state.operation;
-    return (!!op.date && !!op.amount && !!op.reference);
+    return (!!op.date && op.amount > 0 && !!op.reference && op.labels.length === 1);
   };
 
   submit = () => {

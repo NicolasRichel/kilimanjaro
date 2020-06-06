@@ -5,7 +5,6 @@ import LabelTag from '../../01-atoms/label-tag/LabelTag';
 // Styles
 import './LabelsSelector.scss';
 
-
 class LabelsSelector extends React.Component {
 
   constructor(props) {
@@ -15,15 +14,22 @@ class LabelsSelector extends React.Component {
     };
   }
 
-
   setValue = (label) => {
     return (e) => {
       const currentValue = this.props.value || [];
       let newValue = [];
-      if (e.target.checked) {
-        newValue = currentValue.concat(label._id);
+      if (this.props.multi) {
+        if (e.target.checked) {
+          newValue = currentValue.concat(label._id);
+        } else {
+          newValue = currentValue.filter(id => id !== label._id);
+        }
       } else {
-        newValue = currentValue.filter(id => id !== label._id);
+        if (e.target.checked) {
+          newValue = [label._id];
+        } else {
+          newValue = [];
+        }
       }
       this.emiValue( newValue );
     }
@@ -32,7 +38,6 @@ class LabelsSelector extends React.Component {
   emiValue = (value) => this.props.onChange && this.props.onChange( value );
 
   toggleFocus = () => this.setState({ hasFocus: !this.state.hasFocus });
-
 
   render() {
     const value = this.props.value || [];
@@ -65,6 +70,5 @@ class LabelsSelector extends React.Component {
   }
 
 }
-
 
 export default LabelsSelector;
