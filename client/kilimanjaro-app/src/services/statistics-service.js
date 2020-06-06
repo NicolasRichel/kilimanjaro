@@ -2,9 +2,11 @@
  * Statistics Service
  */
 
+import * as utils from '../utils';
+
 class StatisticsService {
 
-  computeTotals(operations, labels) {
+  computeStats(operations, labels) {
     let totalAmount = 0;
     let totalPositiveAmount = 0;
     let totalNegativeAmount = 0;
@@ -22,6 +24,14 @@ class StatisticsService {
         labelID => totalByLabel[labelID] += op.amount
       );
     });
+    totalAmount = utils.round(totalAmount, 2);
+    totalPositiveAmount = utils.round(totalPositiveAmount, 2);
+    totalNegativeAmount = utils.round(totalNegativeAmount, 2);
+    totalByLabel = Object.entries(totalByLabel).map(
+      e => ({ [e[0]]: utils.round(e[1], 2) })
+    ).reduce(
+      (obj, x) => Object.assign(obj, x), {}
+    );
     return {
       totalAmount,
       totalPositiveAmount,

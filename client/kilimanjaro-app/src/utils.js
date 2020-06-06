@@ -53,6 +53,16 @@ export function getMonthName(date) {
 
 
 /**
+ * Numbers functions
+ */
+
+export function round(x, p) {
+  const n = Math.pow(10, p);
+  return Math.round( x * n ) / n;
+}
+
+
+/**
  * UUID generation function
  */
 export function generateUUIDv4() {
