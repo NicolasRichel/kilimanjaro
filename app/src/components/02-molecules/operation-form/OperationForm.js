@@ -5,7 +5,7 @@ import AmountInput from '../../01-atoms/amount-input/AmountInput';
 import DateInput from '../../01-atoms/date-input/DateInput';
 import StringInput from '../../01-atoms/string-input/StringInput';
 // Molecules
-import LabelsSelector from '../../02-molecules/labels-selector/LabelsSelector';
+import LabelsSelector from '../labels-selector/LabelsSelector';
 
 // Styles
 import './OperationForm.scss';

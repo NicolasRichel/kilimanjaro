@@ -1,7 +1,7 @@
 /**
- * ******************************
- * * Kilimanjaro Server Starter *
- * ******************************
+ * *******************************
+ * * Kilimanjaro Service Starter *
+ * *******************************
  */
 
 // Initialize Components

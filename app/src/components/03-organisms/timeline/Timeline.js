@@ -65,7 +65,7 @@ class Timeline extends React.Component {
         {this.state.dateRanges.map((dateRange, i) => {
           const date = dateRange[0];
           return (
-            <div>
+            <div key={date}>
               <div className={`month-button ${this.state.selectedDateRange === i ? 'selected' : ''}`}
                 onClick={() => this.selectDateRange(i)}>
                 {utils.getMonthName(date)}
