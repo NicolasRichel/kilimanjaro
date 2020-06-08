@@ -1,5 +1,5 @@
 {
-  "name": "kilimanjaro-server",
+  "name": "kilimanjaro-service",
   "version": "1.0.0",
   "description": "Application de comptabilité",
   "main": "index.js",
@@ -7,9 +7,9 @@
   "author": "Nicolas Richel <nicolasrichel.github@gmail.com>",
   "license": "GPL-3.0",
   "scripts": {
-    "start": "nodemon --inspect src/start-server.js",
+    "start": "nodemon --inspect src/start-service.js",
     "test": "node test/unit/run.js",
-    "build": "echo \"No build process yet...\""
+    "build": "echo \"No build process defined here...\""
   },
   "dependencies": {
     "cors": "^2.8.5",

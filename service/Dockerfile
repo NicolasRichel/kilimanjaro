@@ -16,4 +16,4 @@ RUN rm .config*
 COPY src/.config.${CONFIG} .config
 
 EXPOSE 9001
-ENTRYPOINT node start-server.js
+ENTRYPOINT node start-service.js
