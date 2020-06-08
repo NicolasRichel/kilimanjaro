@@ -3,8 +3,6 @@ import Actions from '../../../flux/actions';
 import Dispatcher from '../../../flux/dispatcher';
 import PeriodStore from '../../../flux/stores/period-store';
 import * as utils from '../../../utils';
-// Atoms
-import TimelineButton from '../../01-atoms/timeline-button/TimelineButton'
 
 // Styles
 import './Timeline.scss';
@@ -64,12 +62,22 @@ class Timeline extends React.Component {
   render() {
     return (
       <div className="Timeline">
-        {this.state.dateRanges.map((dateRange, i) =>
-          <TimelineButton key={dateRange.join('_')}
-            text={utils.getMonthName(dateRange[0])}
-            selected={this.state.selectedDateRange === i}
-            onClick={() => this.selectDateRange(i)} />
-        )}
+        {this.state.dateRanges.map((dateRange, i) => {
+          const date = dateRange[0];
+          return (
+            <div>
+              <div className={`month-button ${this.state.selectedDateRange === i ? 'selected' : ''}`}
+                onClick={() => this.selectDateRange(i)}>
+                {utils.getMonthName(date)}
+              </div>
+              {date.slice(5, 7) === '01' &&
+                <div className="year-separator">
+                  {date.slice(0, 4)} <span className="line"></span>
+                </div>
+              }
+            </div>
+          );
+        })}
       </div>
     );
   }

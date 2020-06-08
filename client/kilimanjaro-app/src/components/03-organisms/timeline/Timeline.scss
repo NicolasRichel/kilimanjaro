@@ -1,4 +1,36 @@
+@import '../../../app-colors.scss';
+
 .Timeline {
   width: 100%;
   padding: 10px 5px;
+
+  .month-button {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 50px;
+    font-weight: bold;
+    scale: 0.8;
+
+    &.selected {
+      justify-content: center;
+      border-top-left-radius: 12px;
+      border-bottom-left-radius: 12px;
+      box-shadow: -2px 0 4px $box-shadow;
+      scale: 1;
+    }
+  }
+
+  .year-separator {
+    margin: 5px 0;
+    padding-left: 10px;
+    font-weight: bold;
+    .line {
+      display: inline-block;
+      vertical-align: middle;
+      width: 48px;
+      border: 1px solid $black;
+    }
+  }
+
 }
