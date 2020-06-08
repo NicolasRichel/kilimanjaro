@@ -10,7 +10,6 @@ import LabelsSelector from '../../02-molecules/labels-selector/LabelsSelector';
 // Styles
 import './OperationForm.scss';
 
-
 class OperationForm extends React.Component {
 
   constructor(props) {
@@ -21,7 +20,7 @@ class OperationForm extends React.Component {
   }
 
 
-  setOperationField = (field) => {
+  setField = (field) => {
     return (value) => this.setState({
       operation: {
         ...this.state.operation,
@@ -42,9 +41,7 @@ class OperationForm extends React.Component {
     }
   };
 
-  clear = () => this.setState({
-    operation: {}
-  });
+  clear = () => this.setState({ operation: {} });
 
 
   render() {
@@ -54,22 +51,22 @@ class OperationForm extends React.Component {
 
         <DateInput
           value={operation.date}
-          onChange={this.setOperationField('date')} />
+          onChange={this.setField('date')} />
 
         <AmountInput
           value={operation.amount}
-          onChange={this.setOperationField('amount')} />
+          onChange={this.setField('amount')} />
 
         <StringInput
           className="ReferenceInput"
           placeholder="Référence"
           value={operation.reference}
-          onChange={this.setOperationField('reference')} />
+          onChange={this.setField('reference')} />
 
         <LabelsSelector
           labels={this.props.labels}
           value={operation.labels}
-          onChange={this.setOperationField('labels')} />
+          onChange={this.setField('labels')} />
 
         <div className="submit-button-container">
           <ActionButton icon="check" size="30" onClick={this.submit} />
@@ -80,6 +77,5 @@ class OperationForm extends React.Component {
   }
 
 }
-
 
 export default OperationForm;

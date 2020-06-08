@@ -8,7 +8,6 @@ import StringInput from '../../01-atoms/string-input/StringInput';
 // Styles
 import './LabelForm.scss';
 
-
 class LabelForm extends React.Component {
 
   constructor(props) {
@@ -20,34 +19,33 @@ class LabelForm extends React.Component {
 
   componentDidUpdate() {
     if (this.props.label._id !== this.state.label._id) {
-      this.setState({
-        label: this.props.label
-      });
+      this.setState({ label: this.props.label });
     }
   }
 
 
-  setLabelField = (field) => {
+  setField = (field) => {
     return (value) => this.setState({
       label: {
         ...this.state.label,
         [field]: value
       }
     });
-  }
+  };
 
-  validate = () => true
+  validate = () => {
+    const l = this.state.label;
+    return !!l.name && !!l.color && !!l.textColor;
+  };
 
   submit = () => {
     if (this.validate()) {
       this.props.onSubmit( this.state.label );
       this.clear();
     }
-  }
+  };
 
-  clear = () => this.setState({
-    label: {}
-  });
+  clear = () => this.setState({ label: {} });
 
 
   render() {
@@ -57,18 +55,18 @@ class LabelForm extends React.Component {
         <div className="block form-control">
           <label>Nom</label>
           <StringInput value={label.name}
-            onChange={this.setLabelField('name')}
+            onChange={this.setField('name')}
             className="NameInput" />
         </div>
         <div className="block form-control">
           <label>Couleur</label>
           <ColorInput value={label.color}
-            onChange={this.setLabelField('color')} />
+            onChange={this.setField('color')} />
         </div>
         <div className="block form-control">
           <label>Couleur Texte</label>
           <ColorInput value={label.textColor}
-            onChange={this.setLabelField('textColor')} />
+            onChange={this.setField('textColor')} />
         </div>
         <div className="block submit-button">
           <span className="label-preview">
@@ -81,6 +79,5 @@ class LabelForm extends React.Component {
   }
 
 }
-
 
 export default LabelForm;
