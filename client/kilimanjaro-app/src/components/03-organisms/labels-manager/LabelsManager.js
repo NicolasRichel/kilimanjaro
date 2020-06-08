@@ -32,9 +32,12 @@ class LabelsManager extends React.Component {
     currentLabel: label
   });
 
-  submitLabel = (label) => Dispatcher.dispatch({
-    type: this.state.currentLabel._id ? Actions.UPDATE_LABEL : Actions.CREATE_LABEL, label
-  });
+  submitLabel = (label) => {
+    this.setCurrentLabel({});
+    Dispatcher.dispatch({
+      type: this.state.currentLabel._id ? Actions.UPDATE_LABEL : Actions.CREATE_LABEL, label
+    })
+  };
 
   deleteLabel = (label) => Dispatcher.dispatch({
     type: Actions.DELETE_LABEL, label

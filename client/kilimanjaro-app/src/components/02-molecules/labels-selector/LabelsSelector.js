@@ -25,6 +25,7 @@ class LabelsSelector extends React.Component {
           newValue = currentValue.filter(id => id !== label._id);
         }
       } else {
+        this.toggleFocus();
         if (e.target.checked) {
           newValue = [label._id];
         } else {
