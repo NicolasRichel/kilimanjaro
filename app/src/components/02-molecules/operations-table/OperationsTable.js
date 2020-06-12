@@ -28,6 +28,7 @@ class OperationsTable extends React.Component {
 
         <div className="header">
           <div className="row header-row">
+            <span className="cell header-cell column-select">&nbsp;</span>
             <span className="cell header-cell column-date">Date</span>
             <span className="cell header-cell column-amount">Montant</span>
             <span className="cell header-cell column-reference">Reference</span>
@@ -52,6 +53,11 @@ class OperationsTable extends React.Component {
             <div key={operation._id} className={
               `row body-row ${operation.amount < 0 ? 'negative' : 'positive'}`
             }>
+              <span className="cell body-cell column-select">
+                <input type="checkbox"
+                  checked={!!operation.selected}
+                  onChange={(e) => this.props.onSelect(operation, e.target.checked)} />
+              </span>
               <span className="cell body-cell column-date">
                 <DateRenderer date={operation.date} />
               </span>

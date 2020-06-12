@@ -44,9 +44,8 @@ class LabelStore extends Store {
   _updateLabel(label) {
     BackendService.updateLabel(label).then(
       updatedLabel => {
-        const i = this.data.labels.findIndex(l => l._id === updatedLabel._id);
         this.setData({
-          labels: utils.updateArrayElement(this.data.labels, i, updatedLabel)
+          labels: utils.updateArrayElement(this.data.labels, updatedLabel)
         });
       }
     );
@@ -54,10 +53,9 @@ class LabelStore extends Store {
 
   _deleteLabel(label) {
     BackendService.deleteLabel(label._id).then(
-      () => {
-        const i = this.data.labels.findIndex(l => l._id === label._id);
+      deletedLabel => {
         this.setData({
-          labels: utils.removeArrayElement(this.data.labels, i)
+          labels: utils.removeArrayElement(this.data.labels, deletedLabel)
         });
       }
     );

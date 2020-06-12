@@ -7,12 +7,14 @@ export function addArrayElement(array, element) {
   return array.concat(element);
 }
 
-export function updateArrayElement(array, index, element) {
-  return [ ...array.slice(0, index), element, ...array.slice(index + 1) ];
+export function updateArrayElement(array, element) {
+  const i = array.findIndex(x => x._id === element._id);
+  return [ ...array.slice(0, i), element, ...array.slice(i + 1) ];
 }
 
-export function removeArrayElement(array, index) {
-  return [ ...array.slice(0, index), ...array.slice(index + 1) ];
+export function removeArrayElement(array, element) {
+  const i = array.findIndex(x => x._id === element._id);
+  return [ ...array.slice(0, i), ...array.slice(i + 1) ];
 }
 
 export function mapArrayToObject(array, key) {
