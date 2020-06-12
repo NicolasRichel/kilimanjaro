@@ -23,7 +23,7 @@ class OperationStore extends Store {
         this._fetchOperationsByPeriod(action.period);
         break;
       case Actions.SET_DATE_RANGE:
-        this.setState({ dateRange: action.dateRange })
+        this.setState({ dateRange: action.dateRange });
         this._setOperations();
         break;
       case Actions.CREATE_OPERATION:
@@ -34,6 +34,9 @@ class OperationStore extends Store {
         break;
       case Actions.DELETE_OPERATION:
         this._deleteOperation(action.operation);
+        break;
+      case Actions.SELECT_OPERATION:
+        this._selectOperation(action.operation, action.selected);
         break;
     }
   }
@@ -55,7 +58,9 @@ class OperationStore extends Store {
     BackendService.createOperation(operation).then(
       createdOperation => {
         this.setState({
-          operationsInPeriod: utils.addArrayElement(this.state.operationsInPeriod, createdOperation)
+          operationsInPeriod: utils.addArrayElement(
+            this.state.operationsInPeriod, createdOperation
+          )
         });
         this._setOperations();
       }
@@ -65,9 +70,11 @@ class OperationStore extends Store {
   _updateOperation(operation) {
     BackendService.updateOperation(operation).then(
       updatedOperation => {
-        const i = this.state.operationsInPeriod.findIndex(op => op._id === updatedOperation._id);
+        updatedOperation.selected = operation.selected;
         this.setState({
-          operationsInPeriod: utils.updateArrayElement(this.state.operationsInPeriod, i, updatedOperation)
+          operationsInPeriod: utils.updateArrayElement(
+            this.state.operationsInPeriod, updatedOperation
+          )
         });
         this._setOperations();
       }
@@ -77,13 +84,28 @@ class OperationStore extends Store {
   _deleteOperation(operation) {
     BackendService.deleteOperation(operation._id).then(
       deletedOperation => {
-        const i = this.state.operationsInPeriod.findIndex(op => op._id === deletedOperation._id);
         this.setState({
-          operationsInPeriod: utils.removeArrayElement(this.state.operationsInPeriod, i)
+          operationsInPeriod: utils.removeArrayElement(
+            this.state.operationsInPeriod, deletedOperation
+          )
         });
         this._setOperations();
       }
     );
+  }
+
+  _selectOperation(operation, selected) {
+    const updatedOperation = { ...operation, selected };
+    this.setState({
+      operationsInPeriod: utils.updateArrayElement(
+        this.state.operationsInPeriod, updatedOperation
+      )
+    });
+    this.setData({
+      operations: utils.updateArrayElement(
+        this.data.operations, updatedOperation
+      )
+    });
   }
 
   _setOperations() {

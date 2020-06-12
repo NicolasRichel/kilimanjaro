@@ -19,6 +19,10 @@ class OperationsManager extends React.Component {
     type: Actions.DELETE_OPERATION, operation
   });
 
+  selectOperation = (operation, selected) => Dispatcher.dispatch({
+    type: Actions.SELECT_OPERATION, operation, selected
+  });
+
   render() {
     return (
       <GenericContainer
@@ -28,7 +32,8 @@ class OperationsManager extends React.Component {
             operations={this.props.operations}
             labels={this.props.labels}
             onUpdate={this.updateOperation}
-            onDelete={this.deleteOperation} />
+            onDelete={this.deleteOperation}
+            onSelect={this.selectOperation} />
         }
       />
     );
