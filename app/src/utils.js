@@ -20,7 +20,7 @@ export function removeArrayElement(array, element) {
 export function mapArrayToObject(array, key) {
   return array.map(x => ({ [x[key]]: x })).reduce(
     (obj, x) => Object.assign(obj, x), {}
-  ); 
+  );
 }
 
 
@@ -35,14 +35,41 @@ export function getCurrentDate() {
   return date.toLocaleDateString(locale, options).split('/').reverse().join('-');
 }
 
+export function getYear(date) {
+  return date.substring(0, 4);
+}
+
+export function getMonth(date) {
+  return date.substring(5, 7);
+}
+
+export function getDay(date) {
+  return date.slice(-2);
+}
+
+function getNumberOfDaysInMonth(y, m) {
+  return (/3|5|8|10/.test(m)?30:m==1?(!(y%4)&&y%100)||!(y%400)?29:28:31);
+}
+
 export function getFirstDayOfMonth(date) {
   return date.slice(0, -2) + '01';
 }
 
 export function getLastDayOfMonth(date) {
-  const [ year, month, day ] = date.split('-');
+  const [ year, month ] = date.split('-');
   const y = +year, m = +month - 1;
-  return date.slice(0, -2) + (/3|5|8|10/.test(m)?30:m==1?(!(y%4)&&y%100)||!(y%400)?29:28:31);
+  return date.slice(0, -2) + getNumberOfDaysInMonth(y, m);
+}
+
+export function getMonthDays(date) {
+  const [ year, month ] = date.split('-');
+  const y = +year, m = +month - 1;
+  return ['01','02','03','04','05','06','07','08','09'].concat(
+    Array.from(
+      { length: getNumberOfDaysInMonth(y, m) - 9 },
+      (x, i) => `${(i + 10)}`
+    )
+  );
 }
 
 export function getMonthName(date) {

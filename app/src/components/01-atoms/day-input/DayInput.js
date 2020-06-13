@@ -1,9 +1,10 @@
 import React from 'react';
+import * as utils from '../../../utils';
 
 // Styles
-import './DateInput.scss';
+import './DayInput.scss';
 
-class DateInput extends React.Component {
+class DayInput extends React.Component {
 
   constructor(props) {
     super(props);
@@ -30,16 +31,19 @@ class DateInput extends React.Component {
 
 
   render() {
+    const month = this.props.month;
     return (
-      <div className="DateInput">
-        <input type="date"
-          value={this.state.value}
-          onChange={this.setValue}
-        />
+      <div className="DayInput">
+        <span>{month} - </span>
+        <select value={this.state.value} onChange={this.setValue}>
+          {utils.getMonthDays(month).map(
+            d => <option key={d} value={`${month}-${d}`}>{d}</option>
+          )}
+        </select>
       </div>
     );
   }
 
 }
 
-export default DateInput;
+export default DayInput;

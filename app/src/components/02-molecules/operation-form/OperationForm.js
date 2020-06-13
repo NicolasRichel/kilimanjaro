@@ -3,6 +3,7 @@ import React from 'react';
 import ActionButton from '../../01-atoms/action-button/ActionButton';
 import AmountInput from '../../01-atoms/amount-input/AmountInput';
 import DateInput from '../../01-atoms/date-input/DateInput';
+import DayInput from '../../01-atoms/day-input/DayInput';
 import StringInput from '../../01-atoms/string-input/StringInput';
 // Molecules
 import LabelsSelector from '../labels-selector/LabelsSelector';
@@ -49,9 +50,16 @@ class OperationForm extends React.Component {
     return (
       <div className="OperationForm">
 
+      {this.props.month ? (
+        <DayInput
+          month={this.props.month}
+          value={operation.date}
+          onChange={this.setField('date')} />
+      ) : (
         <DateInput
           value={operation.date}
           onChange={this.setField('date')} />
+      )}
 
         <AmountInput
           value={operation.amount}

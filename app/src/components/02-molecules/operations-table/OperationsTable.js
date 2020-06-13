@@ -71,8 +71,10 @@ class OperationsTable extends React.Component {
                 <OperationLabelsRenderer operation={operation} labels={this.props.labels} />
               </span>
               <span className="cell body-cell column-actions">
-                <ActionButton icon="pen-square" onClick={() => this.setCurrentOperation(operation)} />
-                <ActionButton icon="trash" onClick={() => this.props.onDelete(operation)} />
+                <ActionButton size="24" icon="pen-square"
+                  onClick={() => this.setCurrentOperation(operation)} />
+                <ActionButton size="24" icon="trash"
+                  onClick={() => this.props.onDelete(operation)} />
               </span>
             </div>
           )
