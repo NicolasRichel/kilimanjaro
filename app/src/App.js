@@ -1,6 +1,7 @@
 import React from 'react';
 import Actions from './flux/actions';
 import Dispatcher from './flux/dispatcher';
+import DateStore from './flux/stores/date-store';
 import LabelStore from './flux/stores/label-store';
 import OperationStore from './flux/stores/operation-store';
 import * as utils from './utils';
@@ -8,7 +9,6 @@ import * as utils from './utils';
 import DialogViewport from './components/03-organisms/dialog-viewport/DialogViewport';
 import Header from './components/03-organisms/header/Header';
 import NotificationViewport from './components/03-organisms/notification-viewport/NotificationViewport';
-import OperationCreator from './components/03-organisms/operation-creator/OperationCreator';
 import OperationsManager from './components/03-organisms/operations-manager/OperationsManager';
 import StatisticsManager from './components/03-organisms/statistics-manager/StatisticsManager';
 import Timeline from './components/03-organisms/timeline/Timeline';
@@ -23,7 +23,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       labels: [],
-      operations: []
+      operations: [],
+      dateRange: []
     };
   }
 
@@ -33,6 +34,9 @@ class App extends React.Component {
     );
     this.s1 = OperationStore.subscribe(
       data => this.setState({ operations: data.operations })
+    );
+    this.s2 = DateStore.subscribe(
+      data => this.setState({ dateRange: data.dateRange })
     );
     Dispatcher.dispatch({
       type: Actions.FETCH_ALL_LABELS
@@ -45,6 +49,7 @@ class App extends React.Component {
   componentWillUnmount() {
     LabelStore.unsubscribe( this.s0 );
     OperationStore.unsubscribe( this.s1 );
+    DateStore.unsubscribe( this.s2 );
   }
 
   render() {
@@ -55,11 +60,10 @@ class App extends React.Component {
           <Toolbar />
         </div>
         <div className="main-container">
-          <OperationCreator
-            labels={this.state.labels} />
           <OperationsManager
             labels={this.state.labels}
-            operations={this.state.operations} />
+            operations={this.state.operations}
+            dateRange={this.state.dateRange} />
           <StatisticsManager
             labels={this.state.labels}
             operations={this.state.operations} />

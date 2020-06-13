@@ -13,9 +13,9 @@ function LabelsStatChart(props) {
       <VictoryPie
 
         containerComponent={<VictoryContainer responsive={false}/>}
-        width={600}
         style={{ labels: { fontSize: 12, fontWeight: 'bold' } }}
-        innerRadius={100}
+        width={300}
+        innerRadius={75}
         padAngle={4}
 
         data={chartData}
