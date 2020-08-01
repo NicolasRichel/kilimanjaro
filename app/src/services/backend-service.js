@@ -22,6 +22,7 @@ class BackendService {
   createOperation = (op) => this._post('/operations/create', op);
   updateOperation = (op) => this._patch(`/operations/update/${op._id}`, op);
   deleteOperation = (id) => this._delete(`/operations/delete/${id}`);
+  updateOperationsSetLabel = (label, operations) => this._patch('/operations/bulk/set-label', { label, operations });
 
 
   _request = (path, options) => fetch(`${this.url}${path}`, options)

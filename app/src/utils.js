@@ -12,6 +12,13 @@ export function updateArrayElement(array, element) {
   return [ ...array.slice(0, i), element, ...array.slice(i + 1) ];
 }
 
+export function updateArrayElements(array, elements) {
+  const elementsObj = mapArrayToObject(elements, '_id');
+  return array.map(
+    e => !!elementsObj[e._id] ? { ...elementsObj[e._id] } : { ...e }
+  );
+}
+
 export function removeArrayElement(array, element) {
   const i = array.findIndex(x => x._id === element._id);
   return [ ...array.slice(0, i), ...array.slice(i + 1) ];
