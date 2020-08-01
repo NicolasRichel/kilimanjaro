@@ -4,25 +4,30 @@ import Dispatcher from '../../../flux/dispatcher';
 // Molecules
 import OperationForm from '../../02-molecules/operation-form/OperationForm';
 import OperationsTable from '../../02-molecules/operations-table/OperationsTable';
+import OperationsToolbar from '../../02-molecules/operations-toolbar/OperationsToolbar';
 // Organisms
 import GenericContainer from '../generic-container/GenericContainer';
 
 class OperationsManager extends React.Component {
 
-  createOperation = (operation) => Dispatcher.dispatch({
+  create = (operation) => Dispatcher.dispatch({
     type: Actions.CREATE_OPERATION, operation
   });
 
-  updateOperation = (operation) => Dispatcher.dispatch({
+  update = (operation) => Dispatcher.dispatch({
     type: Actions.UPDATE_OPERATION, operation
   });
 
-  deleteOperation = (operation) => Dispatcher.dispatch({
+  delete = (operation) => Dispatcher.dispatch({
     type: Actions.DELETE_OPERATION, operation
   });
 
-  selectOperation = (operation, selected) => Dispatcher.dispatch({
+  select = (operation, selected) => Dispatcher.dispatch({
     type: Actions.SELECT_OPERATION, operation, selected
+  });
+
+  bulkUpdateSetLabel = (label, operations) => Dispatcher.dispatch({
+    type: Actions.UPDATE_OPERATIONS_SET_LABEL, label, operations
   });
 
   render() {
@@ -35,13 +40,17 @@ class OperationsManager extends React.Component {
             <OperationForm
               labels={this.props.labels}
               month={month}
-              onSubmit={this.createOperation} />
+              onSubmit={this.create} />
+            <OperationsToolbar
+              operations={this.props.operations.filter(op => op.selected)}
+              labels={this.props.labels}
+              onUpdateLabel={this.bulkUpdateSetLabel} />
             <OperationsTable
               operations={this.props.operations}
               labels={this.props.labels}
-              onUpdate={this.updateOperation}
-              onDelete={this.deleteOperation}
-              onSelect={this.selectOperation} />
+              onUpdate={this.update}
+              onDelete={this.delete}
+              onSelect={this.select} />
           </div>
         }
       />

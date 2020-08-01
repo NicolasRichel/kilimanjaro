@@ -1,4 +1,5 @@
 import Actions from '../actions';
+import Dispatcher from '../dispatcher';
 import BackendService from '../../services/backend-service';
 import { Store } from '../store';
 import * as utils from '../../utils';
@@ -37,6 +38,9 @@ class OperationStore extends Store {
         break;
       case Actions.SELECT_OPERATION:
         this._selectOperation(action.operation, action.selected);
+        break;
+      case Actions.UPDATE_OPERATIONS_SET_LABEL:
+        this._updateOperationsSetLabel(action.label, action.operations);
         break;
     }
   }
@@ -106,6 +110,28 @@ class OperationStore extends Store {
         this.data.operations, updatedOperation
       )
     });
+  }
+
+  _updateOperationsSetLabel(label, operations) {
+    BackendService.updateOperationsSetLabel(
+      label, operations.map(op => op._id)
+    ).then(
+      res => {
+        operations.forEach(op => op.labels.push(label));
+        this.setState({
+          operationsInPeriod: utils.updateArrayElements(
+            this.state.operationsInPeriod, operations
+          )
+        });
+        this._setOperations();
+        Dispatcher.dispatch({
+          type: Actions.NOTIFY,
+          notification: {
+            type: 'info', message: res.message
+          }
+        });
+      }
+    );
   }
 
   _setOperations() {
