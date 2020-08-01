@@ -7,9 +7,6 @@ import OperationsTable from '../../02-molecules/operations-table/OperationsTable
 // Organisms
 import GenericContainer from '../generic-container/GenericContainer';
 
-// Styles
-import './OperationsManager.scss';
-
 class OperationsManager extends React.Component {
 
   createOperation = (operation) => Dispatcher.dispatch({

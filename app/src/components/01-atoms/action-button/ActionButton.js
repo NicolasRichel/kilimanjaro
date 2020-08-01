@@ -3,9 +3,9 @@ import React from 'react';
 // Styles
 import './ActionButton.scss';
 
-
 class ActionButton extends React.Component {
 
+  // Default styles
   styles = {
     size: '28',
     color: '#EEE',
@@ -18,12 +18,11 @@ class ActionButton extends React.Component {
     Object.assign(this.styles, props);
   }
 
-
   render() {
     return (
       <div
-        onClick={this.props.onClick}
         className="ActionButton"
+        onClick={this.props.onClick}
         style={{
           minWidth: `${this.styles.size}px`,
           height: `${this.styles.size}px`,
@@ -38,6 +37,5 @@ class ActionButton extends React.Component {
   }
 
 }
-
 
 export default ActionButton;

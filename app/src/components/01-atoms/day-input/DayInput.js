@@ -1,9 +1,6 @@
 import React from 'react';
 import * as utils from '../../../utils';
 
-// Styles
-import './DayInput.scss';
-
 class DayInput extends React.Component {
 
   constructor(props) {
