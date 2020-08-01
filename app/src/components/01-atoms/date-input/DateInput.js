@@ -1,8 +1,5 @@
 import React from 'react';
 
-// Styles
-import './DateInput.scss';
-
 class DateInput extends React.Component {
 
   constructor(props) {
