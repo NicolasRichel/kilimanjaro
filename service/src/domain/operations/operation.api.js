@@ -50,6 +50,10 @@ module.exports = {
     [ 'delete', '/operations/purge',
       service.deleteAllOperations,
       (req, res) => res.json({ message: 'Operations purged successfully.' })
+    ],
+    [ 'patch', '/operations/bulk/set-label',
+      service.bulkSetLabel,
+      (req, res) => res.json({ message: 'Operations updated successfully.' })
     ]
   ]
 };

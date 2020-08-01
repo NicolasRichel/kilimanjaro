@@ -90,6 +90,21 @@ async function deleteAllOperations(req, res) {
   await Operation.destroy({ truncate: true });
 }
 
+async function bulkSetLabel(req, res) {
+  const operations = await Operation.findAll({
+    include: [{ model: Label, as: 'labels' }],
+    where: {
+      _id: {
+        [Op.in]: req.body.operations
+      }
+    }
+  });
+  operations.forEach(async op => {
+    await op.setLabels( op.labels.concat(req.body.label) );
+    await op.save();
+  });
+}
+
 module.exports = {
   getAllOperations,
   getOperationByPeriod,
@@ -98,5 +113,6 @@ module.exports = {
   createOperation,
   updateOperation,
   deleteOperation,
-  deleteAllOperations
+  deleteAllOperations,
+  bulkSetLabel
 };
