@@ -1,7 +1,7 @@
 version: "3.7"
 services:
 
-  server:
+  service:
     image: nicococo/kilimanjaro-service:dev
     container_name: kilimanjaro-service
     volumes:
@@ -9,7 +9,7 @@ services:
     ports:
       - "9001:9001"
 
-  client:
+  app:
     image: nicococo/kilimanjaro-app:dev
     container_name: kilimanjaro-app
     ports:
