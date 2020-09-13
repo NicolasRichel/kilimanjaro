@@ -6,36 +6,40 @@ import * as utils from '../utils';
 
 class StatisticsService {
 
-  computeStats(operations, labels) {
-    let totalAmount = 0;
-    let totalPositiveAmount = 0;
-    let totalNegativeAmount = 0;
+  computeAll(operations, dates, labels) {
+    // Init
+    let total = 0;
+    let totalPositive = 0;
+    let totalNegative = 0;
+    let totalByDate = dates.reduce(
+      (obj, date) => Object.assign(obj, { [date]: 0 }), {}
+    );
     let totalByLabel = labels.map(l => l._id).reduce(
       (obj, labelID) => Object.assign(obj, { [labelID]: 0 }), {}
     );
+    // Compute
     operations.forEach(op => {
-      totalAmount += op.amount;
-      if (op.amount < 0) {
-        totalNegativeAmount += op.amount;
-      } else {
-        totalPositiveAmount += op.amount;
-      }
-      op.labels.forEach(
-        labelID => totalByLabel[labelID] += op.amount
-      );
+      total += op.amount;
+      totalPositive += op.amount > 0 ? op.amount : 0;
+      totalNegative += op.amount < 0 ? op.amount : 0;
+      totalByDate[op.date] += op.amount;
+      op.labels.forEach( labelID => totalByLabel[labelID] += op.amount );
     });
-    totalAmount = utils.round(totalAmount, 2);
-    totalPositiveAmount = utils.round(totalPositiveAmount, 2);
-    totalNegativeAmount = utils.round(totalNegativeAmount, 2);
-    totalByLabel = Object.entries(totalByLabel).map(
-      e => ({ [e[0]]: utils.round(e[1], 2) })
-    ).reduce(
-      (obj, x) => Object.assign(obj, x), {}
+    // Format
+    total = utils.round(total, 2);
+    totalPositive = utils.round(totalPositive, 2);
+    totalNegative = utils.round(totalNegative, 2);
+    Object.entries(totalByDate).forEach(
+      e => totalByDate[e[0]] = utils.round(e[1], 2)
+    );
+    Object.entries(totalByLabel).map(
+      e => totalByLabel[e[0]] = utils.round(e[1], 2)
     );
     return {
-      totalAmount,
-      totalPositiveAmount,
-      totalNegativeAmount,
+      total,
+      totalPositive,
+      totalNegative,
+      totalByDate,
       totalByLabel
     };
   }

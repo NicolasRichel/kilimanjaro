@@ -79,6 +79,11 @@ export function getMonthDays(date) {
   );
 }
 
+export function getMonthDates(date) {
+  const [ year, month ] = date.split('-');
+  return getMonthDays(date).map(day => `${year}-${month}-${day}`);
+}
+
 export function getMonthName(date) {
   const month = +date.split('-')[1] - 1;
   return [

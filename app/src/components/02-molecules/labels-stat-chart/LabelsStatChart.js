@@ -1,9 +1,6 @@
 import React from 'react';
 import { VictoryPie, VictoryContainer } from 'victory';
 
-// Styles
-import './LabelsStatChart.scss';
-
 function LabelsStatChart(props) {
   const data = props.data.filter(d => d.value > 0);
   const chartData = data.map(d => ({ x: `${d.name}\n${d.value} €\n( ${d.percent}% )`, y: d.value }));
