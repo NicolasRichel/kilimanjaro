@@ -66,7 +66,8 @@ class App extends React.Component {
             dateRange={this.state.dateRange} />
           <StatisticsManager
             labels={this.state.labels}
-            operations={this.state.operations} />
+            operations={this.state.operations}
+            dateRange={this.state.dateRange} />
         </div>
         <div className="right-container">
           <Timeline />
