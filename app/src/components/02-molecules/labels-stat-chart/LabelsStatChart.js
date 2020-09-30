@@ -1,10 +1,26 @@
 import React from 'react';
+import StatisticsService from '../../../services/statistics-service';
 import { VictoryPie, VictoryContainer } from 'victory';
 
 function LabelsStatChart(props) {
-  const data = props.data.filter(d => d.value > 0);
-  const chartData = data.map(d => ({ x: `${d.name}\n${d.value} €\n( ${d.percent}% )`, y: d.value }));
-  const colors = data.map(d => d.label.color);
+  let total = StatisticsService._computeTotal(props.operations);
+  let totalByLabel = StatisticsService._computeTotalByLabel(props.operations, props.labels);
+  let [ data, colors ] = props.labels
+    .filter(
+      l => totalByLabel[l._id] > 0
+    ).map(
+      l => ({
+        name: l.name,
+        value: totalByLabel[l._id],
+        percent: (totalByLabel[l._id]/total * 100).toFixed(1),
+        color: l.color
+      })
+    ).reduce(
+      (r, d) => [
+        r[0].concat({ x: `${d.name}\n${d.value} €\n( ${d.percent}% )`, y: d.value }),
+        r[1].concat(d.color)
+      ], [ [], [] ]
+    );
   return (
     <div className="LabelsStatChart">
       <VictoryPie
@@ -15,7 +31,7 @@ function LabelsStatChart(props) {
         innerRadius={75}
         padAngle={4}
 
-        data={chartData}
+        data={data}
         colorScale={colors}
       />
     </div>

@@ -44,6 +44,38 @@ class StatisticsService {
     };
   }
 
+  _computeTotal(operations) {
+    return operations.reduce((total, op) => total + op.amount, 0);
+  }
+  
+  _computeTotalPositive(operations) {
+    return this._computeTotal( operations.filter(op => op.amount > 0) );
+  }
+  
+  _computeTotalNegatve(operations) {
+    return this._computeTotal( operations.filter(op => op.amount < 0) );
+  }
+  
+  _computeTotalByDate(operations, dates) {
+    let totals = dates.reduce(
+      (obj, date) => Object.assign(obj, { [date]: 0 }), {}
+    );
+    operations.forEach(
+      op => totals[op.date] += op.amount
+    );
+    return totals;
+  }
+  
+  _computeTotalByLabel(operations, labels) {
+    let totals = labels.map(l => l._id).reduce(
+      (obj, labelID) => Object.assign(obj, { [labelID]: 0 }), {}
+    );
+    operations.forEach(
+      op => op.labels.forEach(labelID => totals[labelID] += op.amount)
+    );
+    return totals;
+  }
+
 }
 
 export default new StatisticsService();
