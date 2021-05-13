@@ -54,7 +54,6 @@ $ export S001_PORT=9001
 | | **(3.1)** Install dependencies
 
 ```
-$ cd app
 $ nvm use
 $ yarn install
 ```
