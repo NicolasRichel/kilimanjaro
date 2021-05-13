@@ -1,4 +1,6 @@
 *.drawio
 .p-mngr/
 project-run
+start-app.sh
+start-service.sh
 .vscode/
