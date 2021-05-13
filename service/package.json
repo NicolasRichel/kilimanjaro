@@ -1,11 +1,11 @@
 {
   "name": "kilimanjaro-service",
   "version": "1.0.0",
-  "description": "Application de comptabilité",
-  "main": "index.js",
-  "repository": "https://github.com/NicolasRichel/kilimanjaro",
+  "description": "Application for comptability",
   "author": "Nicolas Richel <nicolasrichel.github@gmail.com>",
   "license": "GPL-3.0",
+  "repository": "https://gitlab.com/NicolasRichel/kilimanjaro.git",
+  "main": "index.js",
   "scripts": {
     "start": "nodemon --inspect src/start-service.js",
     "test": "node test/unit/run.js",
